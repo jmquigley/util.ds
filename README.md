@@ -2,3 +2,10 @@
 
 > Simple data structures
 
+This module contains my implementation of a few basic data structures using [Typescript](https://www.typescriptlang.org/).  I could have used other implementations, but what fun is that. 
+
+It Contains the following data structures:
+
+- Stack
+- Queue
+- Deque
