@@ -20,6 +20,19 @@ export class Deque extends Queue {
 	}
 
 	/**
+	 * Adds an item to the end of the queue.  Checks for an overflow condition
+	 * and acts if one is detected.
+	 * @param data {Object} the data item to add to the queue.
+	 */
+	public enqueue(data: any): void {
+		if (this.overflow()) {
+			this.dequeue();
+		}
+
+		super.enqueue(data);
+	}
+
+	/**
 	 * Inserts a data element to the front of the queue.  Checks for an
 	 * overflow condition and acts if one is detected.
 	 * @param data {Object} the data item to add to the queue.

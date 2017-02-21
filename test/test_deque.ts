@@ -127,7 +127,7 @@ test.cb('Test deque remove event (popBack)', (t: any) => {
 	dq.popBack();
 });
 
-test.cb('Test size limited Deque', (t: any) => {
+test.cb('Test size limited Deque (front)', (t: any) => {
 	let n: number = 5;
 	let dq = new Deque(n);
 
@@ -139,15 +139,41 @@ test.cb('Test size limited Deque', (t: any) => {
 	}
 
 	t.is(dq.size(), n);
-	dq.pushFront(n+1);
+	dq.pushFront(n);
 	t.is(dq.size(), n);
 
 	let arr = dq.drain();
-	t.is(arr[0], 6);
+	t.is(arr[0], 5);
 	t.is(arr[1], 1);
 	t.is(arr[2], 2);
 	t.is(arr[3], 3);
 	t.is(arr[4], 4);
+
+	t.true(dq.isEmpty());
+	t.end();
+});
+
+test.cb('Test size limited Deque (back)', (t: any) => {
+	let n: number = 5;
+	let dq = new Deque(n);
+
+	t.true(dq && dq instanceof Deque);
+	t.true(dq.isEmpty());
+
+	for (let i: number = 0; i < n; i++) {
+		dq.enqueue(i);
+	}
+
+	t.is(dq.size(), n);
+	dq.enqueue(n);
+	t.is(dq.size(), n);
+
+	let arr = dq.drain();
+	t.is(arr[0], 1);
+	t.is(arr[1], 2);
+	t.is(arr[2], 3);
+	t.is(arr[3], 4);
+	t.is(arr[4], 5);
 
 	t.true(dq.isEmpty());
 	t.end();
