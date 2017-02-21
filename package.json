@@ -30,7 +30,7 @@
     "yargs": "^6.5.0"
   },
   "devDependencies": {
-    "ava": "^0.18.1",
+    "ava": "^0.18.2",
     "coveralls": "^2.11.15",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-cli": "^1.2.2",
@@ -51,5 +51,8 @@
     "postinstall": "./node_modules/.bin/pkgwrap --postinstall",
     "report": "./node_modules/.bin/pkgwrap --reporting",
     "test": "./node_modules/.bin/pkgwrap --testing"
+  },
+  "ava": {
+    "concurrency": 5
   }
 }
