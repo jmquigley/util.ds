@@ -30,7 +30,7 @@ test.cb('Add/Remove items from the queue', (t: any) => {
 
 	for (let i: number = n; i > 0; i--) {
 		t.true(q.length === i);
-		t.true(q.front() === (n - i));
+		t.true(((i % 2) ? q.front() : q.peek()) === (n - i));
 		t.true(((i % 2) ? q.dequeue() : q.pop()) === (n - i));
 	}
 

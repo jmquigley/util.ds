@@ -1,4 +1,5 @@
-const Stack = require('./lib/stack').Stack;
+const Deque = require('./lib/deque').Deque;
 const Queue = require('./lib/queue').Queue;
+const Stack = require('./lib/stack').Stack;
 
-export { Stack, Queue };
+export { Deque, Queue, Stack };

@@ -5,7 +5,7 @@ import {Stack} from './stack';
 
 /** Simple FIFO queue implementation */
 export class Queue extends Stack {
-	private end: Node = null;
+	protected _end: Node = null;
 
 	constructor() {
 		super();
@@ -19,7 +19,7 @@ export class Queue extends Stack {
 		let data: any = this.pop();
 
 		if (this._root == null) {
-			this.end = null;
+			this._end = null;
 		}
 
 		return data;
@@ -45,14 +45,15 @@ export class Queue extends Stack {
 	 * Adds an item to the end of the queue.
 	 * @param data {Object} the data to insert into the queue.
 	 */
-	public enqueue(data: any) {
+	public enqueue(data: any): void {
 		let node = new Node(data);
 
 		if (this._root == null) {
-			this._root = this.end = node;
+			this._root = this._end = node;
 		} else {
-			this.end.right = node;
-			this.end = node;
+			this._end.right = node;
+			node.left = this._end;
+			this._end = node;
 		}
 
 		this.emit('add', data);
@@ -73,7 +74,7 @@ export class Queue extends Stack {
 	 * to the end of the structure.
 	 * @param data {Object} the data to push on the end of the queue.
 	 */
-	public push(data: any) {
+	public push(data: any): void {
 		this.enqueue(data);
 	}
 }

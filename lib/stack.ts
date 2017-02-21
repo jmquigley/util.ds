@@ -12,6 +12,14 @@ export class Stack extends Collection {
 	}
 
 	/**
+	 * A convenience method for calling top.
+	 * @returns {Object} the data element at the top of the stack
+	 */
+	public peek(): any {
+		return this.top();
+	}
+
+	/**
 	 * Puts a data element on the top of the stack
 	 * @param data {Object} any data element the user wants to store
 	 */

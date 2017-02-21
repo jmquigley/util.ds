@@ -1,19 +1,16 @@
 'use strict';
 
-/** The data nodes used within a collection. */
+/**
+ * The data nodes used within a collection.  This generally would not be
+ * used outside of these collection classes.
+ * */
 export class Node {
 	private _data: any = null;
 	private _left: Node = null;
 	private _right: Node = null;
-	private _cmp: Function = null;
 
-	constructor(data: any, cmp: Function = null) {
+	constructor(data: any) {
 		this._data = data;
-		this._cmp = cmp;
-	}
-
-	get cmp(): Function {
-		return this._cmp;
 	}
 
 	get data(): any {

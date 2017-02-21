@@ -9,6 +9,7 @@ test.cb('Create an empty stack', (t: any) => {
 	t.true(stack && stack instanceof Stack);
 	t.true(stack.isEmpty());
 	t.true(stack.top() === null);
+	t.true(stack.peek() === null);
 	t.true(stack.pop() === null);
 	t.end();
 });
@@ -28,7 +29,7 @@ test.cb('Add/Remove items from the stack', (t: any) => {
 
 	for (let i: number = n; i > 0; i--) {
 		t.true(stack.length === i);
-		t.true(stack.top() === (i - 1));
+		t.true(((i % 2) ? stack.top() : stack.peek()) === (i - 1));
 		t.true(stack.pop() === (i - 1));
 	}
 
