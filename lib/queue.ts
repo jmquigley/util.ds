@@ -2,13 +2,14 @@
 
 import {Node} from './node';
 import {Stack} from './stack';
+import {IComparator} from "./collection";
 
 /** Simple FIFO queue implementation */
 export class Queue extends Stack {
 	protected _end: Node = null;
 
-	constructor() {
-		super();
+	constructor(cmp: IComparator = null) {
+		super(cmp);
 	}
 
 	/**

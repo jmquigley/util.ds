@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import {Node} from './node';
 import {Queue} from './queue';
+import {IComparator} from "./collection";
 
 /** A double ended Queue class */
 export class Deque extends Queue {
@@ -12,10 +13,12 @@ export class Deque extends Queue {
 	 * automatially removed from the queue and the new item is placed in the
 	 * queue (dependin which type of insert is calld).
 	 * @param [maxSize] {number} The maximum size for this queue.
+	 * @param cmp {Function} a comparator function used for searching within
+	 * the container.
 	 * @constructor
 	 */
-	constructor(maxSize?: number) {
-		super();
+	constructor(maxSize: number = 0, cmp: IComparator = null) {
+		super(cmp);
 		this._maxSize = (maxSize == null || typeof maxSize !== 'number') ? 0 : Math.round(maxSize);
 	}
 

@@ -69,3 +69,30 @@ test.cb('Test stack remove event', (t: any) => {
 	stack.push(n);
 	stack.pop();
 });
+
+test.cb('Test contains function with empty stack', (t: any) => {
+	let stack = new Stack();
+
+	t.true(stack && stack instanceof Stack);
+	t.true(stack.isEmpty());
+	t.false(stack.contains(999));
+	t.end();
+});
+
+test.cb('Test the contains function for a stack', (t: any) => {
+	let stack = new Stack();
+
+	t.true(stack && stack instanceof Stack);
+	t.true(stack.isEmpty());
+
+	let n: number = 100;
+	for (let i = 0; i < n; i++) {
+		stack.push(i);
+	}
+
+	t.true(stack.contains(1));
+	t.true(stack.contains(10));
+	t.false(stack.contains(999));
+
+	t.end();
+});

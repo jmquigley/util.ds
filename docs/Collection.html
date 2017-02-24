@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Index</title>
+	<title>Documentation Class: Collection</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -65,83 +65,518 @@
 		<div id="main">
 			
 
+	<h1 class="page-title">Class: Collection</h1>
+<section>
+
+<header>
+    
+        <h2>
+        Collection
+        </h2>
+        
+    
+</header>
+
+
+<article>
+    <div class="container-overview">
+    
+        
+<hr>
+<dt>
+    <h4 class="name" id="Collection"><span class="type-signature"></span>new Collection(cmp)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Base class constructor for all collection classes.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cmp</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+                <td class="default">
+                
+                    null
+                
+                </td>
+            
+
+            <td class="description last"><p>a comparator function used for searching within
+the container.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
 	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
 	
 
 
 
+	
+
+	
+
+	
+
+	
+</dl>
 
 
+    
 
+    
 
+    
 
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id="clear"><span class="type-signature"></span>clear()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Initializes the object to an empty state</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
 
 
 
 	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="contains"><span class="type-signature"></span>contains(obj)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Checks the container for the existence of a given object.  This is
+a simple linear search.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>obj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the item to find in the container.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
 	
 
 
 
+	
+
+	
+
+	
+
+	
+</dl>
 
 
-    <section class="readme-section">
-        <article><h1>util.ds <a href="https://travis-ci.org/jmquigley/util.ds"><img src="https://travis-ci.org/jmquigley/util.ds.svg?branch=master" alt="Build Status"></a> <a href="https://palantir.github.io/tslint/"><img src="https://img.shields.io/badge/code_style-TSlint-5ed9c7.svg" alt="tslint code style"></a> <a href="https://www.npmjs.com/package/util.ds"><img src="https://img.shields.io/npm/v/util.ds.svg" alt="NPM"></a> <a href="https://coveralls.io/github/jmquigley/util.ds?branch=master"><img src="https://coveralls.io/repos/github/jmquigley/util.ds/badge.svg?branch=master" alt="Coverage Status"></a></h1><blockquote>
-<p>Simple data structures</p>
-</blockquote>
-<p>This module contains my implementation of a few basic data structures using <a href="https://www.typescriptlang.org/">Typescript</a>.  I could have used other implementations, but what fun is that. </p>
-<p>It Contains the following data structures:</p>
-<ul>
-<li><a href="docs/stack.md">Stack</a></li>
-<li><a href="docs/queue.md">Queue</a></li>
-<li><a href="docs/deque.md">Deque</a></li>
-</ul>
-<h2>Usage</h2><h3>Stack</h3><p>To create a simple stack use:</p>
-<pre class="prettyprint source lang-javascript"><code>const Stack = require('util.ds');
+    
 
-let stack = new Stack();
+    
 
-stack.push(1);
-let val = stack.pop();
-`</code></pre><p>When an element is added to the stack an <code>add</code> event fires.  When an element is removed from the stack a <code>remove</code> event fires.</p>
-<h3>Queue</h3><p>To create a simple queue use:</p>
-<pre class="prettyprint source lang-javascript"><code>const Queue = require('util.ds');
+    
 
-let q = new Queue();
+    
 
-q.enqueue(1);
-let val = q.dequeue();</code></pre><p>When an element is added to the queue an <code>add</code> event fires.  When an element is removed from the queue a <code>remove</code> event fires.</p>
-<h3>Deque</h3><p>A deque is a double ended queue.  An element can be inserted at either end of the queue.</p>
-<pre class="prettyprint source lang-javascript"><code>const Deque = require('util.ds');
+    
 
-let q = new Deque();
-
-q.enqueue(1);
-let val = q.dequeue();</code></pre><p>This example works like a typical queue.  However this type allows one to add items at either end.  </p>
-<p>When an element is added to the deque an <code>add</code> event fires.  When an element is removed from the deque a <code>remove</code> event fires.</p>
-<p>The deque can have items added to either end:</p>
-<pre class="prettyprint source lang-javascript"><code>const Deque = require('util.ds');
-
-let q = new Deque();
-
-q.pushFront(1);
-q.pushBack(2);
-
-let val = q.popFront();
-val = q.popBack();</code></pre><p>A deque can also be limited in size:</p>
-<pre class="prettyprint source lang-javascript"><code>const Deque = require('util.ds');
-
-let q = new Deque(5);
-for (let i: number = 0; i &lt; 5; i++) {
-    q.enqueue(i);
-}
-
-q.enqueue(6);</code></pre><p>This will add 5 items to the queue.  The last item adds a 6th element.  That will cause the first item in the queue to be removed automatically before the new item is enqueued.  This provides a way to &quot;age&quot; items within the queue.  When the item is removed a <code>remove</code> event fires.  The front item in the queue is considered the oldest item.</p>
-<h2>API</h2><p>The API is generated with <a href="https://www.npmjs.com/package/jsdoc">JSDoc</a>.  It can be found within the <code>docs</code> directory for the project.  It can be generated with <code>npm run docs</code>.</p></article>
-    </section>
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>true if the item is found, otherwise false.</p>
+</div>
 
 
 
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="isEmpty"><span class="type-signature"></span>isEmpty()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Checks if the container is empty.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>true if the container is empty, otherwise false.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

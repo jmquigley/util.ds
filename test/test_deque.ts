@@ -2,6 +2,12 @@
 
 import {test} from 'ava';
 import {Deque} from '../index';
+import {IComparator} from '../lib/collection';
+
+interface ITestData {
+	item1: string;
+	item2: number;
+}
 
 test.cb('Create an emtpy Deque', (t: any) => {
 	let dq = new Deque();
@@ -223,4 +229,63 @@ test.cb('Test size limited Deque (pushBack) event', (t: any) => {
 	});
 
 	dq.pushBack(n+1)
+});
+
+test.cb('Test the contains function on empty deque', (t: any) => {
+	let dq = new Deque();
+
+	t.true(dq && dq instanceof Deque);
+	t.true(dq.isEmpty());
+	t.false(dq.contains(999));
+	t.end();
+});
+
+test.cb('Test the contains function for a deque', (t: any) => {
+	let dq = new Deque();
+
+	t.true(dq && dq instanceof Deque);
+	t.true(dq.isEmpty());
+
+	let n: number = 100;
+	for (let i = 0; i < n; i++) {
+		dq.enqueue(i);
+	}
+
+	t.true(dq.contains(1));
+	t.true(dq.contains(10));
+	t.false(dq.contains(999));
+
+	t.end();
+});
+
+test.cb('Test of the deque contains function with custom comparator', (t: any) => {
+	let fn: IComparator = function(o1: ITestData, o2: ITestData): number {
+		if (o1.item1 === o2.item1 && o1.item2 === o2.item2) {
+			return 0;
+		} else if (o1.item1 > o2.item1 && o1.item2 > o2.item2) {
+			return 1;
+		}
+
+		return -1;
+	};
+
+	let dq = new Deque(10, fn);
+
+	t.true(dq && dq instanceof Deque);
+	t.true(dq.isEmpty());
+
+	dq.enqueue({item1: 'abc', item2: 0});
+	dq.enqueue({item1: 'abc', item2: 1});
+	dq.enqueue({item1: 'def', item2: 0});
+	dq.enqueue({item1: 'ghi', item2: 0});
+	dq.enqueue({item1: 'jkl', item2: 0});
+	dq.enqueue({item1: 'mno', item2: 0});
+
+	t.true(dq.contains({item1: 'abc', item2: 1}));
+	t.true(dq.contains({item1: 'ghi', item2: 0}));
+	t.true(dq.contains({item1: 'mno', item2: 0}));
+	t.false(dq.contains({item1: 'cat', item2: 0}));
+	t.false(dq.contains({item1: 'dog', item2: 0}));
+
+	t.end();
 });

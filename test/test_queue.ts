@@ -93,3 +93,30 @@ test.cb('Test the queue drain function', (t: any) => {
 
 	t.end();
 });
+
+test.cb('Test the contains function with empty queue', (t: any) => {
+	let q = new Queue();
+
+	t.true(q && q instanceof Queue);
+	t.true(q.isEmpty());
+	t.false(q.contains(999));
+	t.end();
+});
+
+test.cb('Test the contains function for a queue', (t: any) => {
+	let q = new Queue();
+
+	t.true(q && q instanceof Queue);
+	t.true(q.isEmpty());
+
+	let n: number = 100;
+	for (let i = 0; i < n; i++) {
+		q.enqueue(i);
+	}
+
+	t.true(q.contains(1));
+	t.true(q.contains(10));
+	t.false(q.contains(999));
+
+	t.end();
+});

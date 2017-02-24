@@ -6,9 +6,9 @@ This module contains my implementation of a few basic data structures using [Typ
 
 It Contains the following data structures:
 
-- Stack
-- Queue
-- Deque
+- [Stack](docs/stack.md)
+- [Queue](docs/queue.md)
+- [Deque](docs/deque.md)
 
 ## Usage
 

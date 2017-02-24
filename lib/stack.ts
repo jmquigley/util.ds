@@ -1,14 +1,14 @@
 'use strict';
 
 import * as _ from 'lodash';
-import {Collection} from './collection';
+import {Collection, IComparator} from './collection';
 import {Node} from './node';
 
 /** Simple stack class */
 export class Stack extends Collection {
 
-	constructor() {
-		super();
+	constructor(cmp: IComparator = null) {
+		super(cmp);
 	}
 
 	/**
