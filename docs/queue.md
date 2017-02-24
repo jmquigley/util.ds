@@ -8,6 +8,8 @@ Simple FIFO queue implementation
 * [Queue](#Queue)
     * [.dequeue()](#Queue+dequeue) ⇒ <code>Object</code>
     * [.drain()](#Queue+drain) ⇒ <code>Array</code>
+    * [.eject(data)](#Queue+eject)
+    * [.end()](#Queue+end) ⇒ <code>T</code>
     * [.enqueue(data)](#Queue+enqueue)
     * [.front()](#Queue+front) ⇒ <code>Object</code>
     * [.push(data)](#Queue+push)
@@ -27,6 +29,24 @@ array of data values.
 
 **Kind**: instance method of <code>[Queue](#Queue)</code>  
 **Returns**: <code>Array</code> - a list of queue items as an array.  
+<a name="Queue+eject"></a>
+
+### queue.eject(data)
+Searches the queue for the requested data element and removes it
+from the queue.
+
+**Kind**: instance method of <code>[Queue](#Queue)</code>  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code>Object</code> | the data element that should be removed from the queue. |
+
+<a name="Queue+end"></a>
+
+### queue.end() ⇒ <code>T</code>
+Re
+
+**Kind**: instance method of <code>[Queue](#Queue)</code>  
 <a name="Queue+enqueue"></a>
 
 ### queue.enqueue(data)

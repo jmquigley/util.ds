@@ -120,3 +120,41 @@ test.cb('Test the contains function for a queue', (t: any) => {
 
 	t.end();
 });
+
+test.cb('Ejects an item at the front, back, and middle of a queue', (t: any) => {
+	let q = new Queue();
+
+	t.true(q && q instanceof Queue);
+	t.true(q.isEmpty());
+	q.eject(999);
+	t.true(q.isEmpty());
+	
+	let n: number = 10;
+	for (let i = 0; i < n; i++) {
+		q.enqueue(i);
+	}
+
+	// Eject the front
+	t.true(q.peek() === 0);
+	q.eject(0);
+	t.true(q.peek() === 1);
+	t.true(q.end() === 9);
+	t.is(q.length, 9);
+
+	// Eject the end of the queue
+	q.eject(9);
+	t.true(q.peek() === 1);
+	t.true(q.end() === 8);
+	t.is(q.length, 8);
+
+	// Eject from the middle of the queue
+	q.eject(5);
+	t.true(q.peek() === 1);
+	t.true(q.end() === 8);
+	t.is(q.length, 7);
+
+	let arr: number[] = q.drain();
+	t.is(arr.toString(), '1,2,3,4,6,7,8');
+
+	t.end();
+});

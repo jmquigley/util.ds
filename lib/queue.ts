@@ -1,5 +1,6 @@
 'use strict';
 
+import * as _ from 'lodash';
 import {Node} from './node';
 import {Stack} from './stack';
 import {IComparator} from "./collection";
@@ -39,7 +40,53 @@ export class Queue extends Stack {
 		}
 
 		this._length = 0;
+
+		this.emit('drain', arr);
 		return arr;
+	}
+
+	/**
+	 * Searches the queue for the requested data element and removes it
+	 * from the queue.
+	 * @param data {Object} the data element that should be removed from
+	 * the queue.
+	 */
+	public eject(data: any): void {
+		if (this._root == null) {
+			return;
+		}
+
+		if (this._cmp(this._root.data, data) === 0) {
+			this.emit('eject', this._root);
+			this._root = this._root.right;
+			this._length--;
+		} else {
+			let next: Node = this._root.right;
+			while (next != null) {
+				if (this._cmp(next.data, data) === 0) {
+					if (next.right != null) {
+						next.right.left = next.left;
+					} else {
+						this._end = next.left;
+					}
+
+					next.left.right = next.right;
+					this._length--;
+					this.emit('eject', next.data);
+					return;
+				}
+
+				next = next.right;
+			}
+		}
+	}
+
+	/**
+	 * Re
+	 * @returns {T}
+	 */
+	public end(): any {
+		return _.cloneDeep(this._end.data);
 	}
 
 	/**
