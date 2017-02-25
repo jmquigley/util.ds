@@ -128,7 +128,7 @@ test.cb('Ejects an item at the front, back, and middle of a queue', (t: any) => 
 	t.true(q.isEmpty());
 	q.eject(999);
 	t.true(q.isEmpty());
-	
+
 	let n: number = 10;
 	for (let i = 0; i < n; i++) {
 		q.enqueue(i);

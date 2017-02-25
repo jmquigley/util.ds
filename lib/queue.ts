@@ -82,8 +82,8 @@ export class Queue extends Stack {
 	}
 
 	/**
-	 * Re
-	 * @returns {T}
+	 * Returns a copy of the end location within the queue
+	 * @returns {Object} the data element at the end of the queue.
 	 */
 	public end(): any {
 		return _.cloneDeep(this._end.data);

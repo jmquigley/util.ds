@@ -9,7 +9,7 @@ Simple FIFO queue implementation
     * [.dequeue()](#Queue+dequeue) ⇒ <code>Object</code>
     * [.drain()](#Queue+drain) ⇒ <code>Array</code>
     * [.eject(data)](#Queue+eject)
-    * [.end()](#Queue+end) ⇒ <code>T</code>
+    * [.end()](#Queue+end) ⇒ <code>Object</code>
     * [.enqueue(data)](#Queue+enqueue)
     * [.front()](#Queue+front) ⇒ <code>Object</code>
     * [.push(data)](#Queue+push)
@@ -43,10 +43,11 @@ from the queue.
 
 <a name="Queue+end"></a>
 
-### queue.end() ⇒ <code>T</code>
-Re
+### queue.end() ⇒ <code>Object</code>
+Returns a copy of the end location within the queue
 
 **Kind**: instance method of <code>[Queue](#Queue)</code>  
+**Returns**: <code>Object</code> - the data element at the end of the queue.  
 <a name="Queue+enqueue"></a>
 
 ### queue.enqueue(data)
