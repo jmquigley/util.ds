@@ -1,9 +1,9 @@
 'use strict';
 
 import * as _ from 'lodash';
+import {IComparator} from './collection';
 import {Node} from './node';
 import {Stack} from './stack';
-import {IComparator} from "./collection";
 
 /** Simple FIFO queue implementation */
 export class Queue extends Stack {
@@ -32,7 +32,7 @@ export class Queue extends Stack {
 	 * array of data values.
 	 * @returns {Array} a list of queue items as an array.
 	 */
-	public drain(): Array<any> {
+	public drain(): any[] {
 		let arr = [];
 
 		while (!this.isEmpty()) {

@@ -32,7 +32,7 @@ export abstract class Collection extends EventEmitter {
 		if (cmp == null) {
 			// Creates a default comparator if a custom one is not
 			// given.
-			this._cmp = function(o1, o2) {
+			this._cmp = (o1, o2) => {
 				if (o1 === o2) {
 					return 0;
 				} else if (o1 > o2) {
@@ -40,7 +40,7 @@ export abstract class Collection extends EventEmitter {
 				}
 
 				return -1;
-			}
+			};
 		} else {
 			this._cmp = cmp;
 		}

@@ -3,7 +3,7 @@
 /**
  * The data nodes used within a collection.  This generally would not be
  * used outside of these collection classes.
- * */
+ */
 export class Node {
 	private _data: any = null;
 	private _left: Node = null;

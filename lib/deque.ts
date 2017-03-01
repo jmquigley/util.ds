@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
+import {IComparator} from './collection';
 import {Node} from './node';
 import {Queue} from './queue';
-import {IComparator} from "./collection";
 
 /** A double ended Queue class */
 export class Deque extends Queue {

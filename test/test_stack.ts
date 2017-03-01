@@ -1,98 +1,94 @@
 'use strict';
 
-import {test} from 'ava';
+import * as assert from 'assert';
 import {Stack} from '../index';
 
-test.cb('Create an empty stack', (t: any) => {
-	let stack = new Stack();
+describe('Testing Stack', () => {
 
-	t.true(stack && stack instanceof Stack);
-	t.true(stack.isEmpty());
-	t.true(stack.top() === null);
-	t.true(stack.peek() === null);
-	t.true(stack.pop() === null);
-	t.end();
-});
+	it('Create an empty stack', () => {
+		let stack = new Stack();
 
-test.cb('Add/Remove items from the stack', (t: any) => {
-	let stack = new Stack();
-	let n: number = 50;
-
-	t.true(stack && stack instanceof Stack);
-	t.true(stack.isEmpty());
-
-	for (let i: number = 0; i < n; i++) {
-		stack.push(i);
-	}
-
-	t.is(stack.size(), n);
-
-	for (let i: number = n; i > 0; i--) {
-		t.true(stack.length === i);
-		t.true(((i % 2) ? stack.top() : stack.peek()) === (i - 1));
-		t.true(stack.pop() === (i - 1));
-	}
-
-	t.true(stack.isEmpty());
-	t.end();
-});
-
-test.cb('Test stack add event', (t: any) => {
-	let stack = new Stack();
-
-	t.true(stack && stack instanceof Stack);
-	t.true(stack.isEmpty());
-
-	let n: number = 100;
-	stack.on('add', (data: any) => {
-		t.is(data, n);
-		t.pass(data);
-		t.end();
+		assert(stack && stack instanceof Stack);
+		assert(stack.isEmpty());
+		assert(stack.top() === null);
+		assert(stack.peek() === null);
+		assert(stack.pop() === null);
 	});
 
-	stack.push(n);
-});
+	it('Add/Remove items from the stack', () => {
+		let stack = new Stack();
+		let n: number = 50;
 
-test.cb('Test stack remove event', (t: any) => {
-	let stack = new Stack();
+		assert(stack && stack instanceof Stack);
+		assert(stack.isEmpty());
 
-	t.true(stack && stack instanceof Stack);
-	t.true(stack.isEmpty());
+		for (let i: number = 0; i < n; i++) {
+			stack.push(i);
+		}
 
-	let n: number = 100;
-	stack.on('remove', (data: any) => {
-		t.is(data, n);
-		t.pass(data);
-		t.end();
+		assert.equal(stack.size(), n);
+
+		for (let i: number = n; i > 0; i--) {
+			assert(stack.length === i);
+			assert(((i % 2) ? stack.top() : stack.peek()) === (i - 1));
+			assert(stack.pop() === (i - 1));
+		}
+
+		assert(stack.isEmpty());
 	});
 
-	stack.push(n);
-	stack.pop();
-});
+	it('Test stack add event', () => {
+		let stack = new Stack();
 
-test.cb('Test contains function with empty stack', (t: any) => {
-	let stack = new Stack();
+		assert(stack && stack instanceof Stack);
+		assert(stack.isEmpty());
 
-	t.true(stack && stack instanceof Stack);
-	t.true(stack.isEmpty());
-	t.false(stack.contains(999));
-	t.end();
-});
+		let n: number = 100;
+		stack.on('add', (data: any) => {
+			assert.equal(data, n);
+			assert(data);
+		});
 
-test.cb('Test the contains function for a stack', (t: any) => {
-	let stack = new Stack();
+		stack.push(n);
+	});
 
-	t.true(stack && stack instanceof Stack);
-	t.true(stack.isEmpty());
+	it('Test stack remove event', () => {
+		let stack = new Stack();
 
-	let n: number = 100;
-	for (let i = 0; i < n; i++) {
-		stack.push(i);
-	}
+		assert(stack && stack instanceof Stack);
+		assert(stack.isEmpty());
 
-	t.true(stack.contains(1));
-	t.true(stack.contains(10));
-	t.false(stack.contains(999));
+		let n: number = 100;
+		stack.on('remove', (data: any) => {
+			assert.equal(data, n);
+			assert(data);
+		});
 
-	t.end();
+		stack.push(n);
+		stack.pop();
+	});
+
+	it('Test contains function with empty stack', () => {
+		let stack = new Stack();
+
+		assert(stack && stack instanceof Stack);
+		assert(stack.isEmpty());
+		assert(!stack.contains(999));
+	});
+
+	it('Test the contains function for a stack', () => {
+		let stack = new Stack();
+
+		assert(stack && stack instanceof Stack);
+		assert(stack.isEmpty());
+
+		let n: number = 100;
+		for (let i = 0; i < n; i++) {
+			stack.push(i);
+		}
+
+		assert(stack.contains(1));
+		assert(stack.contains(10));
+		assert(!stack.contains(999));
+	});
 });
