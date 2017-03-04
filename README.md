@@ -10,6 +10,24 @@ It Contains the following data structures:
 - [Queue](docs/queue.md)
 - [Deque](docs/deque.md)
 
+## Installation
+
+To install as a global package:
+```
+$ npm install --global util.ds
+```
+
+To install as an application dependency:
+```
+$ npm install --save util.ds
+```
+
+To build the app and run all tests:
+```
+$ npm run all
+```
+
+
 ## Usage
 
 ### Stack
