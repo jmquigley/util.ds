@@ -16,12 +16,13 @@
     "node": ">=7.5"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.55",
-    "@types/node": "^7.0.8",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "util.pkgwrap": "0.0.17"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.55",
     "@types/mocha": "^2.2.40",
+    "@types/node": "^7.0.8",
     "coveralls": "^2.12.0",
     "gulp": "^3.9.1",
     "gulp-cli": "^1.2.2",
@@ -35,8 +36,7 @@
     "nyc": "^10.1.2",
     "power-assert": "^1.4.2",
     "tslint": "^4.5.1",
-    "typescript": "^2.2.1",
-    "util.pkgwrap": "0.0.16"
+    "typescript": "^2.2.1"
   },
   "main": "./index.js",
   "types": "./index.d.ts",
