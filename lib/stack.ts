@@ -24,7 +24,7 @@ export class Stack extends Collection {
 	 * @param data {Object} any data element the user wants to store
 	 */
 	public push(data: any): void {
-		let node = new Node(data);
+		const node = new Node(data);
 
 		if (this._root == null) {
 			this._root = node;

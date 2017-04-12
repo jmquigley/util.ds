@@ -11,9 +11,7 @@ import {Node} from './node';
  * 1  - if o1 > o2
  * -1 - if o1 < o2
  */
-export interface IComparator {
-	(o1: any, o2: any): number;
-}
+export type IComparator = (o1: any, o2: any) => number;
 
 export abstract class Collection extends EventEmitter {
 	protected _root: Node = null;

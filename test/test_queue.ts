@@ -1,152 +1,147 @@
 'use strict';
 
-import * as assert from 'assert';
+import test from 'ava';
 import * as _ from 'lodash';
 import {Queue} from '../index';
 
-describe('Testing Queue', () => {
+test('Create an empty queue', t => {
+	const q = new Queue();
 
-	it('Create an empty queue', () => {
-		let q = new Queue();
+	t.true(q && q instanceof Queue);
+	t.true(q.isEmpty());
+	t.true(q.top() === null);
+	t.true(q.front() === null);
+	t.true(q.pop() === null);
+});
 
-		assert(q && q instanceof Queue);
-		assert(q.isEmpty());
-		assert(q.top() === null);
-		assert(q.front() === null);
-		assert(q.pop() === null);
+test('Add/Remove items from the queue', t => {
+	const q = new Queue();
+	const n: number = 50;
+
+	t.true(q && q instanceof Queue);
+	t.true(q.isEmpty());
+
+	for (let i: number = 0; i < n; i++) {
+		(i % 2) ? q.enqueue(i) : q.push(i);
+	}
+
+	t.is(q.size(), n);
+
+	for (let i: number = n; i > 0; i--) {
+		t.true(q.length === i);
+		t.true(((i % 2) ? q.front() : q.peek()) === (n - i));
+		t.true(((i % 2) ? q.dequeue() : q.pop()) === (n - i));
+	}
+
+	t.true(q.isEmpty());
+});
+
+test('Test queue add event', t => {
+	const q = new Queue();
+
+	t.true(q && q instanceof Queue);
+	t.true(q.isEmpty());
+
+	const n: number = 100;
+	q.on('add', (data: any) => {
+		t.is(data, n);
 	});
 
-	it('Add/Remove items from the queue', () => {
-		let q = new Queue();
-		let n: number = 50;
+	q.enqueue(n);
+});
 
-		assert(q && q instanceof Queue);
-		assert(q.isEmpty());
+test('Test queue remove event', t => {
+	const q = new Queue();
 
-		for (let i: number = 0; i < n; i++) {
-			(i % 2) ? q.enqueue(i) : q.push(i);
-		}
+	t.true(q && q instanceof Queue);
+	t.true(q.isEmpty());
 
-		assert.equal(q.size(), n);
-
-		for (let i: number = n; i > 0; i--) {
-			assert(q.length === i);
-			assert(((i % 2) ? q.front() : q.peek()) === (n - i));
-			assert(((i % 2) ? q.dequeue() : q.pop()) === (n - i));
-		}
-
-		assert(q.isEmpty());
+	const n: number = 100;
+	q.on('remove', (data: any) => {
+		t.is(data, n);
 	});
 
-	it('Test queue add event', () => {
-		let q = new Queue();
+	q.enqueue(n);
+	q.dequeue();
+});
 
-		assert(q && q instanceof Queue);
-		assert(q.isEmpty());
+test('Test the queue drain function', t => {
+	const q = new Queue();
+	const n: number = 5;
 
-		let n: number = 100;
-		q.on('add', (data: any) => {
-			assert.equal(data, n);
-			assert(data);
+	for (let i = 0; i < n; i++) {
+		q.enqueue(i);
+	}
+
+	// Do the same thing a few times to show that once drained it still works
+	// by returning an empty array.
+	_.times(n, () => {
+		const arr = q.drain();
+		arr.forEach((val: number, idx: number) => {
+			t.true(val === idx);
 		});
 
-		q.enqueue(n);
+		t.true(q.isEmpty());
+		t.is(q.length, 0);
 	});
+});
 
-	it('Test queue remove event', () => {
-		let q = new Queue();
+test('Test the contains function with empty queue', t => {
+	const q = new Queue();
 
-		assert(q && q instanceof Queue);
-		assert(q.isEmpty());
+	t.true(q && q instanceof Queue);
+	t.true(q.isEmpty());
+	t.true(!q.contains(999));
+});
 
-		let n: number = 100;
-		q.on('remove', (data: any) => {
-			assert.equal(data, n);
-			assert(data);
-		});
+test('Test the contains function for a queue', t => {
+	const q = new Queue();
 
-		q.enqueue(n);
-		q.dequeue();
-	});
+	t.true(q && q instanceof Queue);
+	t.true(q.isEmpty());
 
-	it('Test the queue drain function', () => {
-		let q = new Queue();
-		let n: number = 5;
+	const n: number = 100;
+	for (let i = 0; i < n; i++) {
+		q.enqueue(i);
+	}
 
-		for (let i = 0; i < n; i++) {
-			q.enqueue(i);
-		}
+	t.true(q.contains(1));
+	t.true(q.contains(10));
+	t.true(!q.contains(999));
+});
 
-		// Do the same thing a few times to show that once drained it still works
-		// by returning an empty array.
-		_.times(n, () => {
-			let arr = q.drain();
-			arr.forEach((val: number, idx: number) => {
-				assert(val === idx);
-			});
+test('Ejects an item at the front, back, and middle of a queue', t => {
+	const q = new Queue();
 
-			assert(q.isEmpty());
-			assert.equal(q.length, 0);
-		});
-	});
+	t.true(q && q instanceof Queue);
+	t.true(q.isEmpty());
+	q.eject(999);
+	t.true(q.isEmpty());
 
-	it('Test the contains function with empty queue', () => {
-		let q = new Queue();
+	const n: number = 10;
+	for (let i = 0; i < n; i++) {
+		q.enqueue(i);
+	}
 
-		assert(q && q instanceof Queue);
-		assert(q.isEmpty());
-		assert(!q.contains(999));
-	});
+	// Eject the front
+	t.true(q.peek() === 0);
+	q.eject(0);
+	t.true(q.peek() === 1);
+	t.true(q.end() === 9);
+	t.is(q.length, 9);
 
-	it('Test the contains function for a queue', () => {
-		let q = new Queue();
+	// Eject the end of the queue
+	q.eject(9);
+	t.true(q.peek() === 1);
+	t.true(q.end() === 8);
+	t.is(q.length, 8);
 
-		assert(q && q instanceof Queue);
-		assert(q.isEmpty());
+	// Eject from the middle of the queue
+	q.eject(5);
+	t.true(q.peek() === 1);
+	t.true(q.end() === 8);
+	t.is(q.length, 7);
 
-		let n: number = 100;
-		for (let i = 0; i < n; i++) {
-			q.enqueue(i);
-		}
-
-		assert(q.contains(1));
-		assert(q.contains(10));
-		assert(!q.contains(999));
-	});
-
-	it('Ejects an item at the front, back, and middle of a queue', () => {
-		let q = new Queue();
-
-		assert(q && q instanceof Queue);
-		assert(q.isEmpty());
-		q.eject(999);
-		assert(q.isEmpty());
-
-		let n: number = 10;
-		for (let i = 0; i < n; i++) {
-			q.enqueue(i);
-		}
-
-		// Eject the front
-		assert(q.peek() === 0);
-		q.eject(0);
-		assert(q.peek() === 1);
-		assert(q.end() === 9);
-		assert.equal(q.length, 9);
-
-		// Eject the end of the queue
-		q.eject(9);
-		assert(q.peek() === 1);
-		assert(q.end() === 8);
-		assert.equal(q.length, 8);
-
-		// Eject from the middle of the queue
-		q.eject(5);
-		assert(q.peek() === 1);
-		assert(q.end() === 8);
-		assert.equal(q.length, 7);
-
-		let arr: number[] = q.drain();
-		assert.equal(arr.toString(), '1,2,3,4,6,7,8');
-	});
+	const arr: number[] = q.drain();
+	t.is(arr.toString(), '1,2,3,4,6,7,8');
 });

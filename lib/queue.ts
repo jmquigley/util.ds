@@ -18,7 +18,7 @@ export class Queue extends Stack {
 	 * @returns {Object} the data at the front of the queue.
 	 */
 	public dequeue(): any {
-		let data: any = this.pop();
+		const data: any = this.pop();
 
 		if (this._root == null) {
 			this._end = null;
@@ -33,7 +33,7 @@ export class Queue extends Stack {
 	 * @returns {Array} a list of queue items as an array.
 	 */
 	public drain(): any[] {
-		let arr = [];
+		const arr = [];
 
 		while (!this.isEmpty()) {
 			arr.push(this.dequeue());
@@ -94,7 +94,7 @@ export class Queue extends Stack {
 	 * @param data {Object} the data to insert into the queue.
 	 */
 	public enqueue(data: any): void {
-		let node = new Node(data);
+		const node = new Node(data);
 
 		if (this._root == null) {
 			this._root = this._end = node;

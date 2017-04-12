@@ -41,7 +41,7 @@ export class Deque extends Queue {
 	 * @param data {Object} the data item to add to the queue.
 	 */
 	public pushFront(data: any): void {
-		let node = new Node(data);
+		const node = new Node(data);
 
 		if (this.overflow()) {
 			this.dequeue();
@@ -108,7 +108,7 @@ export class Deque extends Queue {
 			return null;
 		}
 
-		let data: any = this._end.data;
+		const data: any = this._end.data;
 		this._end = this._end.left;
 		this._length--;
 		this.emit('remove', data);
