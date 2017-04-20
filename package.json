@@ -17,11 +17,11 @@
   },
   "dependencies": {
     "lodash": "^4.17.4",
-    "util.pkgwrap": "0.0.21"
+    "util.pkgwrap": "0.0.26"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.62",
-    "@types/node": "^7.0.12",
+    "@types/node": "^7.0.13",
     "ava": "^0.19.1",
     "coveralls": "^2.13.0",
     "gulp": "^3.9.1",
