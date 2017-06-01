@@ -36,7 +36,7 @@ queue (dependin which type of insert is calld).
 Adds an item to the end of the queue.  Checks for an overflow condition
 and acts if one is detected.
 
-**Kind**: instance method of <code>[Deque](#Deque)</code>  
+**Kind**: instance method of [<code>Deque</code>](#Deque)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -48,7 +48,7 @@ and acts if one is detected.
 Inserts a data element to the front of the queue.  Checks for an
 overflow condition and acts if one is detected.
 
-**Kind**: instance method of <code>[Deque](#Deque)</code>  
+**Kind**: instance method of [<code>Deque</code>](#Deque)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -60,7 +60,7 @@ overflow condition and acts if one is detected.
 Adds an item to the end of the queue.  Checks for an overflow condition
 and acts if one is detected.
 
-**Kind**: instance method of <code>[Deque](#Deque)</code>  
+**Kind**: instance method of [<code>Deque</code>](#Deque)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -71,28 +71,28 @@ and acts if one is detected.
 ### deque.peekFront() ⇒ <code>Object</code>
 Returns the first item in the queue without removing it.
 
-**Kind**: instance method of <code>[Deque](#Deque)</code>  
+**Kind**: instance method of [<code>Deque</code>](#Deque)  
 **Returns**: <code>Object</code> - a copy of the first item in the list.  
 <a name="Deque+peekBack"></a>
 
 ### deque.peekBack() ⇒ <code>Object</code>
 Returns the last item in the queue without removing it.
 
-**Kind**: instance method of <code>[Deque](#Deque)</code>  
+**Kind**: instance method of [<code>Deque</code>](#Deque)  
 **Returns**: <code>Object</code> - a copy of the last item in the list.  
 <a name="Deque+popFront"></a>
 
 ### deque.popFront() ⇒ <code>Object</code>
 Returns the first item from the queue and removes it.
 
-**Kind**: instance method of <code>[Deque](#Deque)</code>  
+**Kind**: instance method of [<code>Deque</code>](#Deque)  
 **Returns**: <code>Object</code> - the data value on the front of the queue.  
 <a name="Deque+popBack"></a>
 
 ### deque.popBack() ⇒ <code>Object</code>
 Retrieves the last item from the queue and removes it.
 
-**Kind**: instance method of <code>[Deque](#Deque)</code>  
+**Kind**: instance method of [<code>Deque</code>](#Deque)  
 **Returns**: <code>Object</code> - the data value on the back of the queue.  
 <a name="Deque+overflow"></a>
 
@@ -101,5 +101,5 @@ Checks the current internals for an overflow condition.  This occurs
 when the maxSize storage size will be exceeded on the next insert
 operation.
 
-**Kind**: instance method of <code>[Deque](#Deque)</code>  
+**Kind**: instance method of [<code>Deque</code>](#Deque)  
 **Returns**: <code>boolean</code> - true if in an overflow condition, otherwise false.  

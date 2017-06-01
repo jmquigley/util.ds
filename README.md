@@ -2,13 +2,14 @@
 
 > Simple data structures
 
-This module contains my implementation of a few basic data structures using [Typescript](https://www.typescriptlang.org/).  I could have used other implementations, but what fun is that. 
+This module contains my implementation of a few basic data structures using [Typescript](https://www.typescriptlang.org/).  I could have used other implementations, but what fun is that.
 
 It Contains the following data structures:
 
-- [Stack](docs/stack.md)
-- [Queue](docs/queue.md)
-- [Deque](docs/deque.md)
+- [Collection](docs/lib/collection.md)
+- [Deque](docs/lib/deque.md)
+- [Queue](docs/lib/queue.md)
+- [Stack](docs/lib/stack.md)
 
 
 ## Installation
@@ -66,7 +67,7 @@ q.enqueue(1);
 let val = q.dequeue();
 ```
 
-This example works like a typical queue.  However this type allows one to add items at either end.  
+This example works like a typical queue.  However this type allows one to add items at either end.
 
 When an element is added to the deque an `add` event fires.  When an element is removed from the deque a `remove` event fires.
 
@@ -98,7 +99,3 @@ q.enqueue(6);
 ```
 
 This will add 5 items to the queue.  The last item adds a 6th element.  That will cause the first item in the queue to be removed automatically before the new item is enqueued.  This provides a way to "age" items within the queue.  When the item is removed a `remove` event fires.  The front item in the queue is considered the oldest item.
-
-## API
-
-The API is generated with [JSDoc](https://www.npmjs.com/package/jsdoc).  It can be found within the `docs` directory for the project.  It can be generated with `npm run docs`.

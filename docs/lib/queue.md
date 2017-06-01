@@ -19,7 +19,7 @@ Simple FIFO queue implementation
 ### queue.dequeue() ⇒ <code>Object</code>
 Removes and returns the item at the front of the queue.
 
-**Kind**: instance method of <code>[Queue](#Queue)</code>  
+**Kind**: instance method of [<code>Queue</code>](#Queue)  
 **Returns**: <code>Object</code> - the data at the front of the queue.  
 <a name="Queue+drain"></a>
 
@@ -27,7 +27,7 @@ Removes and returns the item at the front of the queue.
 Removes all items from the queue in order and returns them as an
 array of data values.
 
-**Kind**: instance method of <code>[Queue](#Queue)</code>  
+**Kind**: instance method of [<code>Queue</code>](#Queue)  
 **Returns**: <code>Array</code> - a list of queue items as an array.  
 <a name="Queue+eject"></a>
 
@@ -35,7 +35,7 @@ array of data values.
 Searches the queue for the requested data element and removes it
 from the queue.
 
-**Kind**: instance method of <code>[Queue](#Queue)</code>  
+**Kind**: instance method of [<code>Queue</code>](#Queue)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -46,14 +46,14 @@ from the queue.
 ### queue.end() ⇒ <code>Object</code>
 Returns a copy of the end location within the queue
 
-**Kind**: instance method of <code>[Queue](#Queue)</code>  
+**Kind**: instance method of [<code>Queue</code>](#Queue)  
 **Returns**: <code>Object</code> - the data element at the end of the queue.  
 <a name="Queue+enqueue"></a>
 
 ### queue.enqueue(data)
 Adds an item to the end of the queue.
 
-**Kind**: instance method of <code>[Queue](#Queue)</code>  
+**Kind**: instance method of [<code>Queue</code>](#Queue)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -64,7 +64,7 @@ Adds an item to the end of the queue.
 ### queue.front() ⇒ <code>Object</code>
 Makes a copy and returns the first item in the queue without removing it
 
-**Kind**: instance method of <code>[Queue](#Queue)</code>  
+**Kind**: instance method of [<code>Queue</code>](#Queue)  
 **Returns**: <code>Object</code> - the data associated with the front of the queue.  
 <a name="Queue+push"></a>
 
@@ -73,7 +73,7 @@ Override wrapper for the push function from the inherited stack.  A
 stack always pushes to the front.  The general queue should always push
 to the end of the structure.
 
-**Kind**: instance method of <code>[Queue](#Queue)</code>  
+**Kind**: instance method of [<code>Queue</code>](#Queue)  
 
 | Param | Type | Description |
 | --- | --- | --- |

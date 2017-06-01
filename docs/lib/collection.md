@@ -24,14 +24,14 @@ Base class constructor for all collection classes.
 ### collection.clear()
 Initializes the object to an empty state
 
-**Kind**: instance method of <code>[Collection](#Collection)</code>  
+**Kind**: instance method of [<code>Collection</code>](#Collection)  
 <a name="Collection+contains"></a>
 
 ### collection.contains(obj) ⇒ <code>boolean</code>
 Checks the container for the existence of a given object.  This is
 a simple linear search.
 
-**Kind**: instance method of <code>[Collection](#Collection)</code>  
+**Kind**: instance method of [<code>Collection</code>](#Collection)  
 **Returns**: <code>boolean</code> - true if the item is found, otherwise false.  
 
 | Param | Type | Description |
@@ -43,5 +43,5 @@ a simple linear search.
 ### collection.isEmpty() ⇒ <code>boolean</code>
 Checks if the container is empty.
 
-**Kind**: instance method of <code>[Collection](#Collection)</code>  
+**Kind**: instance method of [<code>Collection</code>](#Collection)  
 **Returns**: <code>boolean</code> - true if the container is empty, otherwise false.  
