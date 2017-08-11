@@ -11,12 +11,12 @@ import {Node} from './node';
  * 1  - if o1 > o2
  * -1 - if o1 < o2
  */
-export type IComparator = (o1: any, o2: any) => number;
+export type Comparator<T> = (o1: T, o2: T) => number;
 
-export abstract class Collection extends EventEmitter {
-	protected _root: Node = null;
+export abstract class Collection<T> extends EventEmitter {
+	protected _root: Node<T> = null;
 	protected _length: number = 0;
-	protected _cmp: IComparator = null;
+	protected _cmp: Comparator<T> = null;
 
 	/**
 	 * Base class constructor for all collection classes.
@@ -24,13 +24,13 @@ export abstract class Collection extends EventEmitter {
 	 * the container.
 	 * @constructor
 	 */
-	constructor(cmp: IComparator = null) {
+	constructor(cmp: Comparator<T> = null) {
 		super();
 
 		if (cmp == null) {
 			// Creates a default comparator if a custom one is not
 			// given.
-			this._cmp = (o1, o2) => {
+			this._cmp = (o1: T, o2: T) => {
 				if (o1 === o2) {
 					return 0;
 				} else if (o1 > o2) {
@@ -60,12 +60,12 @@ export abstract class Collection extends EventEmitter {
 	 * @param obj {Object} the item to find in the container.
 	 * @returns {boolean} true if the item is found, otherwise false.
 	 */
-	public contains(obj: any): boolean {
+	public contains(obj: T): boolean {
 		if (this._root == null) {
 			return false;
 		}
 
-		let next: Node = this._root;
+		let next: Node<T> = this._root;
 		while (next != null) {
 			if (this._cmp(next.data, obj) === 0) {
 				return true;

@@ -2,15 +2,15 @@
 
 import test from 'ava';
 import {Deque} from '../index';
-import {IComparator} from '../lib/collection';
+import {Comparator} from '../lib/collection';
 
-interface ITestData {
+interface TestData {
 	item1: string;
 	item2: number;
 }
 
 test('Create an emtpy Deque', t => {
-	const dq = new Deque();
+	const dq = new Deque<number>();
 
 	t.true(dq && dq instanceof Deque);
 	t.true(dq.isEmpty());
@@ -21,7 +21,7 @@ test('Create an emtpy Deque', t => {
 });
 
 test('Add/Remove items from the front of the deque', t => {
-	const dq = new Deque();
+	const dq = new Deque<number>();
 	const n: number = 5;
 
 	t.true(dq && dq instanceof Deque);
@@ -43,7 +43,7 @@ test('Add/Remove items from the front of the deque', t => {
 });
 
 test('Add/Remove items from the back of the deque', t => {
-	const dq = new Deque();
+	const dq = new Deque<number>();
 	const n: number = 5;
 
 	t.true(dq && dq instanceof Deque);
@@ -65,7 +65,7 @@ test('Add/Remove items from the back of the deque', t => {
 });
 
 test('Test deque add event (pushFront)', t => {
-	const dq = new Deque();
+	const dq = new Deque<number>();
 
 	t.true(dq && dq instanceof Deque);
 	t.true(dq.isEmpty());
@@ -79,7 +79,7 @@ test('Test deque add event (pushFront)', t => {
 });
 
 test('Test deque remove event (popFront)', t => {
-	const dq = new Deque();
+	const dq = new Deque<number>();
 
 	t.true(dq && dq instanceof Deque);
 	t.true(dq.isEmpty());
@@ -94,7 +94,7 @@ test('Test deque remove event (popFront)', t => {
 });
 
 test('Test deque add event (pushBack)', t => {
-	const dq = new Deque();
+	const dq = new Deque<number>();
 
 	t.true(dq && dq instanceof Deque);
 	t.true(dq.isEmpty());
@@ -108,7 +108,7 @@ test('Test deque add event (pushBack)', t => {
 });
 
 test('Test deque remove event (popBack)', t => {
-	const dq = new Deque();
+	const dq = new Deque<number>();
 
 	t.true(dq && dq instanceof Deque);
 	t.true(dq.isEmpty());
@@ -124,7 +124,7 @@ test('Test deque remove event (popBack)', t => {
 
 test('Test size limited Deque (front)', t => {
 	const n: number = 5;
-	const dq = new Deque(n);
+	const dq = new Deque<number>(n);
 
 	t.true(dq && dq instanceof Deque);
 	t.true(dq.isEmpty());
@@ -149,7 +149,7 @@ test('Test size limited Deque (front)', t => {
 
 test('Test size limited Deque (back)', t => {
 	const n: number = 5;
-	const dq = new Deque(n);
+	const dq = new Deque<number>(n);
 
 	t.true(dq && dq instanceof Deque);
 	t.true(dq.isEmpty());
@@ -174,7 +174,7 @@ test('Test size limited Deque (back)', t => {
 
 test.cb('Test size limited Deque (pushFront) event', t => {
 	const n: number = 5;
-	const dq = new Deque(n);
+	const dq = new Deque<number>(n);
 
 	t.true(dq && dq instanceof Deque);
 	t.true(dq.isEmpty());
@@ -196,7 +196,7 @@ test.cb('Test size limited Deque (pushFront) event', t => {
 
 test.cb('Test size limited Deque (pushBack) event', t => {
 	const n: number = 5;
-	const dq = new Deque(n);
+	const dq = new Deque<number>(n);
 
 	t.true(dq && dq instanceof Deque);
 	t.true(dq.isEmpty());
@@ -217,7 +217,7 @@ test.cb('Test size limited Deque (pushBack) event', t => {
 });
 
 test('Test the contains function on empty deque', t => {
-	const dq = new Deque();
+	const dq = new Deque<number>();
 
 	t.true(dq && dq instanceof Deque);
 	t.true(dq.isEmpty());
@@ -225,7 +225,7 @@ test('Test the contains function on empty deque', t => {
 });
 
 test('Test the contains function for a deque', t => {
-	const dq = new Deque();
+	const dq = new Deque<number>();
 
 	t.true(dq && dq instanceof Deque);
 	t.true(dq.isEmpty());
@@ -241,7 +241,7 @@ test('Test the contains function for a deque', t => {
 });
 
 test('Test of the deque contains function with custom comparator', t => {
-	const fn: IComparator = (o1: ITestData, o2: ITestData): number => {
+	const fn: Comparator<TestData> = (o1: TestData, o2: TestData): number => {
 		if (o1.item1 === o2.item1 && o1.item2 === o2.item2) {
 			return 0;
 		} else if (o1.item1 > o2.item1 && o1.item2 > o2.item2) {
@@ -251,7 +251,7 @@ test('Test of the deque contains function with custom comparator', t => {
 		return -1;
 	};
 
-	const dq = new Deque(10, fn);
+	const dq = new Deque<TestData>(10, fn);
 
 	t.true(dq && dq instanceof Deque);
 	t.true(dq.isEmpty());

@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import {Queue} from '../index';
 
 test('Create an empty queue', t => {
-	const q = new Queue();
+	const q = new Queue<number>();
 
 	t.true(q && q instanceof Queue);
 	t.true(q.isEmpty());
@@ -15,7 +15,7 @@ test('Create an empty queue', t => {
 });
 
 test('Add/Remove items from the queue', t => {
-	const q = new Queue();
+	const q = new Queue<number>();
 	const n: number = 50;
 
 	t.true(q && q instanceof Queue);
@@ -37,7 +37,7 @@ test('Add/Remove items from the queue', t => {
 });
 
 test('Test queue add event', t => {
-	const q = new Queue();
+	const q = new Queue<number>();
 
 	t.true(q && q instanceof Queue);
 	t.true(q.isEmpty());
@@ -51,7 +51,7 @@ test('Test queue add event', t => {
 });
 
 test('Test queue remove event', t => {
-	const q = new Queue();
+	const q = new Queue<number>();
 
 	t.true(q && q instanceof Queue);
 	t.true(q.isEmpty());
@@ -66,7 +66,7 @@ test('Test queue remove event', t => {
 });
 
 test('Test the queue drain function', t => {
-	const q = new Queue();
+	const q = new Queue<number>();
 	const n: number = 5;
 
 	for (let i = 0; i < n; i++) {
@@ -87,7 +87,7 @@ test('Test the queue drain function', t => {
 });
 
 test('Test the contains function with empty queue', t => {
-	const q = new Queue();
+	const q = new Queue<number>();
 
 	t.true(q && q instanceof Queue);
 	t.true(q.isEmpty());
@@ -95,7 +95,7 @@ test('Test the contains function with empty queue', t => {
 });
 
 test('Test the contains function for a queue', t => {
-	const q = new Queue();
+	const q = new Queue<number>();
 
 	t.true(q && q instanceof Queue);
 	t.true(q.isEmpty());
@@ -111,7 +111,7 @@ test('Test the contains function for a queue', t => {
 });
 
 test('Ejects an item at the front, back, and middle of a queue', t => {
-	const q = new Queue();
+	const q = new Queue<number>();
 
 	t.true(q && q instanceof Queue);
 	t.true(q.isEmpty());

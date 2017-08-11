@@ -4,32 +4,32 @@
  * The data nodes used within a collection.  This generally would not be
  * used outside of these collection classes.
  */
-export class Node {
-	private _data: any = null;
-	private _left: Node = null;
-	private _right: Node = null;
+export class Node<T> {
+	private _data: T = null;
+	private _left: Node<T> = null;
+	private _right: Node<T> = null;
 
-	constructor(data: any) {
+	constructor(data: T) {
 		this._data = data;
 	}
 
-	get data(): any {
+	get data(): T {
 		return this._data;
 	}
 
-	get left(): Node {
+	get left(): Node<T> {
 		return this._left;
 	}
 
-	set left(val: Node) {
+	set left(val: Node<T>) {
 		this._left = val;
 	}
 
-	get right(): Node {
+	get right(): Node<T> {
 		return this._right;
 	}
 
-	set right(val: Node) {
+	set right(val: Node<T>) {
 		this._right = val;
 	}
 }

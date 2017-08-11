@@ -4,7 +4,7 @@ import test from 'ava';
 import {Stack} from '../index';
 
 test('Create an empty stack', t => {
-	const stack = new Stack();
+	const stack = new Stack<number>();
 
 	t.true(stack && stack instanceof Stack);
 	t.true(stack.isEmpty());
@@ -14,7 +14,7 @@ test('Create an empty stack', t => {
 });
 
 test('Add/Remove items from the stack', t => {
-	const stack = new Stack();
+	const stack = new Stack<number>();
 	const n: number = 50;
 
 	t.true(stack && stack instanceof Stack);
@@ -36,7 +36,7 @@ test('Add/Remove items from the stack', t => {
 });
 
 test('Test stack add event', t => {
-	const stack = new Stack();
+	const stack = new Stack<number>();
 
 	t.true(stack && stack instanceof Stack);
 	t.true(stack.isEmpty());
@@ -50,7 +50,7 @@ test('Test stack add event', t => {
 });
 
 test('Test stack remove event', t => {
-	const stack = new Stack();
+	const stack = new Stack<number>();
 
 	t.true(stack && stack instanceof Stack);
 	t.true(stack.isEmpty());
@@ -65,7 +65,7 @@ test('Test stack remove event', t => {
 });
 
 test('Test contains function with empty stack', t => {
-	const stack = new Stack();
+	const stack = new Stack<number>();
 
 	t.true(stack && stack instanceof Stack);
 	t.true(stack.isEmpty());
@@ -73,7 +73,7 @@ test('Test contains function with empty stack', t => {
 });
 
 test('Test the contains function for a stack', t => {
-	const stack = new Stack();
+	const stack = new Stack<number>();
 
 	t.true(stack && stack instanceof Stack);
 	t.true(stack.isEmpty());

@@ -1,13 +1,13 @@
 'use strict';
 
 import * as _ from 'lodash';
-import {Collection, IComparator} from './collection';
+import {Collection, Comparator} from './collection';
 import {Node} from './node';
 
 /** Simple stack class */
-export class Stack extends Collection {
+export class Stack<T> extends Collection<T> {
 
-	constructor(cmp: IComparator = null) {
+	constructor(cmp: Comparator<T> = null) {
 		super(cmp);
 	}
 
@@ -15,7 +15,7 @@ export class Stack extends Collection {
 	 * A convenience method for calling top.
 	 * @returns {Object} the data element at the top of the stack
 	 */
-	public peek(): any {
+	public peek(): T {
 		return this.top();
 	}
 
@@ -23,8 +23,8 @@ export class Stack extends Collection {
 	 * Puts a data element on the top of the stack
 	 * @param data {Object} any data element the user wants to store
 	 */
-	public push(data: any): void {
-		const node = new Node(data);
+	public push(data: T): void {
+		const node = new Node<T>(data);
 
 		if (this._root == null) {
 			this._root = node;
@@ -41,7 +41,7 @@ export class Stack extends Collection {
 	 * Retrieves the top item from the stack and returns it.
 	 * @returns {Object} the data element at the top of the stack.
 	 */
-	public pop(): any {
+	public pop(): T {
 		let data = null;
 
 		if (this._root != null) {
@@ -61,7 +61,7 @@ export class Stack extends Collection {
 	 * @returns {Object} a reference to the data element at the top of the
 	 * stack.
 	 */
-	public top(): any {
+	public top(): T {
 		if (this._root == null) {
 			return null;
 		}

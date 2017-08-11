@@ -1,10 +1,10 @@
 import * as _ from 'lodash';
-import {IComparator} from './collection';
+import {Comparator} from './collection';
 import {Node} from './node';
 import {Queue} from './queue';
 
 /** A double ended Queue class */
-export class Deque extends Queue {
+export class Deque<T> extends Queue<T> {
 	private _maxSize: number;
 
 	/**
@@ -17,7 +17,7 @@ export class Deque extends Queue {
 	 * the container.
 	 * @constructor
 	 */
-	constructor(maxSize: number = 0, cmp: IComparator = null) {
+	constructor(maxSize: number = 0, cmp: Comparator<T> = null) {
 		super(cmp);
 		this._maxSize = (maxSize == null || typeof maxSize !== 'number') ? 0 : Math.round(maxSize);
 	}
@@ -27,7 +27,7 @@ export class Deque extends Queue {
 	 * and acts if one is detected.
 	 * @param data {Object} the data item to add to the queue.
 	 */
-	public enqueue(data: any): void {
+	public enqueue(data: T): void {
 		if (this.overflow()) {
 			this.dequeue();
 		}
@@ -40,8 +40,8 @@ export class Deque extends Queue {
 	 * overflow condition and acts if one is detected.
 	 * @param data {Object} the data item to add to the queue.
 	 */
-	public pushFront(data: any): void {
-		const node = new Node(data);
+	public pushFront(data: T): void {
+		const node = new Node<T>(data);
 
 		if (this.overflow()) {
 			this.dequeue();
@@ -64,7 +64,7 @@ export class Deque extends Queue {
 	 * and acts if one is detected.
 	 * @param data {Object} the data item to add to the queue.
 	 */
-	public pushBack(data: any): void {
+	public pushBack(data: T): void {
 		if (this.overflow()) {
 			this.dequeue();
 		}
@@ -75,7 +75,7 @@ export class Deque extends Queue {
 	 * Returns the first item in the queue without removing it.
 	 * @returns {Object} a copy of the first item in the list.
 	 */
-	public peekFront(): any {
+	public peekFront(): T {
 		return this.top();
 	}
 
@@ -83,7 +83,7 @@ export class Deque extends Queue {
 	 * Returns the last item in the queue without removing it.
 	 * @returns {Object} a copy of the last item in the list.
 	 */
-	public peekBack(): any {
+	public peekBack(): T {
 		if (this._end == null) {
 			return null;
 		}
@@ -95,7 +95,7 @@ export class Deque extends Queue {
 	 * Returns the first item from the queue and removes it.
 	 * @returns {Object} the data value on the front of the queue.
 	 */
-	public popFront(): any {
+	public popFront(): T {
 		return this.dequeue();
 	}
 
@@ -103,7 +103,7 @@ export class Deque extends Queue {
 	 * Retrieves the last item from the queue and removes it.
 	 * @returns {Object} the data value on the back of the queue.
 	 */
-	public popBack(): any {
+	public popBack(): T {
 		if (this._end == null) {
 			return null;
 		}

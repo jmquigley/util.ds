@@ -1,15 +1,15 @@
 'use strict';
 
 import * as _ from 'lodash';
-import {IComparator} from './collection';
+import {Comparator} from './collection';
 import {Node} from './node';
 import {Stack} from './stack';
 
 /** Simple FIFO queue implementation */
-export class Queue extends Stack {
-	protected _end: Node = null;
+export class Queue<T> extends Stack<T> {
+	protected _end: Node<T> = null;
 
-	constructor(cmp: IComparator = null) {
+	constructor(cmp: Comparator<T> = null) {
 		super(cmp);
 	}
 
@@ -17,7 +17,7 @@ export class Queue extends Stack {
 	 * Removes and returns the item at the front of the queue.
 	 * @returns {Object} the data at the front of the queue.
 	 */
-	public dequeue(): any {
+	public dequeue(): T {
 		const data: any = this.pop();
 
 		if (this._root == null) {
@@ -32,8 +32,8 @@ export class Queue extends Stack {
 	 * array of data values.
 	 * @returns {Array} a list of queue items as an array.
 	 */
-	public drain(): any[] {
-		const arr = [];
+	public drain(): T[] {
+		const arr: T[] = [];
 
 		while (!this.isEmpty()) {
 			arr.push(this.dequeue());
@@ -51,7 +51,7 @@ export class Queue extends Stack {
 	 * @param data {Object} the data element that should be removed from
 	 * the queue.
 	 */
-	public eject(data: any): void {
+	public eject(data: T): void {
 		if (this._root == null) {
 			return;
 		}
@@ -61,7 +61,7 @@ export class Queue extends Stack {
 			this._root = this._root.right;
 			this._length--;
 		} else {
-			let next: Node = this._root.right;
+			let next: Node<T> = this._root.right;
 			while (next != null) {
 				if (this._cmp(next.data, data) === 0) {
 					if (next.right != null) {
@@ -85,7 +85,7 @@ export class Queue extends Stack {
 	 * Returns a copy of the end location within the queue
 	 * @returns {Object} the data element at the end of the queue.
 	 */
-	public end(): any {
+	public end(): T {
 		return _.cloneDeep(this._end.data);
 	}
 
@@ -93,7 +93,7 @@ export class Queue extends Stack {
 	 * Adds an item to the end of the queue.
 	 * @param data {Object} the data to insert into the queue.
 	 */
-	public enqueue(data: any): void {
+	public enqueue(data: T): void {
 		const node = new Node(data);
 
 		if (this._root == null) {
@@ -112,7 +112,7 @@ export class Queue extends Stack {
 	 * Makes a copy and returns the first item in the queue without removing it
 	 * @returns {Object} the data associated with the front of the queue.
 	 */
-	public front(): any {
+	public front(): T {
 		return(this.top());
 	}
 
@@ -122,7 +122,7 @@ export class Queue extends Stack {
 	 * to the end of the structure.
 	 * @param data {Object} the data to push on the end of the queue.
 	 */
-	public push(data: any): void {
+	public push(data: T): void {
 		this.enqueue(data);
 	}
 }
