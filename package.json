@@ -17,21 +17,21 @@
   },
   "dependencies": {
     "lodash": "^4.17.4",
-    "util.pkgwrap": "0.0.59"
+    "util.pkgwrap": "0.0.67"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.68",
-    "@types/node": "^8.0.7",
-    "ava": "^0.20.0",
+    "@types/lodash": "^4.14.72",
+    "@types/node": "^8.0.20",
+    "ava": "^0.21.0",
     "coveralls": "^2.13.1",
-    "nyc": "^11.0.3",
-    "tslint": "^5.4.3",
-    "typescript": "^2.4.1"
+    "nyc": "^11.1.0",
+    "tslint": "^5.6.0",
+    "typescript": "^2.4.2"
   },
   "main": "./index.js",
   "types": "./index.d.ts",
   "scripts": {
-    "all": "npm install && npm run clean && npm run lint && npm run build && npm run docs && npm test && npm run report",
+    "all": "yarn install && yarn run clean && yarn run lint && yarn run build && yarn run docs && yarn test && yarn run report",
     "build": "pkgwrap --build",
     "clean": "pkgwrap --clean",
     "coverage": "pkgwrap --coverage",
