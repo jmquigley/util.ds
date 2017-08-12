@@ -1,7 +1,8 @@
 'use strict';
 
 import * as _ from 'lodash';
-import {Collection, Comparator} from './collection';
+import {Collection} from './collection';
+import {Comparator} from './comparator';
 import {Node} from './node';
 
 /** Simple stack class */

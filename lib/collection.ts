@@ -1,17 +1,8 @@
 'use strict';
 
 import {EventEmitter} from 'events';
+import {Comparator, defaultComparatorFn} from './comparator';
 import {Node} from './node';
-
-/**
- * A comparator function signature.  This is used to perform a comparison
- * operation between two objects.  It returns:
- *
- * 0  - if the objects are equal
- * 1  - if o1 > o2
- * -1 - if o1 < o2
- */
-export type Comparator<T> = (o1: T, o2: T) => number;
 
 export abstract class Collection<T> extends EventEmitter {
 	protected _root: Node<T> = null;
@@ -30,15 +21,7 @@ export abstract class Collection<T> extends EventEmitter {
 		if (cmp == null) {
 			// Creates a default comparator if a custom one is not
 			// given.
-			this._cmp = (o1: T, o2: T) => {
-				if (o1 === o2) {
-					return 0;
-				} else if (o1 > o2) {
-					return 1;
-				}
-
-				return -1;
-			};
+			this._cmp = defaultComparatorFn;
 		} else {
 			this._cmp = cmp;
 		}

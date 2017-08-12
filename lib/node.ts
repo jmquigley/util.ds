@@ -9,8 +9,10 @@ export class Node<T> {
 	private _left: Node<T> = null;
 	private _right: Node<T> = null;
 
-	constructor(data: T) {
+	constructor(data: T, right: Node<T> = null, left: Node<T> = null) {
 		this._data = data;
+		this._right = right;
+		this._left = left;
 	}
 
 	get data(): T {

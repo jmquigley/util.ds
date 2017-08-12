@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import {Comparator} from './collection';
+import {Comparator} from './comparator';
 import {Node} from './node';
 import {Queue} from './queue';
 

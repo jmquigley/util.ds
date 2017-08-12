@@ -2,7 +2,7 @@
 
 import test from 'ava';
 import {Deque} from '../index';
-import {Comparator} from '../lib/collection';
+import {Comparator} from '../lib/comparator';
 
 interface TestData {
 	item1: string;
