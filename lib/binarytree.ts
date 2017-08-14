@@ -101,8 +101,12 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 	}
 
 	public delete(data: T) {
-		// TODO: implement delete operation
 		data = null;
+		this.deleteFixUp(null);
+	}
+
+	private deleteFixUp(node: Node<T>) {
+		node = null;
 	}
 
 	/**
@@ -261,6 +265,80 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 		this._root.color = Color.black;
 	}
 
+	public postorder(node: Node<T> = this._root): T[] {
+		const out: T[] = [];
+		this.postorderDelegate(node, out);
+		return out;
+	}
+
+	private postorderDelegate(node: Node<T>, out: T[]) {
+
+		if (node == null) {
+			return;
+		}
+
+		this.postorderDelegate(node.left, out);
+		this.postorderDelegate(node.right, out);
+		out.push(node.data);
+	}
+
+	public preorder(node: Node<T> = this._root): T[] {
+		const out: T[] = [];
+		this.preorderDelegate(node, out);
+		return out;
+	}
+
+	private preorderDelegate(node: Node<T>, out: T[]) {
+
+		if (node == null) {
+			return;
+		}
+
+		out.push(node.data);
+		this.preorderDelegate(node.left, out);
+		this.preorderDelegate(node.right, out);
+	}
+
+	/**
+	 * Searches a tree from a given node for the maximum value in that
+	 * (sub)tree.  Note that the property `.largest` can be used to
+	 * quickly retrieve the largest value in the tree.
+	 * @param node {Node<T>} the node location to start the search.  By
+	 * default this is the root node if no node is given.
+	 * @return {Node<T>} the largest node in the (sub)tree.
+	 */
+	public _maximum(node: Node<T> = this._root): Node<T> {
+		if (node == null) {
+			return null;
+		}
+
+		while (node.left != null) {
+			node = node.right;
+		}
+
+		return node;
+	}
+
+	/**
+	 * From a node searches a tree or subtree for the minimum value in that
+	 * (sub)tree.  Note that the property `.smallest` can be used to
+	 * quickly retrieve the smallest value in the tree.
+	 * @param node {Node<T>} the node location to start the search.  By
+	 * default this is the root node if no node is given.
+	 * @return {Node<T>} the smallest node in the (sub)tree.
+	 */
+	public _minimum(node: Node<T> = this._root): Node<T> {
+		if (node == null) {
+			return null;
+		}
+
+		while (node.left != null) {
+			node = node.left;
+		}
+
+		return node;
+	}
+
 	/**
 	 * Localized left rotation of nodes.  This is a public function but is private
 	 * by convention (for testing).  Generally not called as part of the api.
@@ -318,6 +396,27 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 	}
 
 	/**
+	 * The successor of a node is the node with the smallest key greater than
+	 * node.data.
+	 * @param node {Node<T>} the node location to start the search for a
+	 * successor.
+	 * @return {Node<T>} a reference to the successor node.
+	 */
+	public _successor(node: Node<T>): Node<T> {
+		if (node.right != null) {
+			return this._minimum(node.right);
+		}
+
+		let y = node.parent;
+		while (y != null && node === y.right) {
+			node = y;
+			y = y.parent;
+		}
+
+		return y;
+	}
+
+	/**
 	 * Implements an inorder successor algorithm to process each node through
 	 * an iterator.
 	 */
@@ -355,39 +454,5 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 			yield node.data;
 			node = getNextNode(node);
 		}
-	}
-
-	public postorder(node: Node<T> = this._root): T[] {
-		const out: T[] = [];
-		this.postorderDelegate(node, out);
-		return out;
-	}
-
-	private postorderDelegate(node: Node<T>, out: T[]) {
-
-		if (node == null) {
-			return;
-		}
-
-		this.postorderDelegate(node.left, out);
-		this.postorderDelegate(node.right, out);
-		out.push(node.data);
-	}
-
-	public preorder(node: Node<T> = this._root): T[] {
-		const out: T[] = [];
-		this.preorderDelegate(node, out);
-		return out;
-	}
-
-	private preorderDelegate(node: Node<T>, out: T[]) {
-
-		if (node == null) {
-			return;
-		}
-
-		out.push(node.data);
-		this.preorderDelegate(node.left, out);
-		this.preorderDelegate(node.right, out);
 	}
 }

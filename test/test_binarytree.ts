@@ -24,7 +24,9 @@ test('Create a simple BinaryTree', t => {
 	t.truthy(bt);
 	t.is(bt.size, 5);
 	t.is(bt.first, 'a');
+	t.is(bt._minimum().data, 'a');
 	t.is(bt.last, 'e');
+	t.is(bt._maximum().data, 'e');
 
 	bt.clear();
 
@@ -219,4 +221,19 @@ test('Test with a large file word list in BinaryTree', t => {
 	t.false(bt.contains('alskdjglkajsdglkajdlkfjasldkjga'));
 	t.false(bt.contains('alskdjglkajsdglkfjasldkjga'));
 	t.false(bt.contains('alskdjglkajdlkfjasldkjga'));
+});
+
+test.skip('Test the BinaryTree node successor function', t => {
+	const bt = new BinaryTree<string>(['c', 'g', 'a', 'd', 'k']);
+
+	t.is(bt.size, 5);
+
+	const out = bt.inorder();
+	t.truthy(out);
+	t.deepEqual(out, ['a', 'c', 'd', 'g', 'k']);
+
+	// Case #1
+	const successor = bt._successor(bt.root.right.right);
+	console.log(`successor: ${successor}`);
+	t.is(successor.data, 'd');
 });
