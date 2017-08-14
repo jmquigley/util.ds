@@ -31,7 +31,7 @@ test('Add/Remove items from the front of the deque', t => {
 		dq.pushFront(i);
 	}
 
-	t.is(dq.size(), 5);
+	t.is(dq.size, 5);
 
 	for (let i: number = n; i > 0; i--) {
 		t.true(dq.length === i);
@@ -53,7 +53,7 @@ test('Add/Remove items from the back of the deque', t => {
 		dq.pushBack(i);
 	}
 
-	t.is(dq.size(), 5);
+	t.is(dq.size, 5);
 
 	for (let i: number = n; i > 0; i--) {
 		t.true(dq.length === i);
@@ -133,9 +133,9 @@ test('Test size limited Deque (front)', t => {
 		dq.enqueue(i);
 	}
 
-	t.is(dq.size(), n);
+	t.is(dq.size, n);
 	dq.pushFront(n);
-	t.is(dq.size(), n);
+	t.is(dq.size, n);
 
 	const arr = dq.drain();
 	t.is(arr[0], 5);
@@ -158,9 +158,9 @@ test('Test size limited Deque (back)', t => {
 		dq.enqueue(i);
 	}
 
-	t.is(dq.size(), n);
+	t.is(dq.size, n);
 	dq.enqueue(n);
-	t.is(dq.size(), n);
+	t.is(dq.size, n);
 
 	const arr = dq.drain();
 	t.is(arr[0], 1);
@@ -183,10 +183,10 @@ test.cb('Test size limited Deque (pushFront) event', t => {
 		dq.enqueue(i);
 	}
 
-	t.is(dq.size(), n);
+	t.is(dq.size, n);
 
 	dq.on('remove', (data: any) => {
-		t.is(dq.size(), n - 1);
+		t.is(dq.size, n - 1);
 		t.is(data, 0);
 		t.end();
 	});
@@ -205,10 +205,10 @@ test.cb('Test size limited Deque (pushBack) event', t => {
 		dq.enqueue(i);
 	}
 
-	t.is(dq.size(), n);
+	t.is(dq.size, n);
 
 	dq.on('remove', (data: any) => {
-		t.is(dq.size(), n - 1);
+		t.is(dq.size, n - 1);
 		t.is(data, 0);
 		t.end();
 	});
@@ -251,7 +251,7 @@ test('Test of the deque contains function with custom comparator', t => {
 		return -1;
 	};
 
-	const dq = new Deque<TestData>(10, fn);
+	const dq = new Deque<TestData>(10, null, fn);
 
 	t.true(dq && dq instanceof Deque);
 	t.true(dq.isEmpty());

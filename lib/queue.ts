@@ -9,8 +9,14 @@ import {Stack} from './stack';
 export class Queue<T> extends Stack<T> {
 	protected _end: Node<T> = null;
 
-	constructor(cmp: Comparator<T> = null) {
+	constructor(arr: T[] = [], cmp: Comparator<T> = null) {
 		super(cmp);
+
+		if (arr && arr instanceof Array) {
+			for (const it of arr) {
+				this.enqueue(it);
+			}
+		}
 	}
 
 	/**

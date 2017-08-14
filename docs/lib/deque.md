@@ -6,7 +6,7 @@ A double ended Queue class
 **Kind**: global class  
 
 * [Deque](#Deque)
-    * [new Deque([maxSize], cmp)](#new_Deque_new)
+    * [new Deque([maxSize], [arr], cmp)](#new_Deque_new)
     * [.enqueue(data)](#Deque+enqueue)
     * [.pushFront(data)](#Deque+pushFront)
     * [.pushBack(data)](#Deque+pushBack)
@@ -18,16 +18,17 @@ A double ended Queue class
 
 <a name="new_Deque_new"></a>
 
-### new Deque([maxSize], cmp)
+### new Deque([maxSize], [arr], cmp)
 The deque can be unlimited in size (default) or set to a maxium size
 when constructed.  When the max size is exceeded, then the front item is
-automatially removed from the queue and the new item is placed in the
-queue (dependin which type of insert is calld).
+automatically removed from the queue and the new item is placed in the
+queue (depending on  which type of insert is calld).
 
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | [maxSize] | <code>number</code> | <code>0</code> | The maximum size for this queue. |
+| [arr] | <code>Array.&lt;T&gt;</code> |  | An array of initial input values |
 | cmp | <code>function</code> | <code></code> | a comparator function used for searching within the container. |
 
 <a name="Deque+enqueue"></a>

@@ -24,7 +24,7 @@ test('Add/Remove items from the stack', t => {
 		stack.push(i);
 	}
 
-	t.is(stack.size(), n);
+	t.is(stack.size, n);
 
 	for (let i: number = n; i > 0; i--) {
 		t.true(stack.length === i);

@@ -29,6 +29,22 @@ export abstract class Collection<T> extends EventEmitter {
 		this.clear();
 	}
 
+	get empty(): boolean {
+		return this._length === 0;
+	}
+
+	get length(): number {
+		return this._length;
+	}
+
+	get root(): Node<T> {
+		return this._root;
+	}
+
+	get size(): number {
+		return this._length;
+	}
+
 	/**
 	 * Initializes the object to an empty state
 	 */
@@ -68,11 +84,4 @@ export abstract class Collection<T> extends EventEmitter {
 		return this._length === 0;
 	}
 
-	get length(): number {
-		return this._length;
-	}
-
-	public size(): number {
-		return this._length;
-	}
 }

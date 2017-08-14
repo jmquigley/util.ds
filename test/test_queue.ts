@@ -25,7 +25,7 @@ test('Add/Remove items from the queue', t => {
 		(i % 2) ? q.enqueue(i) : q.push(i);
 	}
 
-	t.is(q.size(), n);
+	t.is(q.size, n);
 
 	for (let i: number = n; i > 0; i--) {
 		t.true(q.length === i);
