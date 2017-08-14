@@ -9,18 +9,22 @@ import {Tree} from './tree';
 /**
  * Implements a binary tree structure using a Red/Black tree algorithm.
  *
- * http://staff.ustc.edu.cn/~csli/graduate/algorithms/book6/chap14.htm
+ * Introduction to Algorithms, Cormen 3rd ed.
  *
  */
 export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 
-	private _x: Node<T> = null;
-	protected _root: Node<T> = null;
-	protected _first: T = null;
-	protected _last: T = null;
+	private _x: Node<T>;
+	private _nil: Node<T>;
+	protected _root: Node<T>;
+	protected _first: T;
+	protected _last: T;
 
 	constructor(arr: T[] = [], cmp: Comparator<T> = null) {
 		super(cmp);
+
+		this._nil = new Node<T>(null, null, null, null, Color.black);
+		this._root = this._x = this._nil;
 
 		for (const it of arr) {
 			this.insert(it);
@@ -56,11 +60,11 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 
 			out.push(node.data);
 
-			if (node.left != null) {
+			if (node.left !== this._nil) {
 				q.enqueue(node.left);
 			}
 
-			if (node.right != null) {
+			if (node.right !== this._nil) {
 				q.enqueue(node.right);
 			}
 		}
@@ -88,11 +92,11 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 				return true;
 			}
 
-			if (node.left != null) {
+			if (node.left !== this._nil) {
 				q.enqueue(node.left);
 			}
 
-			if (node.right != null) {
+			if (node.right !== this._nil) {
 				q.enqueue(node.right);
 			}
 		}
@@ -119,7 +123,7 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 	public contains(data: T): boolean {
 		let node: Node<T> = this._root;
 
-		while (node != null) {
+		while (node !== this._nil) {
 			if (node.data === data) {
 				return true;
 			} else if (node.data < data) {
@@ -141,7 +145,7 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 	 */
 	private findHeight(node: Node<T>): number {
 
-		if (node == null) {
+		if (node === this._nil) {
 			return -1;
 		}
 
@@ -163,7 +167,7 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 
 	private inorderDelegate(node: Node<T>, out: T[]) {
 
-		if (node == null) {
+		if (node === this._nil) {
 			return;
 		}
 
@@ -173,20 +177,20 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 	}
 
 	public insert(data: T) {
-		this._x = null;
-		this.insertDelegate(data, this._root, null);
+		this._x = this._nil;
+		this.insertDelegate(data, this._root, this._nil);
 
-		// A duplicate value will make _x null.  Since it already exists in the
+		// A duplicate value will make _x nil.  Since it already exists in the
 		// tree and has been balanced, no reason to run the fix up again.
-		if (this._x != null) {
+		if (this._x !== this._nil) {
 			this.insertFixUp(this._x);
 		}
 	}
 
-	private insertDelegate(data: T, node: Node<T> = this._root, parent: Node<T> = null): Node<T> {
+	private insertDelegate(data: T, node: Node<T> = this._root, parent: Node<T> = this._nil): Node<T> {
 
-		if (this._root == null) {
-			this._x = new Node<T>(data, parent);
+		if (this._root === this._nil) {
+			this._x = this.newNode(data, parent);
 			this._root = this._x;
 			this._length++;
 			this._first = this._last = data;
@@ -194,9 +198,9 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 			return this._root;
 		} else {
 
-			if (node == null) {
+			if (node === this._nil) {
 				this._length++;
-				this._x = new Node<T>(data, parent);
+				this._x = this.newNode(data, parent);
 
 				if (data < this._first) {
 					this._first = data;
@@ -226,7 +230,7 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 			if (x.parent === x.parent.parent.left) {
 				y = x.parent.parent.right;
 
-				if (y != null && y.color === Color.red) {
+				if (y !== this._nil && y.color === Color.red) {
 					x.parent.color = Color.black;
 					y.color = Color.black;
 					x.parent.parent.color = Color.red;
@@ -244,7 +248,7 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 			} else {
 				y = x.parent.parent.left;
 
-				if (y != null && y.color === Color.red) {
+				if (y !== this._nil && y.color === Color.red) {
 					x.parent.color = Color.black;
 					y.color = Color.black;
 					x.parent.parent.color = Color.red;
@@ -265,6 +269,10 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 		this._root.color = Color.black;
 	}
 
+	private newNode(data: T, parent: Node<T>): Node<T> {
+		return new Node<T>(data, parent, this._nil, this._nil, Color.red);
+	}
+
 	public postorder(node: Node<T> = this._root): T[] {
 		const out: T[] = [];
 		this.postorderDelegate(node, out);
@@ -273,7 +281,7 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 
 	private postorderDelegate(node: Node<T>, out: T[]) {
 
-		if (node == null) {
+		if (node === this._nil) {
 			return;
 		}
 
@@ -290,7 +298,7 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 
 	private preorderDelegate(node: Node<T>, out: T[]) {
 
-		if (node == null) {
+		if (node === this._nil) {
 			return;
 		}
 
@@ -308,11 +316,11 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 	 * @return {Node<T>} the largest node in the (sub)tree.
 	 */
 	public _maximum(node: Node<T> = this._root): Node<T> {
-		if (node == null) {
-			return null;
+		if (node === this._nil) {
+			return this._nil;
 		}
 
-		while (node.left != null) {
+		while (node.left !== this._nil) {
 			node = node.right;
 		}
 
@@ -328,11 +336,11 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 	 * @return {Node<T>} the smallest node in the (sub)tree.
 	 */
 	public _minimum(node: Node<T> = this._root): Node<T> {
-		if (node == null) {
-			return null;
+		if (node === this._nil) {
+			return this._nil;
 		}
 
-		while (node.left != null) {
+		while (node.left !== this._nil) {
 			node = node.left;
 		}
 
@@ -346,14 +354,14 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 	public _leftRotate(x: Node<T>) {
 		const y: Node<T> = x.right;
 
-		x.right = y.left;         // turn y's left subtree into x's right subtree
-		if (y.left != null) {     // fix y's left child parent pointer
+		x.right = y.left;            // turn y's left subtree into x's right subtree
+		if (y.left !== this._nil) {  // fix y's left child parent pointer
 			y.left.parent = x;
 		}
 
-		y.parent = x.parent;      // link x's parent to y
+		y.parent = x.parent;         // link x's parent to y
 
-		if (x.parent == null) {   // special case fix when rotating root
+		if (x.parent === this._nil) { // special case fix when rotating root
 			this._root = y;
 		} else {
 			if (x === x.parent.left) {
@@ -363,8 +371,8 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 			}
 		}
 
-		y.left = x;              // move previous x into y's left child
-		x.parent = y;            // fix the parent pointer after previous move
+		y.left = x;                  // move previous x into y's left child
+		x.parent = y;                // fix the parent pointer after previous move
 	}
 
 	/**
@@ -374,14 +382,14 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 	public _rightRotate(x: Node<T>) {
 		const y: Node<T> = x.left;
 
-		x.left = y.right;         // turn y's right subtree into x's left subtree
-		if (y.right != null) {    // fix y's right child parent pointer
+		x.left = y.right;            // turn y's right subtree into x's left subtree
+		if (y.right !== this._nil) { // fix y's right child parent pointer
 			y.right.parent = x;
 		}
 
-		y.parent = x.parent;      // link x's parent to y
+		y.parent = x.parent;         // link x's parent to y
 
-		if (x.parent == null) {   // special case fix when rotating root
+		if (x.parent === this._nil) { // special case fix when rotating root
 			this._root = y;
 		} else {
 			if (x === x.parent.right) {
@@ -391,8 +399,8 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 			}
 		}
 
-		y.right = x;              // move previous x into y's right child
-		x.parent = y;             // fix y's left child parent pointer
+		y.right = x;                // move previous x into y's right child
+		x.parent = y;               // fix y's left child parent pointer
 	}
 
 	/**
@@ -403,12 +411,12 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 	 * @return {Node<T>} a reference to the successor node.
 	 */
 	public _successor(node: Node<T>): Node<T> {
-		if (node.right != null) {
+		if (node.right !== this._nil) {
 			return this._minimum(node.right);
 		}
 
 		let y = node.parent;
-		while (y != null && node === y.right) {
+		while (y !== this._nil && node === y.right) {
 			node = y;
 			y = y.parent;
 		}
@@ -421,16 +429,18 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 	 * an iterator.
 	 */
 	public *[Symbol.iterator]() {
+		const nil = this._nil;  // nested function workaround for .this
+
 		function getFirstNode(root: Node<T>): Node<T> {
-			if (root == null) {
-				return null;
+			if (root === nil) {
+				return nil;
 			}
 
 			return getLeftMost(root);
 		}
 
 		function getLeftMost(tnode: Node<T>): Node<T> {
-			while (tnode.left != null) {
+			while (tnode.left !== nil) {
 				tnode = tnode.left;
 			}
 
@@ -438,10 +448,10 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 		}
 
 		function getNextNode(tnode: Node<T>): Node<T> {
-			if (tnode.right != null) {
+			if (tnode.right !== nil) {
 				return getLeftMost(tnode.right);
 			} else {
-				while (tnode.parent != null && tnode === tnode.parent.right) {
+				while (tnode.parent !== nil && tnode === tnode.parent.right) {
 					tnode = tnode.parent;
 				}
 
@@ -450,7 +460,7 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 		}
 
 		let node: Node<T> = getFirstNode(this._root);
-		while (node != null) {
+		while (node !== nil) {
 			yield node.data;
 			node = getNextNode(node);
 		}

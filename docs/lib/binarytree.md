@@ -3,7 +3,7 @@
 ## BinaryTree
 Implements a binary tree structure using a Red/Black tree algorithm.
 
-http://staff.ustc.edu.cn/~csli/graduate/algorithms/book6/chap14.htm
+Introduction to Algorithms, Cormen 3rd ed.
 
 **Kind**: global class  
 
