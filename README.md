@@ -136,19 +136,26 @@ console.log(bt.breadthSearch('d'));
 
 console.log(bt.inorder);
 
-// 'a', 'c', 'd', 'g', 'k'
+// ['a', 'c', 'd', 'g', 'k']
 
 console.log(bt.preorder);
 
-// 'c', 'a', 'g', 'd', 'k'
+// ['c', 'a', 'g', 'd', 'k']
 
 console.log(bt.postorder);
 
-// 'a', 'd', 'k', 'g', 'c'
+// ['a', 'd', 'k', 'g', 'c']
 
 console.log(bt.breadth);
 
-// 'c', 'a', 'g', 'd', 'k'
+// ['c', 'a', 'g', 'd', 'k']
+
+for (const val of bt) {
+    console.log(`${val} `);
+}
+
+// inorder, iterator though each node in the tree
+// a c d g k
 
 bt.delete('g');
 
@@ -172,3 +179,5 @@ bt.clear();
 // bt.height === 0
 
 ```
+
+The output above demonstrates all of the basic operations used to interact with the tree.
