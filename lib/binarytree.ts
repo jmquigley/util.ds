@@ -1,7 +1,7 @@
 'use strict';
 
-import {Collection} from './collection';
 import {Comparator} from './comparator';
+import {Iterable} from './iterable';
 import {Color, Node} from './node';
 import {Queue} from './queue';
 import {Tree} from './tree';
@@ -10,11 +10,10 @@ import {Tree} from './tree';
  * Implements a binary tree structure using a Red/Black tree algorithm.
  *
  */
-export class BinaryTree<T> extends Collection<T> implements Tree<T> {
+export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 
 	private _x: Node<T>;
 	private _nil: Node<T>;
-	protected _root: Node<T>;
 	protected _first: Node<T>;
 	protected _last: Node<T>;
 
@@ -137,7 +136,7 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 		while (!q.empty) {
 			node = q.dequeue();
 
-			if (node.data === data) {
+			if (this._cmp(node.data, data) === 0) {
 				return true;
 			}
 
@@ -178,9 +177,9 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 		let node: Node<T> = this._root;
 
 		while (node !== this._nil) {
-			if (node.data === data) {
+			if (this._cmp(node.data, data) === 0) {
 				return true;
-			} else if (node.data < data) {
+			} else if (this._cmp(node.data, data) < 0) {
 				node = node.right;
 			} else {
 				node = node.left;
@@ -388,9 +387,9 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 				return this._x;
 			}
 
-			if (data < node.data) {
+			if (this._cmp(data, node.data) < 0) {
 				node.left = this.insertDelegate(data, node.left, node);
-			} else if (data > node.data) {
+			} else if (this._cmp(data, node.data) > 0) {
 				node.right = this.insertDelegate(data, node.right, node);
 			}
 
@@ -505,9 +504,9 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 		let node: Node<T> = this._root;
 
 		while (node !== this._nil) {
-			if (node.data === data) {
+			if (this._cmp(node.data, data) === 0) {
 				break;
-			} else if (node.data < data) {
+			} else if (this._cmp(node.data, data) < 0) {
 				node = node.right;
 			} else {
 				node = node.left;

@@ -1,9 +1,9 @@
 'use strict';
 
-import {Collection} from './collection';
 import {Comparator} from './comparator';
+import {List} from './list';
 
-export abstract class Tree<T> extends Collection<T> {
+export class SortedList<T> extends List<T> {
 	constructor(cmp: Comparator<T> = null) {
 		super(cmp);
 	}
