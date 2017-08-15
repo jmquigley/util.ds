@@ -9,8 +9,6 @@ import {Tree} from './tree';
 /**
  * Implements a binary tree structure using a Red/Black tree algorithm.
  *
- * Introduction to Algorithms, Cormen 3rd ed.
- *
  */
 export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 

@@ -158,7 +158,7 @@ test('Create a large BinaryTree with numbers', t => {
 	}
 });
 
-test('Test using the BianaryTree in as an iterator', t => {
+test('Test using the BinaryTree in as an iterator', t => {
 	let idx: number = 0;
 	const bt = new BinaryTree<string>(['g', 'c', 'a', 'd', 'k']);
 	const results: string[] = ['a', 'c', 'd', 'g', 'k'];
@@ -205,7 +205,7 @@ test('Test the breadth search for the BinaryTree', t => {
 	t.false(bt.breadthSearch(null));
 });
 
-test('Test the minimum/maximum functions on an emtpy tree', t => {
+test('Test the minimum/maximum functions on an empty tree', t => {
 	const bt = new BinaryTree();
 
 	t.truthy(bt);
