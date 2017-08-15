@@ -101,17 +101,66 @@ q.enqueue(6);
 This will add 5 items to the queue.  The last item adds a 6th element.  That will cause the first item in the queue to be removed automatically before the new item is enqueued.  This provides a way to "age" items within the queue.  When the item is removed a `remove` event fires.  The front item in the queue is considered the oldest item.
 
 ### BinaryTree
-A binary search tree implemented with the [Red/Black algorithm](http://staff.ustc.edu.cn/~csli/graduate/algorithms/book6/chap14.htm).
+A binary search tree implemented using the Red/Black algorithm from [Introduction to Algorithms - Cormen 3rd ed.](https://www.amazon.com/Introduction-Algorithms-3rd-MIT-Press/dp/0262033844).
 
 ```javascript
 import {BinaryTree} from 'util.ds';
 
-const bt = new BinaryTree<string>(['a', 'b', 'c', 'd', 'e']);
+const bt = new BinaryTree<string>(['a', 'c', 'g']);
+
+bt.insert('d');
+bt.insert('k');
+
+//     C
+//    / \
+//   A   G
+//      / \
+//     D   K
 
 // bt.length === 5
 // bt.first === 'a'
-// bt.last === 'e'
+// bt.last === 'k'
+// bt.height === 3
 
+console.log(bt.contains('d'));
 
+// true
 
+console.log(bt.contains('z'));
+
+// false
+
+console.log(bt.breadthSearch('d'));
+
+// true
+
+console.log(bt.inorder);
+
+// 'a', 'c', 'd', 'g', 'k'
+
+console.log(bt.preorder);
+
+// 'c', 'a', 'g', 'd', 'k'
+
+console.log(bt.postorder);
+
+// 'a', 'd', 'k', 'g', 'c'
+
+console.log(bt.breadth);
+
+// 'c', 'a', 'g', 'd', 'k'
+
+bt.delete('g');
+
+//     C
+//    / \
+//   A   K
+//      /
+//     D
+
+bt.delete('c');
+
+//     D
+//    / \
+//   A   K
 ```

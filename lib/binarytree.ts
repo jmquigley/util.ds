@@ -17,8 +17,8 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 	private _x: Node<T>;
 	private _nil: Node<T>;
 	protected _root: Node<T>;
-	protected _first: T;
-	protected _last: T;
+	protected _first: Node<T>;
+	protected _last: Node<T>;
 
 	constructor(arr: T[] = [], cmp: Comparator<T> = null) {
 		super(cmp);
@@ -31,33 +31,19 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 		}
 	}
 
-	get first(): T {
-		return this._first;
-	}
-
-	get height(): number {
-		return this.findHeight(this._root);
-	}
-
-	get last(): T {
-		return this._last;
-	}
-
 	/**
 	 * Performs a breadth first traversal of the tree and saves it to an array
 	 * of T type (of the tree).  The array of data is returned.  Don't use this
 	 * with a large tree.
-	 * @param node {T} the starting node for the search.  This is root by
-	 * default
 	 * @returns {T[]} an array of all elements in the tree in breadth order
 	 */
-	public breadth(node: Node<T> = this._root): T[] {
+	get breadth(): T[] {
+		let node = this._root;
 		const out: T[] = [];
 		const q = new Queue<Node<T>>([node]);
 
 		while (!q.empty) {
 			node = q.dequeue();
-
 			out.push(node.data);
 
 			if (node.left !== this._nil) {
@@ -68,6 +54,65 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 				q.enqueue(node.right);
 			}
 		}
+
+		return out;
+	}
+
+	/**
+	 * @returns {T} the first (min) data element from the tree.
+	 */
+	get first(): T {
+		return this._first.data;
+	}
+
+	/**
+	 * @return {number} computes and returns the height of the tree.
+	 */
+	get height(): number {
+		return this.findHeight(this._root);
+	}
+
+	/**
+	 * @return {T[]} the results of an inorder traversal of the tree.  The
+	 * results are stored in an array and returned.
+	 */
+	get inorder(): T[] {
+		const out: T[] = [];
+		this.inorderDelegate(this._root, out);
+		return out;
+	}
+
+	/**
+	 * @return {T} the last (max) data element from the tree.
+	 */
+	get last(): T {
+		return this._last.data;
+	}
+
+	/**
+	 * @return {Node<T>} the reference to the nil sentinel
+	 */
+	get nil(): Node<T> {
+		return this._nil;
+	}
+
+	/**
+	 * @return {T[]} the results of a postorder traversal of the tree.  The
+	 * results are stored in an array and returned.
+	 */
+	get postorder(): T[] {
+		const out: T[] = [];
+		this.postorderDelegate(this._root, out);
+		return out;
+	}
+
+	/**
+	 * @return {T[]} the results of a preorder traversal of the tree.  The
+	 * results are stored in an array and returned.
+	 */
+	get preorder(): T[] {
+		const out: T[] = [];
+		this.preorderDelegate(this._root, out);
 		return out;
 	}
 
@@ -104,13 +149,119 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 		return false;
 	}
 
+	/**
+	 * Removes the given data value from the tree.
+	 * @param data {T} the data value to remove
+	 */
 	public delete(data: T) {
-		data = null;
-		this.deleteFixUp(null);
+		const z = this._findNode(data);
+
+		if (z !== this._nil) {
+			let x;
+			let y = z;
+			let yOrigColor: Color = y.color;
+
+			if (z.left === this._nil) {
+				x = z.right;
+				this.transplant(z, z.right);
+			} else if (z.right === this._nil) {
+				x = z.left;
+				this.transplant(z, z.left);
+			} else {
+				y = this._minimum(z.right);
+				yOrigColor = y.color;
+				x = y.right;
+
+				if (y.parent === z) {
+					x.parent = y;
+				} else {
+					this.transplant(y, y.right);
+					y.right = z.right;
+					y.right.parent = y;
+				}
+
+				this.transplant(z, y);
+				y.left = z.left;
+				y.left.parent = y;
+				y.color = z.color;
+			}
+
+			if (yOrigColor === Color.black) {
+				this.deleteFixUp(x);
+			}
+
+			if (x.data === this._first.data) {
+				this._first = this._minimum();
+			} else if (x.data === this._last.data) {
+				this._last = this._maximum();
+			}
+
+			this._length--;
+		}
 	}
 
-	private deleteFixUp(node: Node<T>) {
-		node = null;
+	private deleteFixUp(x: Node<T>) {
+		while (x !== this._root && x.color === Color.black) {
+			let w;
+
+			if (x === x.parent.left) {
+				w = x.parent.right;
+
+				if (w.color === Color.red) {
+					w.color = Color.black;
+					x.parent.color = Color.red;
+					this._leftRotate(x.parent);
+					w = x.parent.right;
+				}
+
+				if (w.left.color === Color.black && w.right.color === Color.black) {
+					w.color = Color.red;
+					x = x.parent;
+				} else {
+					if (w.right.color === Color.black) {
+						w.left.color = Color.black;
+						w.color = Color.red;
+						this._rightRotate(w);
+						w = x.parent.right;
+					}
+
+					w.color = x.parent.color;
+					x.parent.color = Color.black;
+					w.right.color = Color.black;
+					this._leftRotate(x.parent);
+					x = this._root;
+				}
+			} else {
+				w = x.parent.left;
+
+				if (w.color === Color.red) {
+					w.color = Color.black;
+					x.parent.color = Color.red;
+					this._rightRotate(x.parent);
+					w = x.parent.left;
+				}
+
+				if (w.left.color === Color.black && w.right.color === Color.black) {
+					w.color = Color.red;
+					x = x.parent;
+				} else {
+					if (w.left.color === Color.black) {
+						w.right.color = Color.black;
+						w.color = Color.red;
+						this._leftRotate(w);
+						w = x.parent.left;
+					}
+
+					w.color = x.parent.color;
+					x.parent.color = Color.black;
+					w.left.color = Color.black;
+					this._rightRotate(x.parent);
+					x = this._root;
+				}
+			}
+		}
+
+		x.color = Color.black;
 	}
 
 	/**
@@ -159,12 +310,6 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 		}
 	}
 
-	public inorder(node: Node<T> = this._root): T[] {
-		const out: T[] = [];
-		this.inorderDelegate(node, out);
-		return out;
-	}
-
 	private inorderDelegate(node: Node<T>, out: T[]) {
 
 		if (node === this._nil) {
@@ -176,6 +321,10 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 		this.inorderDelegate(node.right, out);
 	}
 
+	/**
+	 * Inserts a data element into the tree.
+	 * @param data {T} the data element to insert into the tree
+	 */
 	public insert(data: T) {
 		this._x = this._nil;
 		this.insertDelegate(data, this._root, this._nil);
@@ -193,7 +342,7 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 			this._x = this.newNode(data, parent);
 			this._root = this._x;
 			this._length++;
-			this._first = this._last = data;
+			this._first = this._last = this._x;
 
 			return this._root;
 		} else {
@@ -202,10 +351,10 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 				this._length++;
 				this._x = this.newNode(data, parent);
 
-				if (data < this._first) {
-					this._first = data;
-				} else if (data > this._last) {
-					this._last = data;
+				if (data < this._first.data) {
+					this._first = this._x;
+				} else if (data > this._last.data) {
+					this._last = this._x;
 				}
 
 				return this._x;
@@ -273,12 +422,6 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 		return new Node<T>(data, parent, this._nil, this._nil, Color.red);
 	}
 
-	public postorder(node: Node<T> = this._root): T[] {
-		const out: T[] = [];
-		this.postorderDelegate(node, out);
-		return out;
-	}
-
 	private postorderDelegate(node: Node<T>, out: T[]) {
 
 		if (node === this._nil) {
@@ -290,12 +433,6 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 		out.push(node.data);
 	}
 
-	public preorder(node: Node<T> = this._root): T[] {
-		const out: T[] = [];
-		this.preorderDelegate(node, out);
-		return out;
-	}
-
 	private preorderDelegate(node: Node<T>, out: T[]) {
 
 		if (node === this._nil) {
@@ -305,6 +442,51 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 		out.push(node.data);
 		this.preorderDelegate(node.left, out);
 		this.preorderDelegate(node.right, out);
+	}
+
+	/**
+	 * Replaces one subtree as a child of its parent with another subtree
+	 * @param u {Node<T>} parent subtree
+	 * @param v {Node<T>} child subtree to use in replacement
+	 * @private
+	 */
+	private transplant(u: Node<T>, v: Node<T>) {
+		if (u.parent === this._nil) {
+			this._root = v;
+		} else if (u === u.parent.left) {
+			u.parent.left = v;
+		} else {
+			u.parent.right = v;
+		}
+
+		v.parent = u.parent;
+	}
+
+	// The functions below are private by convention, but have a public
+	// interface.  They generally wouldn't be used in the use api, but are
+	// exposed for unit test confirmation.  They use the leading _ value
+	// to denote them as private.
+
+	/**
+	 * Searches the tree for a specific node within the tree.
+	 * @param data {T} the data value to search for in the tree.
+	 * @return {Node<T>} if the data is found, then the node that holds it is
+	 * returned.  If it is not found, then nil is returned.
+	 */
+	public _findNode(data: T): Node<T> {
+		let node: Node<T> = this._root;
+
+		while (node !== this._nil) {
+			if (node.data === data) {
+				break;
+			} else if (node.data < data) {
+				node = node.right;
+			} else {
+				node = node.left;
+			}
+		}
+
+		return node;
 	}
 
 	/**

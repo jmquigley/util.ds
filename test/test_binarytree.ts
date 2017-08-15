@@ -9,6 +9,7 @@ function testNumberTree(size: number, t: any): BinaryTree<number> {
 	const bt = new BinaryTree<number>();
 
 	t.truthy(bt);
+	t.is(bt.root, bt.nil);
 
 	for (let i = 0; i < size; i++) {
 		bt.insert(i);
@@ -43,7 +44,7 @@ test('Test BinaryTree inorder traversal', t => {
 	t.is(bt.first, 'a');
 	t.is(bt.last, 'k');
 
-	t.deepEqual(bt.inorder(), ['a', 'c', 'd', 'g', 'k']);
+	t.deepEqual(bt.inorder, ['a', 'c', 'd', 'g', 'k']);
 });
 
 test('Test BinaryTree preorder traversal', t => {
@@ -54,7 +55,7 @@ test('Test BinaryTree preorder traversal', t => {
 	t.is(bt.first, 'a');
 	t.is(bt.last, 'k');
 
-	t.deepEqual(bt.preorder(), ['c', 'a', 'g', 'd', 'k']);
+	t.deepEqual(bt.preorder, ['c', 'a', 'g', 'd', 'k']);
 });
 
 test('Test BinaryTree postorder traversal', t => {
@@ -65,7 +66,7 @@ test('Test BinaryTree postorder traversal', t => {
 	t.is(bt.first, 'a');
 	t.is(bt.last, 'k');
 
-	t.deepEqual(bt.postorder(), ['a', 'd', 'k', 'g', 'c']);
+	t.deepEqual(bt.postorder, ['a', 'd', 'k', 'g', 'c']);
 });
 
 test('Test the BinaryTree breadth traversal', t => {
@@ -76,7 +77,7 @@ test('Test the BinaryTree breadth traversal', t => {
 	t.is(bt.first, 'a');
 	t.is(bt.last, 'k');
 
-	t.deepEqual(bt.breadth(), ['c', 'a', 'g', 'd', 'k']);
+	t.deepEqual(bt.breadth, ['c', 'a', 'g', 'd', 'k']);
 });
 
 test('Test left and right rotation', t => {
@@ -102,7 +103,7 @@ test('Test left and right rotation', t => {
 	t.is(bt.size, 5);
 	let out;
 
-	out = bt.inorder();
+	out = bt.inorder;
 	t.truthy(out);
 	t.deepEqual(out, ['a', 'c', 'd', 'g', 'k']);
 
@@ -120,7 +121,7 @@ test('Test left and right rotation', t => {
 	t.is(bt.root.left.left.data, 'a');
 	t.is(bt.root.left.right.data, 'd');
 
-	out = bt.inorder();
+	out = bt.inorder;
 	t.truthy(out);
 	t.deepEqual(out, ['a', 'c', 'd', 'g', 'k']);
 
@@ -138,7 +139,7 @@ test('Test left and right rotation', t => {
 	t.is(bt.root.right.left.data, 'd');
 	t.is(bt.root.right.right.data, 'k');
 
-	out = bt.inorder();
+	out = bt.inorder;
 	t.truthy(out);
 	t.deepEqual(out, ['a', 'c', 'd', 'g', 'k']);
 });
@@ -146,7 +147,7 @@ test('Test left and right rotation', t => {
 test('Create a large BinaryTree with numbers', t => {
 	const size: number = 10000;
 	const bt = testNumberTree(size, t);
-	const out = bt.inorder();
+	const out = bt.inorder;
 	t.truthy(out);
 	t.is(out.length, size);
 
@@ -161,7 +162,7 @@ test('Test using the BianaryTree in as an iterator', t => {
 	const results: string[] = ['a', 'c', 'd', 'g', 'k'];
 
 	t.truthy(bt);
-	t.deepEqual(bt.inorder(), results);
+	t.deepEqual(bt.inorder, results);
 
 	for (const val of bt) {
 		t.is(val, results[idx++]);
@@ -198,6 +199,14 @@ test('Test the breadth search for the BinaryTree', t => {
 	}
 });
 
+test('Test the minimum/maximum functions on an emtpy tree', t => {
+	const bt = new BinaryTree();
+
+	t.truthy(bt);
+	t.is(bt._maximum(), bt.nil);
+	t.is(bt._minimum(), bt.nil);
+});
+
 test('Test with a large file word list in BinaryTree', t => {
 	const bt = new BinaryTree<string>();
 	const words = fs.readFileSync(join(process.cwd(), 'test', 'data', 'words.txt'), 'utf-8').split(/\r?\n/);
@@ -217,10 +226,16 @@ test('Test with a large file word list in BinaryTree', t => {
 	t.true(bt.contains('jadelike'));
 	t.true(bt.contains('kingmaker'));
 	t.true(bt.contains('queak'));
-
 	t.false(bt.contains('alskdjglkajsdglkajdlkfjasldkjga'));
 	t.false(bt.contains('alskdjglkajsdglkfjasldkjga'));
 	t.false(bt.contains('alskdjglkajdlkfjasldkjga'));
+
+	for (const word of words) {
+		t.true(bt.contains(word));
+		bt.delete(word);
+	}
+
+	t.is(bt.length, 0);
 });
 
 test('Test the BinaryTree node successor function', t => {
@@ -228,7 +243,7 @@ test('Test the BinaryTree node successor function', t => {
 
 	t.is(bt.size, 5);
 
-	const out = bt.inorder();
+	const out = bt.inorder;
 	t.truthy(out);
 	t.deepEqual(out, ['a', 'c', 'd', 'g', 'k']);
 
@@ -245,4 +260,43 @@ test('Test the BinaryTree node successor function', t => {
 	// No successor
 	successor = bt._successor(bt.root.right.right); // 'k'
 	t.is(successor.data, null);
+});
+
+test('Test the node search function for BinaryTree', t => {
+	const data = ['g', 'c', 'a', 'd', 'k'];
+	const bt = new BinaryTree<string>(data);
+
+	t.truthy(bt);
+	t.is(bt.size, 5);
+	t.is(bt.first, 'a');
+	t.is(bt.last, 'k');
+	t.deepEqual(bt.inorder, ['a', 'c', 'd', 'g', 'k']);
+
+	for (const val of data) {
+		const node = bt._findNode(val);
+		t.is(node.data, val);
+	}
+});
+
+test('Deletes a data element from the BinaryTree', t => {
+	const bt = new BinaryTree<string>(['g', 'c', 'a', 'd', 'k']);
+
+	t.truthy(bt);
+	t.is(bt.size, 5);
+	t.deepEqual(bt.inorder, ['a', 'c', 'd', 'g', 'k']);
+
+	bt.delete('g');
+	t.deepEqual(bt.inorder, ['a', 'c', 'd', 'k']);
+
+	t.is(bt.root.data, 'c');
+	t.is(bt.root.left.data, 'a');
+	t.is(bt.root.right.data, 'k');
+	t.is(bt.root.right.left.data, 'd');
+
+	bt.delete('c');
+	t.deepEqual(bt.inorder, ['a', 'd', 'k']);
+
+	t.is(bt.root.data, 'd');
+	t.is(bt.root.left.data, 'a');
+	t.is(bt.root.right.data, 'k');
 });
