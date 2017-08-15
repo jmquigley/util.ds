@@ -69,7 +69,8 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 	 * @return {number} computes and returns the height of the tree.
 	 */
 	get height(): number {
-		return this.findHeight(this._root);
+		const h = this.findHeight(this._root);
+		return (h <= 0) ? 0 : h;
 	}
 
 	/**
@@ -128,6 +129,11 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 	 * false is returned.
 	 */
 	public breadthSearch(data: T, node: Node<T> = this._root): boolean {
+
+		if (data == null) {
+			return false;
+		}
+
 		const q = new Queue<Node<T>>([node]);
 
 		while (!q.empty) {
@@ -150,10 +156,52 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 	}
 
 	/**
+	 * Initializes the object to an emtpy state.  This can be used to
+	 * quickly empty the tree and start over.
+	 */
+	public clear(): void {
+		super.clear();
+		this._first = this._last = this._root = this._x = this._nil;
+	}
+
+	/**
+	 * Performs a typically binary search through the tree.
+	 * @param data {T} the data element to search for (based on the data type
+	 * of the tree)
+	 * @return {boolean} true if the item is found in the tree, otherwise
+	 * false is returned.
+	 */
+	public contains(data: T): boolean {
+
+		if (data == null) {
+			return false;
+		}
+
+		let node: Node<T> = this._root;
+
+		while (node !== this._nil) {
+			if (node.data === data) {
+				return true;
+			} else if (node.data < data) {
+				node = node.right;
+			} else {
+				node = node.left;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Removes the given data value from the tree.
 	 * @param data {T} the data value to remove
 	 */
 	public delete(data: T) {
+
+		if (data == null) {
+			return;
+		}
+
 		const z = this._findNode(data);
 
 		if (z !== this._nil) {
@@ -265,29 +313,6 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 	}
 
 	/**
-	 * Performs a typically binary search through the tree.
-	 * @param data {T} the data element to search for (based on the data type
-	 * of the tree)
-	 * @return {boolean} true if the item is found in the tree, otherwise
-	 * false is returned.
-	 */
-	public contains(data: T): boolean {
-		let node: Node<T> = this._root;
-
-		while (node !== this._nil) {
-			if (node.data === data) {
-				return true;
-			} else if (node.data < data) {
-				node = node.right;
-			} else {
-				node = node.left;
-			}
-		}
-
-		return false;
-	}
-
-	/**
 	 * Internal method that traverses the tree to compute the current height.
 	 * This is used by the `.height` property
 	 * @param node {Node<T>} the starting node position to start the height
@@ -326,6 +351,11 @@ export class BinaryTree<T> extends Collection<T> implements Tree<T> {
 	 * @param data {T} the data element to insert into the tree
 	 */
 	public insert(data: T) {
+
+		if (data == null) {
+			return;
+		}
+
 		this._x = this._nil;
 		this.insertDelegate(data, this._root, this._nil);
 

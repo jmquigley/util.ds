@@ -17,8 +17,9 @@ Introduction to Algorithms, Cormen 3rd ed.
     * [.postorder](#BinaryTree+postorder) ⇒ <code>Array.&lt;T&gt;</code>
     * [.preorder](#BinaryTree+preorder) ⇒ <code>Array.&lt;T&gt;</code>
     * [.breadthSearch(data, node)](#BinaryTree+breadthSearch) ⇒ <code>boolean</code>
-    * [.delete(data)](#BinaryTree+delete)
+    * [.clear()](#BinaryTree+clear)
     * [.contains(data)](#BinaryTree+contains) ⇒ <code>boolean</code>
+    * [.delete(data)](#BinaryTree+delete)
     * [.insert(data)](#BinaryTree+insert)
     * [._findNode(data)](#BinaryTree+_findNode) ⇒ <code>Node.&lt;T&gt;</code>
     * [._maximum(node)](#BinaryTree+_maximum) ⇒ <code>Node.&lt;T&gt;</code>
@@ -90,17 +91,13 @@ false is returned.
 | data | <code>T</code> | the data element to search for (based on the data type of the tree) |
 | node | <code>T</code> | the starting node for the search.  This is root by default |
 
-<a name="BinaryTree+delete"></a>
+<a name="BinaryTree+clear"></a>
 
-### binaryTree.delete(data)
-Removes the given data value from the tree.
+### binaryTree.clear()
+Initializes the object to an emtpy state.  This can be used to
+quickly empty the tree and start over.
 
 **Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>T</code> | the data value to remove |
-
 <a name="BinaryTree+contains"></a>
 
 ### binaryTree.contains(data) ⇒ <code>boolean</code>
@@ -113,6 +110,17 @@ false is returned.
 | Param | Type | Description |
 | --- | --- | --- |
 | data | <code>T</code> | the data element to search for (based on the data type of the tree) |
+
+<a name="BinaryTree+delete"></a>
+
+### binaryTree.delete(data)
+Removes the given data value from the tree.
+
+**Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code>T</code> | the data value to remove |
 
 <a name="BinaryTree+insert"></a>
 

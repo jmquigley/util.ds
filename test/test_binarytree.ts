@@ -33,7 +33,8 @@ test('Create a simple BinaryTree', t => {
 
 	t.truthy(bt);
 	t.is(bt.size, 0);
-	t.falsy(bt.root);
+	t.is(bt.root, bt.nil);
+	t.is(bt.height, 0);
 });
 
 test('Test BinaryTree inorder traversal', t => {
@@ -99,6 +100,7 @@ test('Test left and right rotation', t => {
 	bt.insert('a');
 	bt.insert('d');
 	bt.insert('k');
+	bt.insert(null);
 
 	t.is(bt.size, 5);
 	let out;
@@ -187,6 +189,8 @@ test('Test the contains method for the BinaryTree', t => {
 		t.true(bt.contains(i));
 		t.false(bt.contains(i + size));
 	}
+
+	t.false(bt.contains(null));
 });
 
 test('Test the breadth search for the BinaryTree', t => {
@@ -197,6 +201,8 @@ test('Test the breadth search for the BinaryTree', t => {
 		t.true(bt.breadthSearch(i));
 		t.false(bt.breadthSearch(i + size));
 	}
+
+	t.false(bt.breadthSearch(null));
 });
 
 test('Test the minimum/maximum functions on an emtpy tree', t => {
@@ -294,6 +300,7 @@ test('Deletes a data element from the BinaryTree', t => {
 	t.is(bt.root.right.left.data, 'd');
 
 	bt.delete('c');
+	bt.delete(null);
 	t.deepEqual(bt.inorder, ['a', 'd', 'k']);
 
 	t.is(bt.root.data, 'd');

@@ -163,4 +163,12 @@ bt.delete('c');
 //     D
 //    / \
 //   A   K
+
+bt.clear();
+
+// bt.length === 0
+// bt.first === nil
+// bt.last === nil
+// bt.height === 0
+
 ```
