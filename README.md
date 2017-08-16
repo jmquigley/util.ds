@@ -4,7 +4,7 @@
 
 This module contains my implementation of a few basic data structures using [Typescript](https://www.typescriptlang.org/).  I could have used other implementations, but what fun is that.
 
-It Contains the following data structures:
+It contains the following data structures:
 
 - [BinaryTree](docs/lib/binarytree.md)
 - [Deque](docs/lib/deque.md)
@@ -287,7 +287,7 @@ When an element is added to the stack an `insert` event fires.  When an element 
 
 ## Comparators
 
-These data structures work with primative data types by default.  Each object can also accept a user defined data type.  This requires a [Comparator](docs/lib/comparator.md) object to define how two user defined objects an be compared.
+These data structures work with primitive data types by default.  Each object can also accept a user defined data type.  This requires a [Comparator](docs/lib/comparator.md) object to define how two user defined objects can be compared.
 
 ```javascript
 import {BinaryTree, Comparator} from 'util.ds'
