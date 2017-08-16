@@ -238,7 +238,7 @@ test('Test with a large file word list in BinaryTree', t => {
 
 	for (const word of words) {
 		t.true(bt.contains(word));
-		bt.delete(word);
+		bt.remove(word);
 	}
 
 	t.is(bt.length, 0);
@@ -291,7 +291,7 @@ test('Deletes a data element from the BinaryTree', t => {
 	t.is(bt.size, 5);
 	t.deepEqual(bt.inorder, ['a', 'c', 'd', 'g', 'k']);
 
-	bt.delete('g');
+	bt.remove('g');
 	t.deepEqual(bt.inorder, ['a', 'c', 'd', 'k']);
 
 	t.is(bt.root.data, 'c');
@@ -299,8 +299,8 @@ test('Deletes a data element from the BinaryTree', t => {
 	t.is(bt.root.right.data, 'k');
 	t.is(bt.root.right.left.data, 'd');
 
-	bt.delete('c');
-	bt.delete(null);
+	bt.remove('c');
+	bt.remove(null);
 	t.deepEqual(bt.inorder, ['a', 'd', 'k']);
 
 	t.is(bt.root.data, 'd');

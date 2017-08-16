@@ -7,18 +7,15 @@ Implements a binary tree structure using a Red/Black tree algorithm.
 
 * [BinaryTree](#BinaryTree)
     * [.breadth](#BinaryTree+breadth) ⇒ <code>Array.&lt;T&gt;</code>
-    * [.first](#BinaryTree+first) ⇒ <code>T</code>
     * [.height](#BinaryTree+height) ⇒ <code>number</code>
     * [.inorder](#BinaryTree+inorder) ⇒ <code>Array.&lt;T&gt;</code>
-    * [.last](#BinaryTree+last) ⇒ <code>T</code>
-    * [.nil](#BinaryTree+nil) ⇒ <code>Node.&lt;T&gt;</code>
     * [.postorder](#BinaryTree+postorder) ⇒ <code>Array.&lt;T&gt;</code>
     * [.preorder](#BinaryTree+preorder) ⇒ <code>Array.&lt;T&gt;</code>
     * [.breadthSearch(data, node)](#BinaryTree+breadthSearch) ⇒ <code>boolean</code>
     * [.clear()](#BinaryTree+clear)
     * [.contains(data)](#BinaryTree+contains) ⇒ <code>boolean</code>
-    * [.delete(data)](#BinaryTree+delete)
     * [.insert(data)](#BinaryTree+insert)
+    * [.remove(data)](#BinaryTree+remove)
     * [._findNode(data)](#BinaryTree+_findNode) ⇒ <code>Node.&lt;T&gt;</code>
     * [._maximum(node)](#BinaryTree+_maximum) ⇒ <code>Node.&lt;T&gt;</code>
     * [._minimum(node)](#BinaryTree+_minimum) ⇒ <code>Node.&lt;T&gt;</code>
@@ -35,11 +32,6 @@ with a large tree.
 
 **Kind**: instance property of [<code>BinaryTree</code>](#BinaryTree)  
 **Returns**: <code>Array.&lt;T&gt;</code> - an array of all elements in the tree in breadth order  
-<a name="BinaryTree+first"></a>
-
-### binaryTree.first ⇒ <code>T</code>
-**Kind**: instance property of [<code>BinaryTree</code>](#BinaryTree)  
-**Returns**: <code>T</code> - the first (min) data element from the tree.  
 <a name="BinaryTree+height"></a>
 
 ### binaryTree.height ⇒ <code>number</code>
@@ -51,16 +43,6 @@ with a large tree.
 **Kind**: instance property of [<code>BinaryTree</code>](#BinaryTree)  
 **Returns**: <code>Array.&lt;T&gt;</code> - the results of an inorder traversal of the tree.  The
 results are stored in an array and returned.  
-<a name="BinaryTree+last"></a>
-
-### binaryTree.last ⇒ <code>T</code>
-**Kind**: instance property of [<code>BinaryTree</code>](#BinaryTree)  
-**Returns**: <code>T</code> - the last (max) data element from the tree.  
-<a name="BinaryTree+nil"></a>
-
-### binaryTree.nil ⇒ <code>Node.&lt;T&gt;</code>
-**Kind**: instance property of [<code>BinaryTree</code>](#BinaryTree)  
-**Returns**: <code>Node.&lt;T&gt;</code> - the reference to the nil sentinel  
 <a name="BinaryTree+postorder"></a>
 
 ### binaryTree.postorder ⇒ <code>Array.&lt;T&gt;</code>
@@ -109,17 +91,6 @@ false is returned.
 | --- | --- | --- |
 | data | <code>T</code> | the data element to search for (based on the data type of the tree) |
 
-<a name="BinaryTree+delete"></a>
-
-### binaryTree.delete(data)
-Removes the given data value from the tree.
-
-**Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>T</code> | the data value to remove |
-
 <a name="BinaryTree+insert"></a>
 
 ### binaryTree.insert(data)
@@ -130,6 +101,17 @@ Inserts a data element into the tree.
 | Param | Type | Description |
 | --- | --- | --- |
 | data | <code>T</code> | the data element to insert into the tree |
+
+<a name="BinaryTree+remove"></a>
+
+### binaryTree.remove(data)
+Removes the given data value from the tree.
+
+**Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code>T</code> | the data value to remove |
 
 <a name="BinaryTree+_findNode"></a>
 

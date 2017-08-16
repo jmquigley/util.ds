@@ -13,15 +13,11 @@ import {Tree} from './tree';
 export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 
 	private _x: Node<T>;
-	private _nil: Node<T>;
-	protected _first: Node<T>;
-	protected _last: Node<T>;
 
 	constructor(arr: T[] = [], cmp: Comparator<T> = null) {
 		super(cmp);
 
-		this._nil = new Node<T>(null, null, null, null, Color.black);
-		this._root = this._x = this._nil;
+		this._x = this._nil;
 
 		for (const it of arr) {
 			this.insert(it);
@@ -56,13 +52,6 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	}
 
 	/**
-	 * @returns {T} the first (min) data element from the tree.
-	 */
-	get first(): T {
-		return this._first.data;
-	}
-
-	/**
 	 * @return {number} computes and returns the height of the tree.
 	 */
 	get height(): number {
@@ -78,20 +67,6 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 		const out: T[] = [];
 		this.inorderDelegate(this._root, out);
 		return out;
-	}
-
-	/**
-	 * @return {T} the last (max) data element from the tree.
-	 */
-	get last(): T {
-		return this._last.data;
-	}
-
-	/**
-	 * @return {Node<T>} the reference to the nil sentinel
-	 */
-	get nil(): Node<T> {
-		return this._nil;
 	}
 
 	/**
@@ -190,126 +165,6 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	}
 
 	/**
-	 * Removes the given data value from the tree.
-	 * @param data {T} the data value to remove
-	 */
-	public delete(data: T) {
-
-		if (data == null) {
-			return;
-		}
-
-		const z = this._findNode(data);
-
-		if (z !== this._nil) {
-			let x;
-			let y = z;
-			let yOrigColor: Color = y.color;
-
-			if (z.left === this._nil) {
-				x = z.right;
-				this.transplant(z, z.right);
-			} else if (z.right === this._nil) {
-				x = z.left;
-				this.transplant(z, z.left);
-			} else {
-				y = this._minimum(z.right);
-				yOrigColor = y.color;
-				x = y.right;
-
-				if (y.parent === z) {
-					x.parent = y;
-				} else {
-					this.transplant(y, y.right);
-					y.right = z.right;
-					y.right.parent = y;
-				}
-
-				this.transplant(z, y);
-				y.left = z.left;
-				y.left.parent = y;
-				y.color = z.color;
-			}
-
-			if (yOrigColor === Color.black) {
-				this.deleteFixUp(x);
-			}
-
-			if (x.data === this._first.data) {
-				this._first = this._minimum();
-			} else if (x.data === this._last.data) {
-				this._last = this._maximum();
-			}
-
-			this._length--;
-		}
-	}
-
-	private deleteFixUp(x: Node<T>) {
-		while (x !== this._root && x.color === Color.black) {
-			let w;
-
-			if (x === x.parent.left) {
-				w = x.parent.right;
-
-				if (w.color === Color.red) {
-					w.color = Color.black;
-					x.parent.color = Color.red;
-					this._leftRotate(x.parent);
-					w = x.parent.right;
-				}
-
-				if (w.left.color === Color.black && w.right.color === Color.black) {
-					w.color = Color.red;
-					x = x.parent;
-				} else {
-					if (w.right.color === Color.black) {
-						w.left.color = Color.black;
-						w.color = Color.red;
-						this._rightRotate(w);
-						w = x.parent.right;
-					}
-
-					w.color = x.parent.color;
-					x.parent.color = Color.black;
-					w.right.color = Color.black;
-					this._leftRotate(x.parent);
-					x = this._root;
-				}
-			} else {
-				w = x.parent.left;
-
-				if (w.color === Color.red) {
-					w.color = Color.black;
-					x.parent.color = Color.red;
-					this._rightRotate(x.parent);
-					w = x.parent.left;
-				}
-
-				if (w.left.color === Color.black && w.right.color === Color.black) {
-					w.color = Color.red;
-					x = x.parent;
-				} else {
-					if (w.left.color === Color.black) {
-						w.right.color = Color.black;
-						w.color = Color.red;
-						this._leftRotate(w);
-						w = x.parent.left;
-					}
-
-					w.color = x.parent.color;
-					x.parent.color = Color.black;
-					w.left.color = Color.black;
-					this._rightRotate(x.parent);
-					x = this._root;
-				}
-			}
-		}
-
-		x.color = Color.black;
-	}
-
-	/**
 	 * Internal method that traverses the tree to compute the current height.
 	 * This is used by the `.height` property
 	 * @param node {Node<T>} the starting node position to start the height
@@ -361,6 +216,8 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 		if (this._x !== this._nil) {
 			this.insertFixUp(this._x);
 		}
+
+		this.emit('insert', this._x);
 	}
 
 	private insertDelegate(data: T, node: Node<T> = this._root, parent: Node<T> = this._nil): Node<T> {
@@ -469,6 +326,127 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 		out.push(node.data);
 		this.preorderDelegate(node.left, out);
 		this.preorderDelegate(node.right, out);
+	}
+
+	/**
+	 * Removes the given data value from the tree.
+	 * @param data {T} the data value to remove
+	 */
+	public remove(data: T) {
+
+		if (data == null) {
+			return;
+		}
+
+		const z = this._findNode(data);
+
+		if (z !== this._nil) {
+			let x;
+			let y = z;
+			let yOrigColor: Color = y.color;
+
+			if (z.left === this._nil) {
+				x = z.right;
+				this.transplant(z, z.right);
+			} else if (z.right === this._nil) {
+				x = z.left;
+				this.transplant(z, z.left);
+			} else {
+				y = this._minimum(z.right);
+				yOrigColor = y.color;
+				x = y.right;
+
+				if (y.parent === z) {
+					x.parent = y;
+				} else {
+					this.transplant(y, y.right);
+					y.right = z.right;
+					y.right.parent = y;
+				}
+
+				this.transplant(z, y);
+				y.left = z.left;
+				y.left.parent = y;
+				y.color = z.color;
+			}
+
+			if (yOrigColor === Color.black) {
+				this.removeFixUp(x);
+			}
+
+			if (x.data === this._first.data) {
+				this._first = this._minimum();
+			} else if (x.data === this._last.data) {
+				this._last = this._maximum();
+			}
+
+			this._length--;
+			this.emit('remove', z);
+		}
+	}
+
+	private removeFixUp(x: Node<T>) {
+		while (x !== this._root && x.color === Color.black) {
+			let w;
+
+			if (x === x.parent.left) {
+				w = x.parent.right;
+
+				if (w.color === Color.red) {
+					w.color = Color.black;
+					x.parent.color = Color.red;
+					this._leftRotate(x.parent);
+					w = x.parent.right;
+				}
+
+				if (w.left.color === Color.black && w.right.color === Color.black) {
+					w.color = Color.red;
+					x = x.parent;
+				} else {
+					if (w.right.color === Color.black) {
+						w.left.color = Color.black;
+						w.color = Color.red;
+						this._rightRotate(w);
+						w = x.parent.right;
+					}
+
+					w.color = x.parent.color;
+					x.parent.color = Color.black;
+					w.right.color = Color.black;
+					this._leftRotate(x.parent);
+					x = this._root;
+				}
+			} else {
+				w = x.parent.left;
+
+				if (w.color === Color.red) {
+					w.color = Color.black;
+					x.parent.color = Color.red;
+					this._rightRotate(x.parent);
+					w = x.parent.left;
+				}
+
+				if (w.left.color === Color.black && w.right.color === Color.black) {
+					w.color = Color.red;
+					x = x.parent;
+				} else {
+					if (w.left.color === Color.black) {
+						w.right.color = Color.black;
+						w.color = Color.red;
+						this._leftRotate(w);
+						w = x.parent.left;
+					}
+
+					w.color = x.parent.color;
+					x.parent.color = Color.black;
+					w.left.color = Color.black;
+					this._rightRotate(x.parent);
+					x = this._root;
+				}
+			}
+		}
+
+		x.color = Color.black;
 	}
 
 	/**

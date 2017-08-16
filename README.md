@@ -114,7 +114,7 @@ bt.clear();
 
 ```
 
-The output above demonstrates all of the basic operations used to interact with the tree.
+The output above demonstrates all of the basic operations used to interact with the tree.  When an element is added to the tree an `insert` event fires.  When an element is deleted from the tree a `delete` event fires.
 
 
 ### Deque

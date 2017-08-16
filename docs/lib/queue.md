@@ -11,7 +11,6 @@ Simple FIFO queue implementation
     * [.eject(data)](#Queue+eject)
     * [.end()](#Queue+end) ⇒ <code>Object</code>
     * [.enqueue(data)](#Queue+enqueue)
-    * [.front()](#Queue+front) ⇒ <code>Object</code>
     * [.push(data)](#Queue+push)
 
 <a name="Queue+dequeue"></a>
@@ -59,13 +58,6 @@ Adds an item to the end of the queue.
 | --- | --- | --- |
 | data | <code>Object</code> | the data to insert into the queue. |
 
-<a name="Queue+front"></a>
-
-### queue.front() ⇒ <code>Object</code>
-Makes a copy and returns the first item in the queue without removing it
-
-**Kind**: instance method of [<code>Queue</code>](#Queue)  
-**Returns**: <code>Object</code> - the data associated with the front of the queue.  
 <a name="Queue+push"></a>
 
 ### queue.push(data)

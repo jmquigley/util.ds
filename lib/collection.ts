@@ -2,12 +2,15 @@
 
 import {EventEmitter} from 'events';
 import {Comparator, defaultComparatorFn} from './comparator';
-import {Node} from './node';
+import {Color, Node} from './node';
 
 export abstract class Collection<T> extends EventEmitter {
-	protected _root: Node<T> = null;
+	protected _cmp: Comparator<T>;
+	protected _first: Node<T>;
+	protected _last: Node<T>;
 	protected _length: number = 0;
-	protected _cmp: Comparator<T> = null;
+	protected _nil: Node<T>;
+	protected _root: Node<T>;
 
 	/**
 	 * Base class constructor for all collection classes.
@@ -17,6 +20,9 @@ export abstract class Collection<T> extends EventEmitter {
 	 */
 	constructor(cmp: Comparator<T> = null) {
 		super();
+
+		this._nil = new Node<T>(null, null, null, null, Color.black);
+		this._first = this._last = this._root = this._nil;
 
 		if (cmp == null) {
 			// Creates a default comparator if a custom one is not
@@ -29,18 +35,65 @@ export abstract class Collection<T> extends EventEmitter {
 		this.clear();
 	}
 
+	/**
+	 * @return {T} the last (max) data element from the tree.
+	 */
+	get back(): T {
+		return this._last.data;
+	}
+
+	/**
+	 * @return {boolean} return true if the list has no nodes, otherwise false
+	 */
 	get empty(): boolean {
 		return this._length === 0;
 	}
 
+	/**
+	 * @returns {T} the first (min) data element from the tree.
+	 */
+	get first(): T {
+		return this._first.data;
+	}
+
+	/**
+	 * @returns {T} the front (min) data element from the tree.
+	 */
+	get front(): T {
+		return this._first.data;
+	}
+
+	/**
+	 * @return {T} the last (max) data element from the tree.
+	 */
+	get last(): T {
+		return this._last.data;
+	}
+
+	/**
+	 * @return {number} the number of nodes in this collection
+	 */
 	get length(): number {
 		return this._length;
 	}
 
+	/**
+	 * @return {Node<T>} the reference to the nil sentinel
+	 */
+	get nil(): Node<T> {
+		return this._nil;
+	}
+
+	/**
+	 * @return {Node<T>} the front/first node in the collection
+	 */
 	get root(): Node<T> {
 		return this._root;
 	}
 
+	/**
+	 * @return {number} the number of nodes in this collection
+	 */
 	get size(): number {
 		return this._length;
 	}

@@ -115,14 +115,6 @@ export class Queue<T> extends Stack<T> {
 	}
 
 	/**
-	 * Makes a copy and returns the first item in the queue without removing it
-	 * @returns {Object} the data associated with the front of the queue.
-	 */
-	public front(): T {
-		return(this.top());
-	}
-
-	/**
 	 * Override wrapper for the push function from the inherited stack.  A
 	 * stack always pushes to the front.  The general queue should always push
 	 * to the end of the structure.
