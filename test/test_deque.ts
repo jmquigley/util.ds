@@ -12,20 +12,22 @@ interface TestData {
 test('Create an emtpy Deque', t => {
 	const dq = new Deque<number>();
 
-	t.true(dq && dq instanceof Deque);
+	t.truthy(dq);
 	t.true(dq.isEmpty());
-	t.true(dq.peekFront() === null);
-	t.true(dq.peekBack() === null);
+	t.true(dq.empty);
+	t.true(dq.front === null);
+	t.true(dq.back === null);
 	t.true(dq.popFront() == null);
 	t.true(dq.popBack() == null);
+	t.snapshot(dq);
 });
 
 test('Add/Remove items from the front of the deque', t => {
 	const dq = new Deque<number>();
 	const n: number = 5;
 
-	t.true(dq && dq instanceof Deque);
-	t.true(dq.isEmpty());
+	t.truthy(dq);
+	t.true(dq.empty);
 
 	for (let i: number = 0; i < n; i++) {
 		dq.pushFront(i);
@@ -34,20 +36,20 @@ test('Add/Remove items from the front of the deque', t => {
 	t.is(dq.size, 5);
 
 	for (let i: number = n; i > 0; i--) {
-		t.true(dq.length === i);
-		t.true(dq.peekFront() === (i - 1));
-		t.true(dq.popFront() === (i - 1));
+		t.is(dq.length, i);
+		t.is(dq.front, (i - 1));
+		t.is(dq.popFront(), (i - 1));
 	}
 
-	t.true(dq.isEmpty());
+	t.true(dq.empty);
 });
 
 test('Add/Remove items from the back of the deque', t => {
 	const dq = new Deque<number>();
 	const n: number = 5;
 
-	t.true(dq && dq instanceof Deque);
-	t.true(dq.isEmpty());
+	t.truthy(dq);
+	t.true(dq.empty);
 
 	for (let i: number = 0; i < n; i++) {
 		dq.pushBack(i);
@@ -56,66 +58,70 @@ test('Add/Remove items from the back of the deque', t => {
 	t.is(dq.size, 5);
 
 	for (let i: number = n; i > 0; i--) {
-		t.true(dq.length === i);
-		t.true(dq.peekBack() === (i - 1));
-		t.true(dq.popBack() === (i - 1));
+		t.is(dq.length, i);
+		t.is(dq.back, (i - 1));
+		t.is(dq.popBack(), (i - 1));
 	}
 
-	t.true(dq.isEmpty());
+	t.true(dq.empty);
 });
 
-test('Test deque add event (pushFront)', t => {
+test.cb('Test deque insert event (pushFront)', t => {
 	const dq = new Deque<number>();
 
-	t.true(dq && dq instanceof Deque);
-	t.true(dq.isEmpty());
+	t.truthy(dq);
+	t.true(dq.empty);
 
 	const n: number = 100;
-	dq.on('add', (data: any) => {
+	dq.on('insert', (data: any) => {
 		t.is(data, n);
+		t.end();
 	});
 
 	dq.pushFront(n);
 });
 
-test('Test deque remove event (popFront)', t => {
+test.cb('Test deque remove event (popFront)', t => {
 	const dq = new Deque<number>();
 
-	t.true(dq && dq instanceof Deque);
-	t.true(dq.isEmpty());
+	t.truthy(dq);
+	t.true(dq.empty);
 
 	const n: number = 100;
 	dq.on('remove', (data: any) => {
 		t.is(data, n);
+		t.end();
 	});
 
 	dq.pushFront(n);
 	dq.popFront();
 });
 
-test('Test deque add event (pushBack)', t => {
+test.cb('Test deque insert event (pushBack)', t => {
 	const dq = new Deque<number>();
 
-	t.true(dq && dq instanceof Deque);
-	t.true(dq.isEmpty());
+	t.truthy(dq);
+	t.true(dq.empty);
 
 	const n: number = 100;
-	dq.on('add', (data: any) => {
+	dq.on('insert', (data: any) => {
 		t.is(data, n);
+		t.end();
 	});
 
 	dq.pushBack(n);
 });
 
-test('Test deque remove event (popBack)', t => {
+test.cb('Test deque remove event (popBack)', t => {
 	const dq = new Deque<number>();
 
-	t.true(dq && dq instanceof Deque);
-	t.true(dq.isEmpty());
+	t.truthy(dq);
+	t.true(dq.empty);
 
 	const n: number = 100;
 	dq.on('remove', (data: any) => {
 		t.is(data, n);
+		t.end();
 	});
 
 	dq.pushBack(n);
@@ -126,8 +132,8 @@ test('Test size limited Deque (front)', t => {
 	const n: number = 5;
 	const dq = new Deque<number>(n);
 
-	t.true(dq && dq instanceof Deque);
-	t.true(dq.isEmpty());
+	t.truthy(dq);
+	t.true(dq.empty);
 
 	for (let i: number = 0; i < n; i++) {
 		dq.enqueue(i);
@@ -144,15 +150,15 @@ test('Test size limited Deque (front)', t => {
 	t.is(arr[3], 3);
 	t.is(arr[4], 4);
 
-	t.true(dq.isEmpty());
+	t.true(dq.empty);
 });
 
 test('Test size limited Deque (back)', t => {
 	const n: number = 5;
 	const dq = new Deque<number>(n);
 
-	t.true(dq && dq instanceof Deque);
-	t.true(dq.isEmpty());
+	t.truthy(dq);
+	t.true(dq.empty);
 
 	for (let i: number = 0; i < n; i++) {
 		dq.enqueue(i);
@@ -169,15 +175,15 @@ test('Test size limited Deque (back)', t => {
 	t.is(arr[3], 4);
 	t.is(arr[4], 5);
 
-	t.true(dq.isEmpty());
+	t.true(dq.empty);
 });
 
 test.cb('Test size limited Deque (pushFront) event', t => {
 	const n: number = 5;
 	const dq = new Deque<number>(n);
 
-	t.true(dq && dq instanceof Deque);
-	t.true(dq.isEmpty());
+	t.truthy(dq);
+	t.true(dq.empty);
 
 	for (let i: number = 0; i < n; i++) {
 		dq.enqueue(i);
@@ -198,8 +204,8 @@ test.cb('Test size limited Deque (pushBack) event', t => {
 	const n: number = 5;
 	const dq = new Deque<number>(n);
 
-	t.true(dq && dq instanceof Deque);
-	t.true(dq.isEmpty());
+	t.truthy(dq);
+	t.true(dq.empty);
 
 	for (let i: number = 0; i < n; i++) {
 		dq.enqueue(i);
@@ -219,16 +225,16 @@ test.cb('Test size limited Deque (pushBack) event', t => {
 test('Test the contains function on empty deque', t => {
 	const dq = new Deque<number>();
 
-	t.true(dq && dq instanceof Deque);
-	t.true(dq.isEmpty());
+	t.truthy(dq);
+	t.true(dq.empty);
 	t.true(!dq.contains(999));
 });
 
 test('Test the contains function for a deque', t => {
 	const dq = new Deque<number>();
 
-	t.true(dq && dq instanceof Deque);
-	t.true(dq.isEmpty());
+	t.truthy(dq);
+	t.true(dq.empty);
 
 	const n: number = 100;
 	for (let i = 0; i < n; i++) {
@@ -253,8 +259,8 @@ test('Test of the deque contains function with custom comparator', t => {
 
 	const dq = new Deque<TestData>(10, null, fn);
 
-	t.true(dq && dq instanceof Deque);
-	t.true(dq.isEmpty());
+	t.truthy(dq);
+	t.true(dq.empty);
 
 	dq.enqueue({item1: 'abc', item2: 0});
 	dq.enqueue({item1: 'abc', item2: 1});

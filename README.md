@@ -34,7 +34,7 @@ $ npm run all
 
 ## Usage
 
-### BinaryTree
+### [BinaryTree](docs/lib/binarytree.md)
 A binary search tree implemented using the Red/Black algorithm from [Introduction to Algorithms - Cormen 3rd ed.](https://www.amazon.com/Introduction-Algorithms-3rd-MIT-Press/dp/0262033844).
 
 ```javascript
@@ -91,6 +91,10 @@ for (const val of bt) {
 // inorder, iterator though each node in the tree
 // a c d g k
 
+console.log(bt.find('g'));
+
+// g
+
 bt.delete('g');
 
 //     C
@@ -114,10 +118,10 @@ bt.clear();
 
 ```
 
-The output above demonstrates all of the basic operations used to interact with the tree.  When an element is added to the tree an `insert` event fires.  When an element is deleted from the tree a `delete` event fires.
+The output above demonstrates all of the basic operations used to interact with the tree.  When an element is added to the tree an `insert` event fires.  When an element is deleted from the tree a `remove` event fires.
 
 
-### Deque
+### [Deque](docs/lib/deque.md)
 A deque is a double ended queue.  An element can be inserted at either end of the queue.
 
 ```javascript
@@ -131,7 +135,7 @@ let val = q.dequeue();
 
 This example works like a typical queue.  However this type allows one to add items at either end.
 
-When an element is added to the deque an `add` event fires.  When an element is removed from the deque a `remove` event fires.
+When an element is added to the deque an `insert` event fires.  When an element is removed from the deque a `remove` event fires.
 
 The deque can have items added to either end:
 
@@ -163,17 +167,59 @@ q.enqueue(6);
 This will add 5 items to the queue.  The last item adds a 6th element.  That will cause the first item in the queue to be removed automatically before the new item is enqueued.  This provides a way to "age" items within the queue.  When the item is removed a `remove` event fires.  The front item in the queue is considered the oldest item.
 
 
-### List
+### [List](docs/lib/list.md)
 
-TODO: Add doubly linked list to implementation
+A doubly linked list structure.  To create a list and insert elements use:
+
+```javascript
+import {List} from 'util.ds';
+
+const list = new List<string>();
+
+list.insert('a');
+list.insert('b');
+list.insert('c');
+
+// list.size === 3
+// list.front === 'a'
+// list.back === 'c'
+
+console.log(list.array);
+
+// ['a', 'b', 'c']
+
+for (const it in list) {
+    console.log(it);
+}
+
+// a
+// b
+// c
+
+list.remove('b');
+console.log(list.array);
+
+// ['a', 'c']
+
+console.log(list.contains('a'));
+
+// true
+
+console.log(list.contains('b'));
+
+// false
+
+```
+
+When an element is added to the list an `insert` event fires.  When an element is removed from the list a `remove` event fires.
 
 
-### PriorityQueue
+### [PriorityQueue](docs/lib/priqueue.md)
 
 TODO: Add a priority queue to the implementation
 
 
-### Queue
+### [Queue](docs/lib/queue.md)
 To create a simple queue use:
 
 ```javascript
@@ -185,15 +231,37 @@ q.enqueue(1);
 let val = q.dequeue();
 ```
 
-When an element is added to the queue an `add` event fires.  When an element is removed from the queue a `remove` event fires.
+When an element is added to the queue an `insert` event fires.  When an element is removed from the queue a `remove` event fires.
+
+A queue can also be *drained*.  This will dequeue all items from the list and place them into an array which is returned to the caller.
+
+```javascript
+import {Queue} from 'util.ds';
+
+const q = new Queue<number>([1, 2, 3, 4, 5]);
+
+// q.size === 5
+
+console.log(q.dequeue());
+
+// 1
+
+console.log(q.drain());
+
+// [2, 3, 4, 5]
+//
+// q.size === 0
+```
+
+When the queue is drained a `drain` event is emitted.
 
 
-### SortedList
+### [SortedList](docs/lib/sortedlist.md)
 
 TODO: Add a sorted list to the implementation
 
 
-### Stack
+### [Stack](docs/lib/stack.md)
 To create a simple stack use:
 
 ```javascript
@@ -214,4 +282,40 @@ console.log(stack.pop());
 // 3
 ```
 
-When an element is added to the stack an `add` event fires.  When an element is removed from the stack a `remove` event fires.
+When an element is added to the stack an `insert` event fires.  When an element is removed from the stack a `remove` event fires.
+
+
+## Comparators
+
+These data structures work with primative data types by default.  Each object can also accept a user defined data type.  This requires a [Comparator](docs/lib/comparator.md) object to define how two user defined objects an be compared.
+
+```javascript
+import {BinaryTree, Comparator} from 'util.ds'
+
+interface TestData {
+    key: string;
+	data?: number;
+}
+
+const fn: Comparator<TestData> = (o1: TestData, o2: TestData): number => {
+	if (o1.key === o2.key) {
+		return 0;
+	} else if (o1.key > o2.key) {
+		return 1;
+	}
+
+	return -1;
+};
+
+const bt = new BinaryTree<TestData(null, fn);
+
+bt.insert({key: 'g', data: 1});
+bt.insert({key: 'c', data: 2});
+bt.insert({key: 'a', data: 3});
+bt.insert({key: 'd', data: 4});
+bt.insert({key: 'k', data: 5});
+
+console.log(bt.find({key: 'g'}).data);
+
+// 1
+```

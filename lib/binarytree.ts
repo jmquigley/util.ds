@@ -17,10 +17,12 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	constructor(arr: T[] = [], cmp: Comparator<T> = null) {
 		super(cmp);
 
-		this._x = this._nil;
+		this._first = this._last = this._root = this._x = this._nil;
 
-		for (const it of arr) {
-			this.insert(it);
+		if (arr) {
+			for (const it of arr) {
+				this.insert(it);
+			}
 		}
 	}
 
@@ -162,6 +164,37 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Searches the tree for an element.  If it is found, then the data element
+	 * associated with that node is returned (not the node).  When used with a
+	 * primative type this is not useful as the key and the value found would
+	 * be the same.  This is helpful when T is a complex object with a custom
+	 * Comparator.
+	 * @param key {T} a search key to look for in the tree.
+	 * @return {T} the full data element within this tree.  If it is not found,
+	 * then null is returned.
+	 */
+	public find(key: T): T {
+
+		if (key == null) {
+			return null;
+		}
+
+		let node: Node<T> = this._root;
+
+		while (node !== this._nil) {
+			if (this._cmp(node.data, key) === 0) {
+				return node.data;
+			} else if (this._cmp(node.data, key) < 0) {
+				node = node.right;
+			} else {
+				node = node.left;
+			}
+		}
+
+		return null;
 	}
 
 	/**

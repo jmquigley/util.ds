@@ -7,19 +7,20 @@ import {Queue} from '../index';
 test('Create an empty queue', t => {
 	const q = new Queue<number>();
 
-	t.true(q && q instanceof Queue);
+	t.truthy(q);
 	t.true(q.isEmpty());
-	t.true(q.top() === null);
-	t.true(q.front === null);
-	t.true(q.pop() === null);
+	t.true(q.empty);
+	t.is(q.front, null);
+	t.snapshot(q);
 });
 
-test.skip('Add/Remove items from the queue', t => {
+test('Add/Remove items from the queue', t => {
 	const q = new Queue<number>();
 	const n: number = 50;
 
-	t.true(q && q instanceof Queue);
+	t.truthy(q);
 	t.true(q.isEmpty());
+	t.true(q.empty);
 
 	for (let i: number = 0; i < n; i++) {
 		(i % 2) ? q.enqueue(i) : q.push(i);
@@ -29,36 +30,38 @@ test.skip('Add/Remove items from the queue', t => {
 
 	for (let i: number = n; i > 0; i--) {
 		t.true(q.length === i);
-		t.true(((i % 2) ? q.front : q.peek()) === (n - i));
-		t.true(((i % 2) ? q.dequeue() : q.pop()) === (n - i));
+		t.is(q.front, n - i);
+		t.is(q.dequeue(), n - i);
 	}
 
-	t.true(q.isEmpty());
+	t.true(q.empty);
 });
 
-test('Test queue add event', t => {
+test.cb('Test queue add event', t => {
 	const q = new Queue<number>();
 
-	t.true(q && q instanceof Queue);
+	t.truthy(q);
 	t.true(q.isEmpty());
 
 	const n: number = 100;
-	q.on('add', (data: any) => {
+	q.on('insert', (data: any) => {
 		t.is(data, n);
+		t.end();
 	});
 
 	q.enqueue(n);
 });
 
-test('Test queue remove event', t => {
+test.cb('Test queue remove event', t => {
 	const q = new Queue<number>();
 
-	t.true(q && q instanceof Queue);
-	t.true(q.isEmpty());
+	t.truthy(q);
+	t.true(q.empty);
 
 	const n: number = 100;
-	q.on('remove', (data: any) => {
+	q.on('remove', (data: number) => {
 		t.is(data, n);
+		t.end();
 	});
 
 	q.enqueue(n);
@@ -68,6 +71,8 @@ test('Test queue remove event', t => {
 test('Test the queue drain function', t => {
 	const q = new Queue<number>();
 	const n: number = 5;
+
+	t.truthy(q);
 
 	for (let i = 0; i < n; i++) {
 		q.enqueue(i);
@@ -89,7 +94,7 @@ test('Test the queue drain function', t => {
 test('Test the contains function with empty queue', t => {
 	const q = new Queue<number>();
 
-	t.true(q && q instanceof Queue);
+	t.truthy(q);
 	t.true(q.isEmpty());
 	t.true(!q.contains(999));
 });
@@ -97,7 +102,7 @@ test('Test the contains function with empty queue', t => {
 test('Test the contains function for a queue', t => {
 	const q = new Queue<number>();
 
-	t.true(q && q instanceof Queue);
+	t.truthy(q);
 	t.true(q.isEmpty());
 
 	const n: number = 100;
@@ -111,37 +116,32 @@ test('Test the contains function for a queue', t => {
 });
 
 test('Ejects an item at the front, back, and middle of a queue', t => {
-	const q = new Queue<number>();
+	const q = new Queue<number>([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
-	t.true(q && q instanceof Queue);
-	t.true(q.isEmpty());
+	t.truthy(q);
+	t.false(q.isEmpty());
 	q.eject(999);
-	t.true(q.isEmpty());
-
-	const n: number = 10;
-	for (let i = 0; i < n; i++) {
-		q.enqueue(i);
-	}
+	t.false(q.isEmpty());
 
 	// Eject the front
-	t.true(q.peek() === 0);
+	t.is(q.front, 0);
 	q.eject(0);
-	t.true(q.peek() === 1);
-	t.true(q.end() === 9);
+	t.is(q.front, 1);
+	t.is(q.back, 9);
 	t.is(q.length, 9);
 
 	// Eject the end of the queue
-	q.eject(9);
-	t.true(q.peek() === 1);
-	t.true(q.end() === 8);
+	t.is(q.eject(9), 9);
+	t.true(q.front === 1);
+	t.true(q.back === 8);
 	t.is(q.length, 8);
 
 	// Eject from the middle of the queue
 	q.eject(5);
-	t.true(q.peek() === 1);
-	t.true(q.end() === 8);
+	t.true(q.front === 1);
+	t.true(q.back === 8);
 	t.is(q.length, 7);
 
 	const arr: number[] = q.drain();
-	t.is(arr.toString(), '1,2,3,4,6,7,8');
+	t.deepEqual(arr, [1, 2, 3, 4, 6, 7, 8]);
 });

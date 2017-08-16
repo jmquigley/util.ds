@@ -22,14 +22,13 @@ export abstract class Collection<T> extends EventEmitter {
 		super();
 
 		this._nil = new Node<T>(null, null, null, null, Color.black);
-		this._first = this._last = this._root = this._nil;
 
-		if (cmp == null) {
+		if (cmp) {
+			this._cmp = cmp;
+		} else {
 			// Creates a default comparator if a custom one is not
 			// given.
 			this._cmp = defaultComparatorFn;
-		} else {
-			this._cmp = cmp;
 		}
 
 		this.clear();
@@ -39,7 +38,7 @@ export abstract class Collection<T> extends EventEmitter {
 	 * @return {T} the last (max) data element from the tree.
 	 */
 	get back(): T {
-		return this._last.data;
+		return (this._last && this._last !== this._nil) && this._last.data;
 	}
 
 	/**
@@ -49,25 +48,29 @@ export abstract class Collection<T> extends EventEmitter {
 		return this._length === 0;
 	}
 
+	get end(): T {
+		return (this._last && this._last !== this._nil) && this._last.data;
+	}
+
 	/**
 	 * @returns {T} the first (min) data element from the tree.
 	 */
 	get first(): T {
-		return this._first.data;
+		return (this._first && this._first !== this._nil) && this._first.data;
 	}
 
 	/**
 	 * @returns {T} the front (min) data element from the tree.
 	 */
 	get front(): T {
-		return this._first.data;
+		return (this._first && this._first !== this._nil) && this._first.data;
 	}
 
 	/**
 	 * @return {T} the last (max) data element from the tree.
 	 */
 	get last(): T {
-		return this._last.data;
+		return (this._last && this._last !== this._nil) && this._last.data;
 	}
 
 	/**
@@ -102,7 +105,7 @@ export abstract class Collection<T> extends EventEmitter {
 	 * Initializes the object to an empty state
 	 */
 	public clear(): void {
-		this._root = null;
+		this._first = this._last = this._root = null;
 		this._length = 0;
 	}
 

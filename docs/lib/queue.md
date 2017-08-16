@@ -6,20 +6,32 @@ Simple FIFO queue implementation
 **Kind**: global class  
 
 * [Queue](#Queue)
-    * [.dequeue()](#Queue+dequeue) ⇒ <code>Object</code>
+    * [.push](#Queue+push)
+    * [.dequeue()](#Queue+dequeue) ⇒ <code>T</code>
     * [.drain()](#Queue+drain) ⇒ <code>Array</code>
     * [.eject(data)](#Queue+eject)
-    * [.end()](#Queue+end) ⇒ <code>Object</code>
     * [.enqueue(data)](#Queue+enqueue)
-    * [.push(data)](#Queue+push)
+
+<a name="Queue+push"></a>
+
+### queue.push
+Override wrapper for the push function from the inherited stack.  A
+stack always pushes to the front.  The general queue should always push
+to the end of the structure.
+
+**Kind**: instance property of [<code>Queue</code>](#Queue)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code>Object</code> | the data to push on the end of the queue. |
 
 <a name="Queue+dequeue"></a>
 
-### queue.dequeue() ⇒ <code>Object</code>
+### queue.dequeue() ⇒ <code>T</code>
 Removes and returns the item at the front of the queue.
 
 **Kind**: instance method of [<code>Queue</code>](#Queue)  
-**Returns**: <code>Object</code> - the data at the front of the queue.  
+**Returns**: <code>T</code> - the data at the front of the queue.  
 <a name="Queue+drain"></a>
 
 ### queue.drain() ⇒ <code>Array</code>
@@ -40,13 +52,6 @@ from the queue.
 | --- | --- | --- |
 | data | <code>Object</code> | the data element that should be removed from the queue. |
 
-<a name="Queue+end"></a>
-
-### queue.end() ⇒ <code>Object</code>
-Returns a copy of the end location within the queue
-
-**Kind**: instance method of [<code>Queue</code>](#Queue)  
-**Returns**: <code>Object</code> - the data element at the end of the queue.  
 <a name="Queue+enqueue"></a>
 
 ### queue.enqueue(data)
@@ -57,17 +62,4 @@ Adds an item to the end of the queue.
 | Param | Type | Description |
 | --- | --- | --- |
 | data | <code>Object</code> | the data to insert into the queue. |
-
-<a name="Queue+push"></a>
-
-### queue.push(data)
-Override wrapper for the push function from the inherited stack.  A
-stack always pushes to the front.  The general queue should always push
-to the end of the structure.
-
-**Kind**: instance method of [<code>Queue</code>](#Queue)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>Object</code> | the data to push on the end of the queue. |
 

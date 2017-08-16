@@ -11,10 +11,10 @@ export enum Color {
  */
 export class Node<T> {
 	private _color: Color = Color.red;
-	private _data: T = null;
-	private _parent: Node<T> = null;
-	private _left: Node<T> = null;
-	private _right: Node<T> = null;
+	private _data: T;
+	private _parent: Node<T>;
+	private _left: Node<T>;
+	private _right: Node<T>;
 
 	constructor(data: T, parent: Node<T> = null, right: Node<T> = null, left: Node<T> = null, color: Color = Color.red) {
 		this._color = color;
@@ -58,5 +58,10 @@ export class Node<T> {
 
 	set right(val: Node<T>) {
 		this._right = val;
+	}
+
+	public clear(): void {
+		this._color = Color.red;
+		this._data = this._parent = this._left = this._right = null;
 	}
 }

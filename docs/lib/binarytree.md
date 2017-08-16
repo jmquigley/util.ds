@@ -14,6 +14,7 @@ Implements a binary tree structure using a Red/Black tree algorithm.
     * [.breadthSearch(data, node)](#BinaryTree+breadthSearch) ⇒ <code>boolean</code>
     * [.clear()](#BinaryTree+clear)
     * [.contains(data)](#BinaryTree+contains) ⇒ <code>boolean</code>
+    * [.find(key)](#BinaryTree+find) ⇒ <code>T</code>
     * [.insert(data)](#BinaryTree+insert)
     * [.remove(data)](#BinaryTree+remove)
     * [._findNode(data)](#BinaryTree+_findNode) ⇒ <code>Node.&lt;T&gt;</code>
@@ -90,6 +91,23 @@ false is returned.
 | Param | Type | Description |
 | --- | --- | --- |
 | data | <code>T</code> | the data element to search for (based on the data type of the tree) |
+
+<a name="BinaryTree+find"></a>
+
+### binaryTree.find(key) ⇒ <code>T</code>
+Searches the tree for an element.  If it is found, then the data element
+associated with that node is returned (not the node).  When used with a
+primative type this is not useful as the key and the value found would
+be the same.  This is helpful when T is a complex object with a custom
+Comparator.
+
+**Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
+**Returns**: <code>T</code> - the full data element within this tree.  If it is not found,
+then null is returned.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| key | <code>T</code> | a search key to look for in the tree. |
 
 <a name="BinaryTree+insert"></a>
 

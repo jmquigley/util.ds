@@ -3,7 +3,12 @@
 import test from 'ava';
 import * as fs from 'fs-extra';
 import {join} from 'util.join';
-import {BinaryTree} from '../index';
+import {BinaryTree, Comparator} from '../index';
+
+interface TestData {
+	key?: string;
+	data?: number;
+}
 
 function testNumberTree(size: number, t: any): BinaryTree<number> {
 	const bt = new BinaryTree<number>();
@@ -28,6 +33,7 @@ test('Create a simple BinaryTree', t => {
 	t.is(bt._minimum().data, 'a');
 	t.is(bt.last, 'e');
 	t.is(bt._maximum().data, 'e');
+	t.snapshot(bt);
 
 	bt.clear();
 
@@ -35,6 +41,7 @@ test('Create a simple BinaryTree', t => {
 	t.is(bt.size, 0);
 	t.is(bt.root, bt.nil);
 	t.is(bt.height, 0);
+
 });
 
 test('Test BinaryTree inorder traversal', t => {
@@ -306,4 +313,41 @@ test('Deletes a data element from the BinaryTree', t => {
 	t.is(bt.root.data, 'd');
 	t.is(bt.root.left.data, 'a');
 	t.is(bt.root.right.data, 'k');
+});
+
+test('Performs a find against the BinaryTree with custom data structure', t => {
+	const fn: Comparator<TestData> = (o1: TestData, o2: TestData): number => {
+		if (o1.key === o2.key) {
+			return 0;
+		} else if (o1.key > o2.key) {
+			return 1;
+		}
+
+		return -1;
+	};
+
+	const bt = new BinaryTree<TestData>(null, fn);
+
+	t.truthy(bt);
+	bt.insert({key: 'g', data: 1});
+	bt.insert({key: 'c', data: 2});
+	bt.insert({key: 'a', data: 3});
+	bt.insert({key: 'd', data: 4});
+	bt.insert({key: 'k', data: 5});
+
+	t.deepEqual(bt.inorder, [
+		{key: 'a', data: 3},
+		{key: 'c', data: 2},
+		{key: 'd', data: 4},
+		{key: 'g', data: 1},
+		{key: 'k', data: 5}
+	]);
+	t.is(bt.size, 5);
+
+	t.is(bt.find({key: 'g'}).data, 1);
+	t.is(bt.find({key: 'a'}).data, 3);
+	t.is(bt.find({key: 'k'}).data, 5);
+
+	t.is(bt.find(null), null);
+	t.is(bt.find({key: 'alskdfalsdf'}), null);
 });

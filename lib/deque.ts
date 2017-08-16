@@ -1,10 +1,10 @@
-import * as _ from 'lodash';
 import {Comparator} from './comparator';
-import {Node} from './node';
+import {List} from './list';
 import {Queue} from './queue';
 
 /** A double ended Queue class */
 export class Deque<T> extends Queue<T> {
+
 	private _maxSize: number;
 
 	/**
@@ -25,12 +25,22 @@ export class Deque<T> extends Queue<T> {
 	}
 
 	/**
+	 * Checks the current internals for an overflow condition.  This occurs
+	 * when the maxSize storage size will be exceeded on the next insert
+	 * operation.
+	 * @returns {boolean} true if in an overflow condition, otherwise false.
+	 */
+	get overflow(): boolean {
+		return !(this._maxSize < 1 || this._length < this._maxSize);
+	}
+
+	/**
 	 * Adds an item to the end of the queue.  Checks for an overflow condition
 	 * and acts if one is detected.
 	 * @param data {Object} the data item to add to the queue.
 	 */
 	public enqueue(data: T): void {
-		if (this.overflow()) {
+		if (this.overflow) {
 			this.dequeue();
 		}
 
@@ -43,22 +53,11 @@ export class Deque<T> extends Queue<T> {
 	 * @param data {Object} the data item to add to the queue.
 	 */
 	public pushFront(data: T): void {
-		const node = new Node<T>(data);
-
-		if (this.overflow()) {
+		if (this.overflow) {
 			this.dequeue();
 		}
 
-		if (this._root == null) {
-			this._root = node;
-		} else {
-			this._root.left = node;
-			node.right = this._root;
-			this._root = node;
-		}
-
-		this._length++;
-		this.emit('add', data);
+		this.insert(data, List.FRONT);
 	}
 
 	/**
@@ -67,30 +66,10 @@ export class Deque<T> extends Queue<T> {
 	 * @param data {Object} the data item to add to the queue.
 	 */
 	public pushBack(data: T): void {
-		if (this.overflow()) {
+		if (this.overflow) {
 			this.dequeue();
 		}
 		this.enqueue(data);
-	}
-
-	/**
-	 * Returns the first item in the queue without removing it.
-	 * @returns {Object} a copy of the first item in the list.
-	 */
-	public peekFront(): T {
-		return this.top();
-	}
-
-	/**
-	 * Returns the last item in the queue without removing it.
-	 * @returns {Object} a copy of the last item in the list.
-	 */
-	public peekBack(): T {
-		if (this._end == null) {
-			return null;
-		}
-
-		return _.cloneDeep(this._end.data);
 	}
 
 	/**
@@ -106,24 +85,6 @@ export class Deque<T> extends Queue<T> {
 	 * @returns {Object} the data value on the back of the queue.
 	 */
 	public popBack(): T {
-		if (this._end == null) {
-			return null;
-		}
-
-		const data: any = this._end.data;
-		this._end = this._end.left;
-		this._length--;
-		this.emit('remove', data);
-		return data;
-	}
-
-	/**
-	 * Checks the current internals for an overflow condition.  This occurs
-	 * when the maxSize storage size will be exceeded on the next insert
-	 * operation.
-	 * @returns {boolean} true if in an overflow condition, otherwise false.
-	 */
-	private overflow(): boolean {
-		return !(this._maxSize < 1 || this._length < this._maxSize);
+		return this.remove(null, List.BACK);
 	}
 }

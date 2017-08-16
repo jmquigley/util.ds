@@ -1,36 +1,23 @@
 'use strict';
 
-import * as _ from 'lodash';
 import {Comparator} from './comparator';
+import {List} from './list';
 import {Node} from './node';
-import {Stack} from './stack';
 
 /** Simple FIFO queue implementation */
-export class Queue<T> extends Stack<T> {
+export class Queue<T> extends List<T> {
 	protected _end: Node<T> = null;
 
 	constructor(arr: T[] = [], cmp: Comparator<T> = null) {
-		super(cmp);
-
-		if (arr && arr instanceof Array) {
-			for (const it of arr) {
-				this.enqueue(it);
-			}
-		}
+		super(arr, cmp);
 	}
 
 	/**
 	 * Removes and returns the item at the front of the queue.
-	 * @returns {Object} the data at the front of the queue.
+	 * @returns {T} the data at the front of the queue.
 	 */
 	public dequeue(): T {
-		const data: any = this.pop();
-
-		if (this._root == null) {
-			this._end = null;
-		}
-
-		return data;
+		return this.remove(null, List.FRONT);
 	}
 
 	/**
@@ -46,7 +33,6 @@ export class Queue<T> extends Stack<T> {
 		}
 
 		this._length = 0;
-
 		this.emit('drain', arr);
 		return arr;
 	}
@@ -57,61 +43,16 @@ export class Queue<T> extends Stack<T> {
 	 * @param data {Object} the data element that should be removed from
 	 * the queue.
 	 */
-	public eject(data: T): void {
-		if (this._root == null) {
-			return;
-		}
-
-		if (this._cmp(this._root.data, data) === 0) {
-			this.emit('eject', this._root);
-			this._root = this._root.right;
-			this._length--;
-		} else {
-			let next: Node<T> = this._root.right;
-			while (next != null) {
-				if (this._cmp(next.data, data) === 0) {
-					if (next.right != null) {
-						next.right.left = next.left;
-					} else {
-						this._end = next.left;
-					}
-
-					next.left.right = next.right;
-					this._length--;
-					this.emit('eject', next.data);
-					return;
-				}
-
-				next = next.right;
-			}
-		}
-	}
-
-	/**
-	 * Returns a copy of the end location within the queue
-	 * @returns {Object} the data element at the end of the queue.
-	 */
-	public end(): T {
-		return _.cloneDeep(this._end.data);
+	public eject(data: T): T {
+		return this.remove(data);
 	}
 
 	/**
 	 * Adds an item to the end of the queue.
 	 * @param data {Object} the data to insert into the queue.
 	 */
-	public enqueue(data: T): void {
-		const node = new Node(data);
-
-		if (this._root == null) {
-			this._root = this._end = node;
-		} else {
-			this._end.right = node;
-			node.left = this._end;
-			this._end = node;
-		}
-
-		this.emit('add', data);
-		this._length++;
+	public enqueue(data: T) {
+		this.insert(data, List.BACK);
 	}
 
 	/**
@@ -120,7 +61,6 @@ export class Queue<T> extends Stack<T> {
 	 * to the end of the structure.
 	 * @param data {Object} the data to push on the end of the queue.
 	 */
-	public push(data: T): void {
-		this.enqueue(data);
-	}
+	public push = this.enqueue;
+
 }
