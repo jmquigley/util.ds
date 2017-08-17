@@ -54,6 +54,17 @@ test('Test BinaryTree inorder traversal', t => {
 	t.deepEqual(bt.inorder, ['a', 'c', 'd', 'g', 'k']);
 });
 
+test('Test BinaryTree inorder traversal with numbers', t => {
+	const bt = new BinaryTree<number>([1, 2, 3, 4, 500, 1000]);
+
+	t.truthy(bt);
+	t.is(bt.size, 6);
+	t.is(bt.first, 1);
+	t.is(bt.last, 1000);
+
+	t.deepEqual(bt.inorder, [1, 2, 3, 4, 500, 1000]);
+});
+
 test('Test BinaryTree preorder traversal', t => {
 	const bt = new BinaryTree<string>(['g', 'c', 'a', 'd', 'k']);
 

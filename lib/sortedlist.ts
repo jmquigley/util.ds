@@ -4,6 +4,11 @@ import {Comparator} from './comparator';
 import {List} from './list';
 import {Node} from './node';
 
+/**
+ * A linked list structure that sorts the data in ascending order as it is
+ * added.
+ *
+ */
 export class SortedList<T> extends List<T> {
 
 	constructor(arr: T[] = [], cmp: Comparator<T> = null) {

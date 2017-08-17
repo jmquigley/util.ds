@@ -5,6 +5,10 @@ import {Comparator} from './comparator';
 import {Iterable} from './iterable';
 import {Node} from './node';
 
+/**
+ * A doubly linked list structure.
+ *
+ */
 export class List<T> extends Collection<T> implements Iterable<T> {
 
 	public static readonly FRONT: number = 0;
