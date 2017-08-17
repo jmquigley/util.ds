@@ -38,7 +38,7 @@ export abstract class Collection<T> extends EventEmitter {
 	 * @return {T} the last (max) data element from the tree.
 	 */
 	get back(): T {
-		return (this._last && this._last !== this._nil) && this._last.data;
+		return (this._last && this._last !== this._nil) ? this._last.data : null;
 	}
 
 	/**
@@ -49,28 +49,28 @@ export abstract class Collection<T> extends EventEmitter {
 	}
 
 	get end(): T {
-		return (this._last && this._last !== this._nil) && this._last.data;
+		return (this._last && this._last !== this._nil) ? this._last.data : null;
 	}
 
 	/**
 	 * @returns {T} the first (min) data element from the tree.
 	 */
 	get first(): T {
-		return (this._first && this._first !== this._nil) && this._first.data;
+		return (this._first && this._first !== this._nil) ? this._first.data : null;
 	}
 
 	/**
 	 * @returns {T} the front (min) data element from the tree.
 	 */
 	get front(): T {
-		return (this._first && this._first !== this._nil) && this._first.data;
+		return (this._first && this._first !== this._nil) ? this._first.data : null;
 	}
 
 	/**
 	 * @return {T} the last (max) data element from the tree.
 	 */
 	get last(): T {
-		return (this._last && this._last !== this._nil) && this._last.data;
+		return (this._last && this._last !== this._nil) ? this._last.data : null;
 	}
 
 	/**

@@ -268,9 +268,9 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 				this._length++;
 				this._x = this.newNode(data, parent);
 
-				if (data < this._first.data) {
+				if (this._cmp(data, this._first.data) < 0) {
 					this._first = this._x;
-				} else if (data > this._last.data) {
+				} else if (this._cmp(data, this._last.data) > 0) {
 					this._last = this._x;
 				}
 
@@ -407,13 +407,18 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 				this.removeFixUp(x);
 			}
 
-			if (z.data === this._first.data) {
-				this._first = this._minimum();
-			} else if (z.data === this._last.data) {
-				this._last = this._maximum();
+			this._length--;
+
+			if (this._length !== 0) {
+				if (this._cmp(z.data, this._first.data) === 0) {
+					this._first = this._minimum();
+				} else if (this._cmp(z.data, this._last.data) === 0) {
+					this._last = this._maximum();
+				}
+			} else {
+				this._first = this._last = this._root = this._nil;
 			}
 
-			this._length--;
 			this.emit('remove', z.data);
 			return z.data;
 		}

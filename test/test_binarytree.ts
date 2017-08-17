@@ -398,6 +398,8 @@ test('Performs a find against the BinaryTree with custom data structure', t => {
 		{key: 'k', data: 5}
 	]);
 	t.is(bt.size, 5);
+	t.is(bt.first.key, 'a');
+	t.is(bt.last.key, 'k');
 
 	t.is(bt.find({key: 'g'}).data, 1);
 	t.is(bt.find({key: 'a'}).data, 3);

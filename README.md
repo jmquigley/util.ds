@@ -220,7 +220,37 @@ When an element is added to the list an `insert` event fires.  When an element i
 
 ### [PriorityQueue](docs/lib/priqueue.md)
 
-TODO: Add a priority queue to the implementation
+Uses a Red/Black binary tree to implement a priority queue.  Items are inserted into a queue structure with an associatd priority number.  The lower the number, the higher the priority.  Items with a higher priority are chosen first in the queue.  Priority values are numbers > 0.  If a negative number is given, then it will be given a priority of 0.
+
+To create a priority queue use:
+
+```javascript
+import {PriorityQueue} from 'util.ds';
+
+const pq = new PriorityQueue<string>();
+
+pq.enqueue('a', 100);
+pq.enqueue('b', 10);
+pq.enqueue('c', 50);
+
+console.log(pq.size);
+
+// 3
+
+console.log(pq.dequeue());
+
+// 'b'
+
+console.log(pq.dequeue());
+
+// 'c'
+
+console.log(pq.dequeue());
+
+// 'a'
+```
+
+When an element is added to the queue an `insert` event fires.  When an element is removed from the queue a `remove` event fires.
 
 
 ### [Queue](docs/lib/queue.md)
