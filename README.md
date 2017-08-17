@@ -196,6 +196,10 @@ for (const it in list) {
 // b
 // c
 
+console.log(list.reverse);
+
+// ['c', 'b', 'a']
+
 list.remove('b');
 console.log(list.array);
 
@@ -258,7 +262,23 @@ When the queue is drained a `drain` event is emitted.
 
 ### [SortedList](docs/lib/sortedlist.md)
 
-TODO: Add a sorted list to the implementation
+The `SortedList` is similar to the `List` structure above.  The difference is that the `insert` operation will place the value its ascending order location.  It presents all of the same properties and methods.
+
+```javascript
+import {SortedList} from 'util.ds';
+
+const list = new SortedList<string>();
+
+list.insert('b');
+list.insert('a');
+list.insert('c');
+
+console.log(list.array);
+
+// ['a', 'b', 'c']
+```
+
+When an element is added to the list an `insert` event fires.  When an element is removed from the list a `remove` event fires.
 
 
 ### [Stack](docs/lib/stack.md)

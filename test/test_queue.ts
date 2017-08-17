@@ -37,14 +37,14 @@ test('Add/Remove items from the queue', t => {
 	t.true(q.empty);
 });
 
-test.cb('Test queue add event', t => {
+test.cb('Test queue insert event', t => {
 	const q = new Queue<number>();
 
 	t.truthy(q);
 	t.true(q.isEmpty());
 
 	const n: number = 100;
-	q.on('insert', (data: any) => {
+	q.on('insert', (data: number) => {
 		t.is(data, n);
 		t.end();
 	});

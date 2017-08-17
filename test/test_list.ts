@@ -110,6 +110,20 @@ test('Test arbitrary insertion into a List', t => {
 	t.is(list.back, 'f');
 });
 
+test.cb('Test List insert event', t => {
+	const list = new List<string>();
+
+	t.truthy(list);
+	t.true(list.empty);
+
+	list.on('insert', (data: string) => {
+		t.is(data, 'a');
+		t.end();
+	});
+
+	list.insert('a');
+});
+
 test('Test the getNodeByValue/getNodeByIndex  methods in List', t => {
 	const data = ['a', 'b', 'c', 'd', 'e'];
 	const list = new List<string>(data);
@@ -179,6 +193,21 @@ test('Test removing all values from the end of a list', t => {
 	}
 
 	t.is(list.size, 0);
+});
+
+test.cb('Test List remove event', t => {
+	const list = new List<string>(['a', 'b', 'c']);
+
+	t.truthy(list);
+	t.is(list.size, 3);
+
+	list.on('remove', (data: string) => {
+		t.is(data, 'b');
+		t.end();
+	});
+
+	list.remove('b');
+	t.deepEqual(list.array, ['a', 'c']);
 });
 
 test('Test the find method for a List', t => {
