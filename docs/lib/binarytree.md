@@ -17,10 +17,12 @@ Implements a binary tree structure using a Red/Black tree algorithm.
     * [.find(key)](#BinaryTree+find) ⇒ <code>T</code>
     * [.insert(data)](#BinaryTree+insert)
     * [.remove(data)](#BinaryTree+remove)
+    * [.removeFirst()](#BinaryTree+removeFirst) ⇒ <code>T</code>
+    * [.removeLast()](#BinaryTree+removeLast) ⇒ <code>T</code>
     * [._findNode(data)](#BinaryTree+_findNode) ⇒ <code>Node.&lt;T&gt;</code>
+    * [._leftRotate()](#BinaryTree+_leftRotate)
     * [._maximum(node)](#BinaryTree+_maximum) ⇒ <code>Node.&lt;T&gt;</code>
     * [._minimum(node)](#BinaryTree+_minimum) ⇒ <code>Node.&lt;T&gt;</code>
-    * [._leftRotate()](#BinaryTree+_leftRotate)
     * [._rightRotate()](#BinaryTree+_rightRotate)
     * [._successor(node)](#BinaryTree+_successor) ⇒ <code>Node.&lt;T&gt;</code>
 
@@ -131,6 +133,22 @@ Removes the given data value from the tree.
 | --- | --- | --- |
 | data | <code>T</code> | the data value to remove |
 
+<a name="BinaryTree+removeFirst"></a>
+
+### binaryTree.removeFirst() ⇒ <code>T</code>
+Special case function to quickly find and remove the first item in the
+tree.
+
+**Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
+**Returns**: <code>T</code> - the data element that was first and removed from the tree.  
+<a name="BinaryTree+removeLast"></a>
+
+### binaryTree.removeLast() ⇒ <code>T</code>
+Special case function to quickly find and remove the last item in the
+tree.
+
+**Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
+**Returns**: <code>T</code> - the data element that was last and removed from the tree.  
 <a name="BinaryTree+_findNode"></a>
 
 ### binaryTree._findNode(data) ⇒ <code>Node.&lt;T&gt;</code>
@@ -144,12 +162,20 @@ returned.  If it is not found, then nil is returned.
 | --- | --- | --- |
 | data | <code>T</code> | the data value to search for in the tree. |
 
+<a name="BinaryTree+_leftRotate"></a>
+
+### binaryTree._leftRotate()
+Localized left rotation of nodes.  This is a public function but is private
+by convention (for testing).  Generally not called as part of the api.
+
+**Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
 <a name="BinaryTree+_maximum"></a>
 
 ### binaryTree._maximum(node) ⇒ <code>Node.&lt;T&gt;</code>
 Searches a tree from a given node for the maximum value in that
 (sub)tree.  Note that the property `.largest` can be used to
-quickly retrieve the largest value in the tree.
+quickly retrieve the largest value in the tree.  This is really used
+to recompute the maximum value when it is removed from the tree.
 
 **Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
 **Returns**: <code>Node.&lt;T&gt;</code> - the largest node in the (sub)tree.  
@@ -161,9 +187,10 @@ quickly retrieve the largest value in the tree.
 <a name="BinaryTree+_minimum"></a>
 
 ### binaryTree._minimum(node) ⇒ <code>Node.&lt;T&gt;</code>
-From a node searches a tree or subtree for the minimum value in that
+From a node, searches a tree or subtree for the minimum value in that
 (sub)tree.  Note that the property `.smallest` can be used to
-quickly retrieve the smallest value in the tree.
+quickly retrieve the smallest value in the tree.  This is really used
+to recompute the minimum value when it is removed from the tree.
 
 **Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
 **Returns**: <code>Node.&lt;T&gt;</code> - the smallest node in the (sub)tree.  
@@ -172,13 +199,6 @@ quickly retrieve the smallest value in the tree.
 | --- | --- | --- |
 | node | <code>Node.&lt;T&gt;</code> | the node location to start the search.  By default this is the root node if no node is given. |
 
-<a name="BinaryTree+_leftRotate"></a>
-
-### binaryTree._leftRotate()
-Localized left rotation of nodes.  This is a public function but is private
-by convention (for testing).  Generally not called as part of the api.
-
-**Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
 <a name="BinaryTree+_rightRotate"></a>
 
 ### binaryTree._rightRotate()

@@ -1,6 +1,5 @@
 'use strict';
 
-import * as _ from 'lodash';
 import {Collection} from './collection';
 import {Comparator} from './comparator';
 import {Node} from './node';
@@ -67,6 +66,6 @@ export class Stack<T> extends Collection<T> {
 			return null;
 		}
 
-		return _.cloneDeep(this._root.data);
+		return this._root.data;
 	}
 }

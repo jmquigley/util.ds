@@ -17,14 +17,12 @@
   },
   "dependencies": {
     "fs-extra": "^4.0.1",
-    "lodash": "^4.17.4",
     "util.pkgwrap": "0.0.67"
   },
   "devDependencies": {
     "@types/fs-extra": "^4.0.0",
-    "@types/lodash": "^4.14.72",
-    "@types/node": "^8.0.20",
-    "ava": "^0.21.0",
+    "@types/node": "^8.0.23",
+    "ava": "^0.22.0",
     "coveralls": "^2.13.1",
     "nyc": "^11.1.0",
     "tslint": "^5.6.0",

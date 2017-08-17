@@ -1,7 +1,6 @@
 'use strict';
 
 import test from 'ava';
-import * as _ from 'lodash';
 import {Queue} from '../index';
 
 test('Create an empty queue', t => {
@@ -80,7 +79,7 @@ test('Test the queue drain function', t => {
 
 	// Do the same thing a few times to show that once drained it still works
 	// by returning an empty array.
-	_.times(n, () => {
+	for (let i = 0; i < n; i++) {
 		const arr = q.drain();
 		arr.forEach((val: number, idx: number) => {
 			t.true(val === idx);
@@ -88,7 +87,7 @@ test('Test the queue drain function', t => {
 
 		t.true(q.isEmpty());
 		t.is(q.length, 0);
-	});
+	}
 });
 
 test('Test the contains function with empty queue', t => {

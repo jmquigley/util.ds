@@ -365,10 +365,10 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	 * Removes the given data value from the tree.
 	 * @param data {T} the data value to remove
 	 */
-	public remove(data: T) {
+	public remove(data: T): T {
 
 		if (data == null) {
-			return;
+			return null;
 		}
 
 		const z = this._findNode(data);
@@ -407,15 +407,27 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 				this.removeFixUp(x);
 			}
 
-			if (x.data === this._first.data) {
+			if (z.data === this._first.data) {
 				this._first = this._minimum();
-			} else if (x.data === this._last.data) {
+			} else if (z.data === this._last.data) {
 				this._last = this._maximum();
 			}
 
 			this._length--;
 			this.emit('remove', z.data);
+			return z.data;
 		}
+
+		return null;
+	}
+
+	/**
+	 * Special case function to quickly find and remove the first item in the
+	 * tree.
+	 * @return {T} the data element that was first and removed from the tree.
+	 */
+	public removeFirst(): T {
+		return this.remove(this._first.data);
 	}
 
 	private removeFixUp(x: Node<T>) {
@@ -483,6 +495,15 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	}
 
 	/**
+	 * Special case function to quickly find and remove the last item in the
+	 * tree.
+	 * @return {T} the data element that was last and removed from the tree.
+	 */
+	public removeLast(): T {
+		return this.remove(this._last.data);
+	}
+
+	/**
 	 * Replaces one subtree as a child of its parent with another subtree
 	 * @param u {Node<T>} parent subtree
 	 * @param v {Node<T>} child subtree to use in replacement
@@ -512,6 +533,14 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	 * returned.  If it is not found, then nil is returned.
 	 */
 	public _findNode(data: T): Node<T> {
+
+		// Two special cases to quickly find the first or the last element
+		if (this._cmp(data, this._first.data) === 0) {
+			return this._first;
+		} else if (this._cmp(data, this._last.data) === 0) {
+			return this._last;
+		}
+
 		let node: Node<T> = this._root;
 
 		while (node !== this._nil) {
@@ -522,46 +551,6 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 			} else {
 				node = node.left;
 			}
-		}
-
-		return node;
-	}
-
-	/**
-	 * Searches a tree from a given node for the maximum value in that
-	 * (sub)tree.  Note that the property `.largest` can be used to
-	 * quickly retrieve the largest value in the tree.
-	 * @param node {Node<T>} the node location to start the search.  By
-	 * default this is the root node if no node is given.
-	 * @return {Node<T>} the largest node in the (sub)tree.
-	 */
-	public _maximum(node: Node<T> = this._root): Node<T> {
-		if (node === this._nil) {
-			return this._nil;
-		}
-
-		while (node.left !== this._nil) {
-			node = node.right;
-		}
-
-		return node;
-	}
-
-	/**
-	 * From a node searches a tree or subtree for the minimum value in that
-	 * (sub)tree.  Note that the property `.smallest` can be used to
-	 * quickly retrieve the smallest value in the tree.
-	 * @param node {Node<T>} the node location to start the search.  By
-	 * default this is the root node if no node is given.
-	 * @return {Node<T>} the smallest node in the (sub)tree.
-	 */
-	public _minimum(node: Node<T> = this._root): Node<T> {
-		if (node === this._nil) {
-			return this._nil;
-		}
-
-		while (node.left !== this._nil) {
-			node = node.left;
 		}
 
 		return node;
@@ -593,6 +582,48 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 
 		y.left = x;                  // move previous x into y's left child
 		x.parent = y;                // fix the parent pointer after previous move
+	}
+
+	/**
+	 * Searches a tree from a given node for the maximum value in that
+	 * (sub)tree.  Note that the property `.largest` can be used to
+	 * quickly retrieve the largest value in the tree.  This is really used
+	 * to recompute the maximum value when it is removed from the tree.
+	 * @param node {Node<T>} the node location to start the search.  By
+	 * default this is the root node if no node is given.
+	 * @return {Node<T>} the largest node in the (sub)tree.
+	 */
+	public _maximum(node: Node<T> = this._root): Node<T> {
+		if (node == null || node === this._nil) {
+			return this._nil;
+		}
+
+		while (node.right && node.right !== this._nil) {
+			node = node.right;
+		}
+
+		return node;
+	}
+
+	/**
+	 * From a node, searches a tree or subtree for the minimum value in that
+	 * (sub)tree.  Note that the property `.smallest` can be used to
+	 * quickly retrieve the smallest value in the tree.  This is really used
+	 * to recompute the minimum value when it is removed from the tree.
+	 * @param node {Node<T>} the node location to start the search.  By
+	 * default this is the root node if no node is given.
+	 * @return {Node<T>} the smallest node in the (sub)tree.
+	 */
+	public _minimum(node: Node<T> = this._root): Node<T> {
+		if (node == null || node === this._nil) {
+			return this._nil;
+		}
+
+		while (node.left && node.left !== this._nil) {
+			node = node.left;
+		}
+
+		return node;
 	}
 
 	/**

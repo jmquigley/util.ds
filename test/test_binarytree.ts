@@ -3,7 +3,7 @@
 import test from 'ava';
 import * as fs from 'fs-extra';
 import {join} from 'util.join';
-import {BinaryTree, Comparator} from '../index';
+import {BinaryTree, Comparator, Node} from '../index';
 
 interface TestData {
 	key?: string;
@@ -41,7 +41,6 @@ test('Create a simple BinaryTree', t => {
 	t.is(bt.size, 0);
 	t.is(bt.root, bt.nil);
 	t.is(bt.height, 0);
-
 });
 
 test('Test BinaryTree inorder traversal', t => {
@@ -230,11 +229,21 @@ test('Test the breadth search for the BinaryTree', t => {
 });
 
 test('Test the minimum/maximum functions on an empty tree', t => {
-	const bt = new BinaryTree();
+	const bt = new BinaryTree<string>();
 
 	t.truthy(bt);
 	t.is(bt._maximum(), bt.nil);
 	t.is(bt._minimum(), bt.nil);
+
+	t.is(bt._maximum(null), bt.nil);
+	t.is(bt._minimum(null), bt.nil);
+
+	const node = new Node<string>('a', null, null, null);
+	t.truthy(node);
+
+	t.is(bt._maximum(node), node);
+	t.is(bt._minimum(node), node);
+
 });
 
 test('Test with a large file word list in BinaryTree', t => {
@@ -325,6 +334,7 @@ test('Deletes a data element from the BinaryTree', t => {
 
 	bt.remove('c');
 	bt.remove(null);
+	bt.remove('z');
 	t.deepEqual(bt.inorder, ['a', 'd', 'k']);
 
 	t.is(bt.root.data, 'd');
@@ -384,4 +394,30 @@ test('Performs a find against the BinaryTree with custom data structure', t => {
 
 	t.is(bt.find(null), null);
 	t.is(bt.find({key: 'alskdfalsdf'}), null);
+});
+
+test('Test the removeFirst function in BinaryTree', t => {
+	const bt = new BinaryTree<string>(['g', 'c', 'a', 'd', 'k']);
+
+	t.truthy(bt);
+	t.is(bt.size, 5);
+	t.is(bt.first, 'a');
+
+	t.is(bt.removeFirst(), 'a');
+
+	t.is(bt.first, 'c');
+	t.is(bt.size, 4);
+});
+
+test('Test the removeLast function in BinaryTree', t => {
+	const bt = new BinaryTree<string>(['g', 'c', 'a', 'd', 'k']);
+
+	t.truthy(bt);
+	t.is(bt.size, 5);
+	t.is(bt.last, 'k');
+
+	t.is(bt.removeLast(), 'k');
+
+	t.is(bt.last, 'g');
+	t.is(bt.size, 4);
 });

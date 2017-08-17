@@ -1,6 +1,8 @@
 'use strict';
 
 import test from 'ava';
+import * as fs from 'fs-extra';
+import {join} from 'util.join';
 import {List} from '../index';
 
 test('Create an empty List', t => {
@@ -220,4 +222,24 @@ test('Test the find method for a List', t => {
 	t.is(list.find('e'), 'e');
 	t.is(list.find('aasldkfjsldkfj'), null);
 	t.is(list.find(null), null);
+});
+
+test('Test insert/delete to List on a very large set of words', t => {
+	const list = new List<string>();
+	const words = fs.readFileSync(join(process.cwd(), 'test', 'data', 'words.txt'), 'utf-8').split(/\r?\n/);
+
+	t.truthy(list);
+	t.truthy(words);
+
+	for (const word of words) {
+		list.insert(word);
+	}
+
+	t.is(list.length, words.length);
+
+	for (const word of words) {
+		list.remove(word);
+	}
+
+	t.is(list.length, 0);
 });
