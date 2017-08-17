@@ -343,7 +343,7 @@ These data structures work with primitive data types by default.  Each object ca
 import {BinaryTree, Comparator} from 'util.ds'
 
 interface TestData {
-    key: string;
+	key: string;
 	data?: number;
 }
 
@@ -357,7 +357,7 @@ const fn: Comparator<TestData> = (o1: TestData, o2: TestData): number => {
 	return -1;
 };
 
-const bt = new BinaryTree<TestData(null, fn);
+const bt = new BinaryTree<TestData>(null, fn);
 
 bt.insert({key: 'g', data: 1});
 bt.insert({key: 'c', data: 2});
