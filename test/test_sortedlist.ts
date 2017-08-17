@@ -58,11 +58,11 @@ test.cb('Test removal from a SortedList', t => {
 
 	list.on('remove', (data: string) => {
 		t.is(data, 'c');
+		t.is(list.size, 4);
+		t.false(list.contains('c'));
+		t.deepEqual(list.array, ['a', 'b', 'd', 'e']);
 		t.end();
 	});
 
 	list.remove('c');
-	t.is(list.size, 4);
-	t.false(list.contains('c'));
-	t.deepEqual(list.array, ['a', 'b', 'd', 'e']);
 });

@@ -35,21 +35,22 @@ test('Add/Remove items from the stack', t => {
 	t.true(stack.isEmpty());
 });
 
-test('Test stack add event', t => {
+test.cb('Test stack insert event', t => {
 	const stack = new Stack<number>();
 
 	t.true(stack && stack instanceof Stack);
 	t.true(stack.isEmpty());
 
 	const n: number = 100;
-	stack.on('add', (data: any) => {
+	stack.on('insert', (data: any) => {
 		t.is(data, n);
+		t.end();
 	});
 
 	stack.push(n);
 });
 
-test('Test stack remove event', t => {
+test.cb('Test stack remove event', t => {
 	const stack = new Stack<number>();
 
 	t.true(stack && stack instanceof Stack);
@@ -58,6 +59,7 @@ test('Test stack remove event', t => {
 	const n: number = 100;
 	stack.on('remove', (data: any) => {
 		t.is(data, n);
+		t.end();
 	});
 
 	stack.push(n);

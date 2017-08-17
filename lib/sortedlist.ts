@@ -58,5 +58,4 @@ export class SortedList<T> extends List<T> {
 		this._length++;
 		this.emit('insert', node.data);
 	}
-
 }

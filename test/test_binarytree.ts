@@ -88,6 +88,23 @@ test('Test the BinaryTree breadth traversal', t => {
 	t.deepEqual(bt.breadth, ['c', 'a', 'g', 'd', 'k']);
 });
 
+test.cb('Test BinaryTree insert event', t => {
+	const bt = new BinaryTree<string>();
+
+	t.truthy(bt);
+	t.true(bt.empty);
+
+	bt.on('insert', (data: string) => {
+		t.is(data, 'a');
+		t.is(bt.size, 1);
+		t.is(bt.first, 'a');
+		t.is(bt.last, 'a');
+		t.end();
+	});
+
+	bt.insert('a');
+});
+
 test('Test left and right rotation', t => {
 	const bt = new BinaryTree<string>();
 
@@ -313,6 +330,23 @@ test('Deletes a data element from the BinaryTree', t => {
 	t.is(bt.root.data, 'd');
 	t.is(bt.root.left.data, 'a');
 	t.is(bt.root.right.data, 'k');
+});
+
+test.cb('Test remove event in BinaryTree', t => {
+	const bt = new BinaryTree<string>(['a', 'b', 'c']);
+
+	t.truthy(bt);
+	t.false(bt.empty);
+	t.is(bt.size, 3);
+
+	bt.on('remove', (data: string) => {
+		t.is(data, 'b');
+		t.is(bt.size, 2);
+		t.deepEqual(bt.inorder, ['a', 'c']);
+		t.end();
+	});
+
+	bt.remove('b');
 });
 
 test('Performs a find against the BinaryTree with custom data structure', t => {

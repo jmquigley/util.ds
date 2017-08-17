@@ -203,11 +203,11 @@ test.cb('Test List remove event', t => {
 
 	list.on('remove', (data: string) => {
 		t.is(data, 'b');
+		t.deepEqual(list.array, ['a', 'c']);
 		t.end();
 	});
 
 	list.remove('b');
-	t.deepEqual(list.array, ['a', 'c']);
 });
 
 test('Test the find method for a List', t => {

@@ -35,7 +35,7 @@ export class Stack<T> extends Collection<T> {
 		}
 
 		this._length++;
-		this.emit('add', data);
+		this.emit('insert', data);
 	}
 
 	/**

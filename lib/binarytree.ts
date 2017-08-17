@@ -250,7 +250,7 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 			this.insertFixUp(this._x);
 		}
 
-		this.emit('insert', this._x);
+		this.emit('insert', this._x.data);
 	}
 
 	private insertDelegate(data: T, node: Node<T> = this._root, parent: Node<T> = this._nil): Node<T> {
@@ -414,7 +414,7 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 			}
 
 			this._length--;
-			this.emit('remove', z);
+			this.emit('remove', z.data);
 		}
 	}
 
