@@ -1,6 +1,6 @@
 {
   "name": "util.ds",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "author": "jmquigley <jmquigley@outlook.com>",
   "description": "Simple data structures",
   "private": false,
