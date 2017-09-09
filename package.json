@@ -18,18 +18,18 @@
   "dependencies": {
     "fs-extra": "^4.0.1",
     "sprintf-js": "^1.1.1",
-    "util.pkgwrap": "0.0.67"
+    "util.pkgwrap": "0.0.68"
   },
   "devDependencies": {
-    "@types/fs-extra": "^4.0.0",
-    "@types/node": "^8.0.23",
-    "@types/sprintf-js": "0.0.27",
+    "@types/fs-extra": "^4.0.2",
+    "@types/node": "^8.0.28",
+    "@types/sprintf-js": "1.1.0",
     "ava": "^0.22.0",
     "coveralls": "^2.13.1",
-    "nyc": "^11.1.0",
-    "tslint": "^5.6.0",
-    "typescript": "^2.4.2",
-    "util.join": "^0.0.12"
+    "nyc": "^11.2.1",
+    "tslint": "^5.7.0",
+    "typescript": "^2.5.2",
+    "util.join": "^0.0.14"
   },
   "main": "./index.js",
   "types": "./index.d.ts",

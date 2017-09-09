@@ -21,14 +21,16 @@ It contains the following data structures:
 
 ## Installation
 
+This module uses [yarn](https://yarnpkg.com/en/) to manage dependencies and run scripts for development.
+
 To install as an application dependency:
 ```
-$ npm install --save util.ds
+$ yarn add --dev util.ds
 ```
 
 To build the app and run all tests:
 ```
-$ npm run all
+$ yarn run all
 ```
 
 
