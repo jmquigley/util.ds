@@ -59,6 +59,28 @@ export class List<T> extends Collection<T> implements Iterable<T> {
 	}
 
 	/**
+	 * Retrieves the data from the list at a given position.  If the position
+	 * is outside of the list, then null is returned.  This is an O(N)
+	 * operation for each call (it looks for each position from the start
+	 * of th list).
+	 * @param pos {number} the position to retrieve from the list
+	 * @return {T} the data associated with this position within the list
+	 */
+	public at(pos: number): T {
+
+		if (this._root && pos >= 0 && pos < this._length) {
+			let node: Node<T> = this._root;
+			for (let i = 0; i < pos; i++) {
+				node = node.right;
+			}
+
+			return node.data;
+		}
+
+		return null;
+	}
+
+	/**
 	 * Searches the list for an element.  If it is found, then the data element
 	 * associated with that node is returned (not the node).  When used with a
 	 * primative type this is not useful as the key and the value found would

@@ -243,3 +243,15 @@ test('Test insert/delete to List on a very large set of words', t => {
 
 	t.is(list.length, 0);
 });
+
+test('Test retrieving list items at arbitrary locations with at', t => {
+	const list = new List<number>([10, 20, 30]);
+
+	t.truthy(list);
+
+	t.is(list.at(0), 10);
+	t.is(list.at(1), 20);
+	t.is(list.at(2), 30);
+	t.is(list.at(-1), null);
+	t.is(list.at(999), null);
+});

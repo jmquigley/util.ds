@@ -8,6 +8,7 @@ A doubly linked list structure.
 * [List](#List)
     * [.array](#List+array) ⇒ <code>Array.&lt;T&gt;</code>
     * [.reverse](#List+reverse) ⇒ <code>Array.&lt;T&gt;</code>
+    * [.at(pos)](#List+at) ⇒ <code>T</code>
     * [.find(key)](#List+find) ⇒ <code>T</code>
     * [.insert(data, idx)](#List+insert)
     * [.remove(data, [idx])](#List+remove) ⇒ <code>T</code>
@@ -24,6 +25,21 @@ A doubly linked list structure.
 ### list.reverse ⇒ <code>Array.&lt;T&gt;</code>
 **Kind**: instance property of [<code>List</code>](#List)  
 **Returns**: <code>Array.&lt;T&gt;</code> - a reversed array of all elements in the list  
+<a name="List+at"></a>
+
+### list.at(pos) ⇒ <code>T</code>
+Retrieves the data from the list at a given position.  If the position
+is outside of the list, then null is returned.  This is an O(N)
+operation for each call (it looks for each position from the start
+of th list).
+
+**Kind**: instance method of [<code>List</code>](#List)  
+**Returns**: <code>T</code> - the data associated with this position within the list  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| pos | <code>number</code> | the position to retrieve from the list |
+
 <a name="List+find"></a>
 
 ### list.find(key) ⇒ <code>T</code>
