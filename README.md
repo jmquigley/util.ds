@@ -9,7 +9,7 @@ It contains the following data structures:
 - [BinaryTree](docs/lib/binarytree.md)
 - [Deque](docs/lib/deque.md)
 - [List](docs/lib/list.md)
-- [PriorityQueue](docs/lib/priqueue.md)
+- [PriorityQueue](docs/lib/priorityqueue.md)
 - [Queue](docs/lib/queue.md)
 - [SortedList](docs/lib/sortedlist.md)
 - [Stack](docs/lib/stack.md)
