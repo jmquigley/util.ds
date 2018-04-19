@@ -4445,9 +4445,9 @@ util.join@^0.0.18:
   dependencies:
     util.home "0.0.23"
 
-util.pkgwrap@^0.0.90:
-  version "0.0.90"
-  resolved "https://registry.yarnpkg.com/util.pkgwrap/-/util.pkgwrap-0.0.90.tgz#eea7f2ae5addf6506bf7229ac2f7ad308e8e7b12"
+util.pkgwrap@^0.0.91:
+  version "0.0.91"
+  resolved "https://registry.yarnpkg.com/util.pkgwrap/-/util.pkgwrap-0.0.91.tgz#ac725cc415c5177680a21bbc098d5650eb443bd6"
   dependencies:
     coveralls "^3.0.0"
     cpx "^1.5.0"
