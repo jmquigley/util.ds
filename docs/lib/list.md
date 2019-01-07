@@ -85,7 +85,7 @@ Removes an element from the list.
 
 <a name="List+_getNodeByValue"></a>
 
-### list._getNodeByValue(data) ⇒ <code>Node.&lt;T&gt;</code>
+### list.\_getNodeByValue(data) ⇒ <code>Node.&lt;T&gt;</code>
 Iterates through the list and find the node associated with a key
 value T.
 
@@ -99,7 +99,7 @@ is not found, then null is returned.
 
 <a name="List+_getNodeByIndex"></a>
 
-### list._getNodeByIndex(idx) ⇒ <code>Node.&lt;T&gt;</code>
+### list.\_getNodeByIndex(idx) ⇒ <code>Node.&lt;T&gt;</code>
 Moves to a position within the list and finds the node associated
 with that index.
 

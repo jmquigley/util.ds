@@ -151,7 +151,7 @@ tree.
 **Returns**: <code>T</code> - the data element that was last and removed from the tree.  
 <a name="BinaryTree+_findNode"></a>
 
-### binaryTree._findNode(data) ⇒ <code>Node.&lt;T&gt;</code>
+### binaryTree.\_findNode(data) ⇒ <code>Node.&lt;T&gt;</code>
 Searches the tree for a specific node within the tree.
 
 **Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
@@ -164,14 +164,14 @@ returned.  If it is not found, then nil is returned.
 
 <a name="BinaryTree+_leftRotate"></a>
 
-### binaryTree._leftRotate()
+### binaryTree.\_leftRotate()
 Localized left rotation of nodes.  This is a public function but is private
 by convention (for testing).  Generally not called as part of the api.
 
 **Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
 <a name="BinaryTree+_maximum"></a>
 
-### binaryTree._maximum(node) ⇒ <code>Node.&lt;T&gt;</code>
+### binaryTree.\_maximum(node) ⇒ <code>Node.&lt;T&gt;</code>
 Searches a tree from a given node for the maximum value in that
 (sub)tree.  Note that the property `.largest` can be used to
 quickly retrieve the largest value in the tree.  This is really used
@@ -186,7 +186,7 @@ to recompute the maximum value when it is removed from the tree.
 
 <a name="BinaryTree+_minimum"></a>
 
-### binaryTree._minimum(node) ⇒ <code>Node.&lt;T&gt;</code>
+### binaryTree.\_minimum(node) ⇒ <code>Node.&lt;T&gt;</code>
 From a node, searches a tree or subtree for the minimum value in that
 (sub)tree.  Note that the property `.smallest` can be used to
 quickly retrieve the smallest value in the tree.  This is really used
@@ -201,14 +201,14 @@ to recompute the minimum value when it is removed from the tree.
 
 <a name="BinaryTree+_rightRotate"></a>
 
-### binaryTree._rightRotate()
+### binaryTree.\_rightRotate()
 Localized right rotation of nodes.  This is a public function but is private
 by convention (for testing).  Generally not called as part of the api.
 
 **Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
 <a name="BinaryTree+_successor"></a>
 
-### binaryTree._successor(node) ⇒ <code>Node.&lt;T&gt;</code>
+### binaryTree.\_successor(node) ⇒ <code>Node.&lt;T&gt;</code>
 The successor of a node is the node with the smallest key greater than
 node.data.
 
