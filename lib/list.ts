@@ -1,16 +1,15 @@
-'use strict';
+"use strict";
 
-import {Collection} from './collection';
-import {Comparator} from './comparator';
-import {Iterable} from './iterable';
-import {Node} from './node';
+import {Collection} from "./collection";
+import {Comparator} from "./comparator";
+import {Iterable} from "./iterable";
+import {Node} from "./node";
 
 /**
  * A doubly linked list structure.
  *
  */
 export class List<T> extends Collection<T> implements Iterable<T> {
-
 	public static readonly FRONT: number = 0;
 	public static readonly BACK: number = -1;
 
@@ -67,7 +66,6 @@ export class List<T> extends Collection<T> implements Iterable<T> {
 	 * @return {T} the data associated with this position within the list
 	 */
 	public at(pos: number): T {
-
 		if (this._root && pos >= 0 && pos < this._length) {
 			let node: Node<T> = this._root;
 			for (let i = 0; i < pos; i++) {
@@ -107,7 +105,6 @@ export class List<T> extends Collection<T> implements Iterable<T> {
 	 * this number be List.FRONT, List.BACK, or any other number.
 	 */
 	public insert(data: T, idx: number = List.BACK) {
-
 		if (data == null || idx === null) {
 			return;
 		}
@@ -123,19 +120,19 @@ export class List<T> extends Collection<T> implements Iterable<T> {
 		if (this._root === null) {
 			this._root = this._first = this._last = node;
 
-		// Insert into end
+			// Insert into end
 		} else if (idx === List.BACK) {
 			node.left = this._last;
 			this._last.right = node;
 			this._last = node;
 
-		// Insert to front
+			// Insert to front
 		} else if (idx === List.FRONT) {
 			node.right = this._root;
 			this._root.left = node;
 			this._root = this._first = node;
 
-		// Arbitrary insert by index
+			// Arbitrary insert by index
 		} else {
 			const tnode: Node<T> = this._getNodeByIndex(idx);
 			node.right = tnode;
@@ -145,7 +142,7 @@ export class List<T> extends Collection<T> implements Iterable<T> {
 		}
 
 		this._length++;
-		this.emit('insert', node.data);
+		this.emit("insert", node.data);
 	}
 
 	/**
@@ -155,7 +152,6 @@ export class List<T> extends Collection<T> implements Iterable<T> {
 	 * @return {T} the data element that was deleted
 	 */
 	public remove(data: T, idx: number = null): T {
-
 		if (data == null && idx === null) {
 			return null;
 		}
@@ -177,7 +173,7 @@ export class List<T> extends Collection<T> implements Iterable<T> {
 					this._root.left = null;
 				}
 
-			// Remove the last node
+				// Remove the last node
 			} else if (tnode === this._last) {
 				this._last = this._last.left;
 
@@ -185,14 +181,14 @@ export class List<T> extends Collection<T> implements Iterable<T> {
 					this._last.right = null;
 				}
 
-			// Remove an arbitrary node
+				// Remove an arbitrary node
 			} else {
 				tnode.right.left = tnode.left;
 				tnode.left.right = tnode.right;
 			}
 
 			this._length--;
-			this.emit('remove', tnode.data);
+			this.emit("remove", tnode.data);
 			return tnode.data;
 		}
 
@@ -225,7 +221,6 @@ export class List<T> extends Collection<T> implements Iterable<T> {
 	 * node is not found, then null is returned.
 	 */
 	public _getNodeByIndex(idx: number): Node<T> {
-
 		if (idx === List.BACK) {
 			idx = this.length - 1;
 		} else if (idx === List.FRONT) {

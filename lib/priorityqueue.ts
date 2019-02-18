@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-import {sprintf} from 'sprintf-js';
-import {BinaryTree} from './binarytree';
+import {sprintf} from "sprintf-js";
+import {BinaryTree} from "./binarytree";
 
 export interface Offset {
 	[key: number]: number;
@@ -36,7 +36,6 @@ function comparator<T>(o1: Priority<T>, o2: Priority<T>): number {
  *
  */
 export class PriorityQueue<T> extends BinaryTree<Priority<T>> {
-
 	private _offsets: Offset = {};
 
 	constructor() {
@@ -90,7 +89,6 @@ export class PriorityQueue<T> extends BinaryTree<Priority<T>> {
 		const arr: T[] = [];
 
 		while (!this.empty) {
-
 			const val = this.dequeue();
 			if (val) {
 				arr.push(val);
@@ -98,7 +96,7 @@ export class PriorityQueue<T> extends BinaryTree<Priority<T>> {
 		}
 
 		this._length = 0;
-		this.emit('drain', arr);
+		this.emit("drain", arr);
 		return arr;
 	}
 
@@ -111,7 +109,6 @@ export class PriorityQueue<T> extends BinaryTree<Priority<T>> {
 	 * item in the queue.
 	 */
 	public enqueue(data: T, priority: number) {
-
 		// No negative priorities
 		if (priority < 0) {
 			priority = 0;

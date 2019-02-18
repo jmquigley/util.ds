@@ -1,37 +1,39 @@
-'use strict';
+"use strict";
 
-import {Color, Node} from '../index';
+import "@babel/polyfill";
 
-test('Test creation of a simple Node', () => {
-	const node = new Node<string>('test');
+import {Color, Node} from "../index";
 
-	expect(node).toBeDefined()
+test("Test creation of a simple Node", () => {
+	const node = new Node<string>("test");
+
+	expect(node).toBeDefined();
 	expect(node).toMatchSnapshot();
 });
 
-test('Test creation of a Node with right/left child', () => {
+test("Test creation of a Node with right/left child", () => {
 	const node = new Node<string>(
-		'inner',
-		new Node<string>('right child'),
-		new Node<string>('left child'),
-		new Node<string>('parent reference'),
+		"inner",
+		new Node<string>("right child"),
+		new Node<string>("left child"),
+		new Node<string>("parent reference"),
 		Color.black
 	);
 
-	expect(node).toBeDefined()
+	expect(node).toBeDefined();
 	expect(node).toMatchSnapshot();
 });
 
-test('Test clearing a Node', () => {
+test("Test clearing a Node", () => {
 	const node = new Node<string>(
-		'inner',
-		new Node<string>('right child'),
-		new Node<string>('left child'),
-		new Node<string>('parent reference'),
+		"inner",
+		new Node<string>("right child"),
+		new Node<string>("left child"),
+		new Node<string>("parent reference"),
 		Color.black
 	);
 
-	expect(node).toBeDefined()
+	expect(node).toBeDefined();
 	expect(node.color).toBeTruthy();
 	expect(node.data).toBeTruthy();
 	expect(node.parent).toBeTruthy();

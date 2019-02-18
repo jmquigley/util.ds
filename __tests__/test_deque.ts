@@ -1,14 +1,16 @@
-'use strict';
+"use strict";
 
-import {Deque} from '../index';
-import {Comparator} from '../lib/comparator';
+import "@babel/polyfill";
+
+import {Deque} from "../index";
+import {Comparator} from "../lib/comparator";
 
 interface TestData {
 	item1: string;
 	item2: number;
 }
 
-test('Create an emtpy Deque', () => {
+test("Create an emtpy Deque", () => {
 	const dq = new Deque<number>();
 
 	expect(dq).toBeDefined();
@@ -21,7 +23,7 @@ test('Create an emtpy Deque', () => {
 	expect(dq).toMatchSnapshot();
 });
 
-test('Add/Remove items from the front of the deque', () => {
+test("Add/Remove items from the front of the deque", () => {
 	const dq = new Deque<number>();
 	const n: number = 5;
 
@@ -43,7 +45,7 @@ test('Add/Remove items from the front of the deque', () => {
 	expect(dq.empty).toBe(true);
 });
 
-test('Add/Remove items from the back of the deque', () => {
+test("Add/Remove items from the back of the deque", () => {
 	const dq = new Deque<number>();
 	const n: number = 5;
 
@@ -65,14 +67,14 @@ test('Add/Remove items from the back of the deque', () => {
 	expect(dq.empty).toBe(true);
 });
 
-test('Test deque insert event (pushFront)', (done) => {
+test("Test deque insert event (pushFront)", (done) => {
 	const dq = new Deque<number>();
 
 	expect(dq).toBeDefined();
 	expect(dq.empty).toBe(true);
 
 	const n: number = 100;
-	dq.on('insert', (data: any) => {
+	dq.on("insert", (data: any) => {
 		expect(data).toBe(n);
 		done();
 	});
@@ -80,14 +82,14 @@ test('Test deque insert event (pushFront)', (done) => {
 	dq.pushFront(n);
 });
 
-test('Test deque remove event (popFront)', (done) => {
+test("Test deque remove event (popFront)", (done) => {
 	const dq = new Deque<number>();
 
 	expect(dq).toBeDefined();
 	expect(dq.empty).toBe(true);
 
 	const n: number = 100;
-	dq.on('remove', (data: any) => {
+	dq.on("remove", (data: any) => {
 		expect(data).toBe(n);
 		done();
 	});
@@ -96,14 +98,14 @@ test('Test deque remove event (popFront)', (done) => {
 	dq.popFront();
 });
 
-test('Test deque insert event (pushBack)', (done) => {
+test("Test deque insert event (pushBack)", (done) => {
 	const dq = new Deque<number>();
 
 	expect(dq).toBeDefined();
 	expect(dq.empty).toBe(true);
 
 	const n: number = 100;
-	dq.on('insert', (data: any) => {
+	dq.on("insert", (data: any) => {
 		expect(data).toBe(n);
 		done();
 	});
@@ -111,14 +113,14 @@ test('Test deque insert event (pushBack)', (done) => {
 	dq.pushBack(n);
 });
 
-test('Test deque remove event (popBack)', (done) => {
+test("Test deque remove event (popBack)", (done) => {
 	const dq = new Deque<number>();
 
 	expect(dq).toBeDefined();
 	expect(dq.empty).toBe(true);
 
 	const n: number = 100;
-	dq.on('remove', (data: any) => {
+	dq.on("remove", (data: any) => {
 		expect(data).toBe(n);
 		done();
 	});
@@ -127,7 +129,7 @@ test('Test deque remove event (popBack)', (done) => {
 	dq.popBack();
 });
 
-test('Test size limited Deque (front)', () => {
+test("Test size limited Deque (front)", () => {
 	const n: number = 5;
 	const dq = new Deque<number>(n);
 
@@ -152,7 +154,7 @@ test('Test size limited Deque (front)', () => {
 	expect(dq.empty).toBe(true);
 });
 
-test('Test size limited Deque (back)', () => {
+test("Test size limited Deque (back)", () => {
 	const n: number = 5;
 	const dq = new Deque<number>(n);
 
@@ -177,7 +179,7 @@ test('Test size limited Deque (back)', () => {
 	expect(dq.empty).toBe(true);
 });
 
-test('Test size limited Deque (pushFront) event', (done) => {
+test("Test size limited Deque (pushFront) event", (done) => {
 	const n: number = 5;
 	const dq = new Deque<number>(n);
 
@@ -190,7 +192,7 @@ test('Test size limited Deque (pushFront) event', (done) => {
 
 	expect(dq.size).toBe(n);
 
-	dq.on('remove', (data: any) => {
+	dq.on("remove", (data: any) => {
 		expect(dq.size).toBe(n - 1);
 		expect(data).toBe(0);
 		done();
@@ -199,7 +201,7 @@ test('Test size limited Deque (pushFront) event', (done) => {
 	dq.pushFront(n + 1);
 });
 
-test('Test size limited Deque (pushBack) event', (done) => {
+test("Test size limited Deque (pushBack) event", (done) => {
 	const n: number = 5;
 	const dq = new Deque<number>(n);
 
@@ -212,7 +214,7 @@ test('Test size limited Deque (pushBack) event', (done) => {
 
 	expect(dq.size).toBe(n);
 
-	dq.on('remove', (data: any) => {
+	dq.on("remove", (data: any) => {
 		expect(dq.size).toBe(n - 1);
 		expect(data).toBe(0);
 		done();
@@ -221,7 +223,7 @@ test('Test size limited Deque (pushBack) event', (done) => {
 	dq.pushBack(n + 1);
 });
 
-test('Test the contains function on empty deque', () => {
+test("Test the contains function on empty deque", () => {
 	const dq = new Deque<number>();
 
 	expect(dq).toBeDefined();
@@ -229,7 +231,7 @@ test('Test the contains function on empty deque', () => {
 	expect(!dq.contains(999)).toBe(true);
 });
 
-test('Test the contains function for a deque', () => {
+test("Test the contains function for a deque", () => {
 	const dq = new Deque<number>();
 
 	expect(dq).toBeDefined();
@@ -245,7 +247,7 @@ test('Test the contains function for a deque', () => {
 	expect(!dq.contains(999)).toBe(true);
 });
 
-test('Test of the deque contains function with custom comparator', () => {
+test("Test of the deque contains function with custom comparator", () => {
 	const fn: Comparator<TestData> = (o1: TestData, o2: TestData): number => {
 		if (o1.item1 === o2.item1 && o1.item2 === o2.item2) {
 			return 0;
@@ -261,16 +263,16 @@ test('Test of the deque contains function with custom comparator', () => {
 	expect(dq).toBeDefined();
 	expect(dq.empty).toBe(true);
 
-	dq.enqueue({item1: 'abc', item2: 0});
-	dq.enqueue({item1: 'abc', item2: 1});
-	dq.enqueue({item1: 'def', item2: 0});
-	dq.enqueue({item1: 'ghi', item2: 0});
-	dq.enqueue({item1: 'jkl', item2: 0});
-	dq.enqueue({item1: 'mno', item2: 0});
+	dq.enqueue({item1: "abc", item2: 0});
+	dq.enqueue({item1: "abc", item2: 1});
+	dq.enqueue({item1: "def", item2: 0});
+	dq.enqueue({item1: "ghi", item2: 0});
+	dq.enqueue({item1: "jkl", item2: 0});
+	dq.enqueue({item1: "mno", item2: 0});
 
-	expect(dq.contains({item1: 'abc', item2: 1})).toBe(true);
-	expect(dq.contains({item1: 'ghi', item2: 0})).toBe(true);
-	expect(dq.contains({item1: 'mno', item2: 0})).toBe(true);
-	expect(!dq.contains({item1: 'cat', item2: 0})).toBe(true);
-	expect(!dq.contains({item1: 'dog', item2: 0})).toBe(true);
+	expect(dq.contains({item1: "abc", item2: 1})).toBe(true);
+	expect(dq.contains({item1: "ghi", item2: 0})).toBe(true);
+	expect(dq.contains({item1: "mno", item2: 0})).toBe(true);
+	expect(!dq.contains({item1: "cat", item2: 0})).toBe(true);
+	expect(!dq.contains({item1: "dog", item2: 0})).toBe(true);
 });

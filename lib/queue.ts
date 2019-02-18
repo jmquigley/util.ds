@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
-import {Comparator} from './comparator';
-import {List} from './list';
-import {Node} from './node';
+import {Comparator} from "./comparator";
+import {List} from "./list";
+import {Node} from "./node";
 
 /** Simple FIFO queue implementation */
 export class Queue<T> extends List<T> {
@@ -33,7 +33,7 @@ export class Queue<T> extends List<T> {
 		}
 
 		this._length = 0;
-		this.emit('drain', arr);
+		this.emit("drain", arr);
 		return arr;
 	}
 
@@ -62,5 +62,4 @@ export class Queue<T> extends List<T> {
 	 * @param data {Object} the data to push on the end of the queue.
 	 */
 	public push = this.enqueue;
-
 }

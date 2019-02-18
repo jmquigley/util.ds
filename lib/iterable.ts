@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * An interface shared by any object that can insert or remove data.

@@ -1,10 +1,9 @@
-import {Comparator} from './comparator';
-import {List} from './list';
-import {Queue} from './queue';
+import {Comparator} from "./comparator";
+import {List} from "./list";
+import {Queue} from "./queue";
 
 /** A double ended Queue class */
 export class Deque<T> extends Queue<T> {
-
 	private _maxSize: number;
 
 	/**
@@ -21,7 +20,10 @@ export class Deque<T> extends Queue<T> {
 	constructor(maxSize: number = 0, arr: T[] = [], cmp: Comparator<T> = null) {
 		super(arr, cmp);
 
-		this._maxSize = (maxSize == null || typeof maxSize !== 'number') ? 0 : Math.round(maxSize);
+		this._maxSize =
+			maxSize == null || typeof maxSize !== "number"
+				? 0
+				: Math.round(maxSize);
 	}
 
 	/**

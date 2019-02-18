@@ -1,17 +1,16 @@
-'use strict';
+"use strict";
 
-import {Comparator} from './comparator';
-import {Iterable} from './iterable';
-import {Color, Node} from './node';
-import {Queue} from './queue';
-import {Tree} from './tree';
+import {Comparator} from "./comparator";
+import {Iterable} from "./iterable";
+import {Color, Node} from "./node";
+import {Queue} from "./queue";
+import {Tree} from "./tree";
 
 /**
  * Implements a binary tree structure using a Red/Black tree algorithm.
  *
  */
-export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
-
+export class BinaryTree<T> extends Tree<T> implements Iterable<T> {
 	private _x: Node<T>;
 
 	constructor(arr: T[] = [], cmp: Comparator<T> = null) {
@@ -58,7 +57,7 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	 */
 	get height(): number {
 		const h = this.findHeight(this._root);
-		return (h <= 0) ? 0 : h;
+		return h <= 0 ? 0 : h;
 	}
 
 	/**
@@ -103,7 +102,6 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	 * false is returned.
 	 */
 	public breadthSearch(data: T, node: Node<T> = this._root): boolean {
-
 		if (data == null) {
 			return false;
 		}
@@ -146,7 +144,6 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	 * false is returned.
 	 */
 	public contains(data: T): boolean {
-
 		if (data == null) {
 			return false;
 		}
@@ -177,7 +174,6 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	 * then null is returned.
 	 */
 	public find(key: T): T {
-
 		if (key == null) {
 			return null;
 		}
@@ -205,7 +201,6 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	 * @private
 	 */
 	private findHeight(node: Node<T>): number {
-
 		if (node === this._nil) {
 			return -1;
 		}
@@ -221,7 +216,6 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	}
 
 	private inorderDelegate(node: Node<T>, out: T[]) {
-
 		if (node === this._nil) {
 			return;
 		}
@@ -236,7 +230,6 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	 * @param data {T} the data element to insert into the tree
 	 */
 	public insert(data: T) {
-
 		if (data == null) {
 			return;
 		}
@@ -250,11 +243,14 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 			this.insertFixUp(this._x);
 		}
 
-		this.emit('insert', this._x.data);
+		this.emit("insert", this._x.data);
 	}
 
-	private insertDelegate(data: T, node: Node<T> = this._root, parent: Node<T> = this._nil): Node<T> {
-
+	private insertDelegate(
+		data: T,
+		node: Node<T> = this._root,
+		parent: Node<T> = this._nil
+	): Node<T> {
 		if (this._root === this._nil) {
 			this._x = this.newNode(data, parent);
 			this._root = this._x;
@@ -263,7 +259,6 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 
 			return this._root;
 		} else {
-
 			if (node === this._nil) {
 				this._length++;
 				this._x = this.newNode(data, parent);
@@ -292,7 +287,6 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 		let y;
 
 		while (x !== this._root && x.parent.color === Color.red) {
-
 			if (x.parent === x.parent.parent.left) {
 				y = x.parent.parent.right;
 
@@ -340,7 +334,6 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	}
 
 	private postorderDelegate(node: Node<T>, out: T[]) {
-
 		if (node === this._nil) {
 			return;
 		}
@@ -351,7 +344,6 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	}
 
 	private preorderDelegate(node: Node<T>, out: T[]) {
-
 		if (node === this._nil) {
 			return;
 		}
@@ -366,7 +358,6 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	 * @param data {T} the data value to remove
 	 */
 	public remove(data: T): T {
-
 		if (data == null) {
 			return null;
 		}
@@ -419,7 +410,7 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 				this._first = this._last = this._root = this._nil;
 			}
 
-			this.emit('remove', z.data);
+			this.emit("remove", z.data);
 			return z.data;
 		}
 
@@ -449,7 +440,10 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 					w = x.parent.right;
 				}
 
-				if (w.left.color === Color.black && w.right.color === Color.black) {
+				if (
+					w.left.color === Color.black &&
+					w.right.color === Color.black
+				) {
 					w.color = Color.red;
 					x = x.parent;
 				} else {
@@ -476,7 +470,10 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 					w = x.parent.left;
 				}
 
-				if (w.left.color === Color.black && w.right.color === Color.black) {
+				if (
+					w.left.color === Color.black &&
+					w.right.color === Color.black
+				) {
 					w.color = Color.red;
 					x = x.parent;
 				} else {
@@ -538,7 +535,6 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	 * returned.  If it is not found, then nil is returned.
 	 */
 	public _findNode(data: T): Node<T> {
-
 		// Two special cases to quickly find the first or the last element
 		if (this._cmp(data, this._first.data) === 0) {
 			return this._first;
@@ -568,14 +564,16 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	public _leftRotate(x: Node<T>) {
 		const y: Node<T> = x.right;
 
-		x.right = y.left;            // turn y's left subtree into x's right subtree
-		if (y.left !== this._nil) {  // fix y's left child parent pointer
+		x.right = y.left; // turn y's left subtree into x's right subtree
+		if (y.left !== this._nil) {
+			// fix y's left child parent pointer
 			y.left.parent = x;
 		}
 
-		y.parent = x.parent;         // link x's parent to y
+		y.parent = x.parent; // link x's parent to y
 
-		if (x.parent === this._nil) { // special case fix when rotating root
+		if (x.parent === this._nil) {
+			// special case fix when rotating root
 			this._root = y;
 		} else {
 			if (x === x.parent.left) {
@@ -585,8 +583,8 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 			}
 		}
 
-		y.left = x;                  // move previous x into y's left child
-		x.parent = y;                // fix the parent pointer after previous move
+		y.left = x; // move previous x into y's left child
+		x.parent = y; // fix the parent pointer after previous move
 	}
 
 	/**
@@ -638,14 +636,16 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	public _rightRotate(x: Node<T>) {
 		const y: Node<T> = x.left;
 
-		x.left = y.right;            // turn y's right subtree into x's left subtree
-		if (y.right !== this._nil) { // fix y's right child parent pointer
+		x.left = y.right; // turn y's right subtree into x's left subtree
+		if (y.right !== this._nil) {
+			// fix y's right child parent pointer
 			y.right.parent = x;
 		}
 
-		y.parent = x.parent;         // link x's parent to y
+		y.parent = x.parent; // link x's parent to y
 
-		if (x.parent === this._nil) { // special case fix when rotating root
+		if (x.parent === this._nil) {
+			// special case fix when rotating root
 			this._root = y;
 		} else {
 			if (x === x.parent.right) {
@@ -655,8 +655,8 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 			}
 		}
 
-		y.right = x;                // move previous x into y's right child
-		x.parent = y;               // fix y's left child parent pointer
+		y.right = x; // move previous x into y's right child
+		x.parent = y; // fix y's left child parent pointer
 	}
 
 	/**
@@ -685,7 +685,7 @@ export class BinaryTree<T> extends Tree<T>  implements Iterable<T> {
 	 * an iterator.
 	 */
 	public *[Symbol.iterator]() {
-		const nil = this._nil;  // nested function workaround for .this
+		const nil = this._nil; // nested function workaround for .this
 
 		function getFirstNode(root: Node<T>): Node<T> {
 			if (root === nil) {

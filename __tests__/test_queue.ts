@@ -1,8 +1,10 @@
-'use strict';
+"use strict";
 
-import {Queue} from '../index';
+import "@babel/polyfill";
 
-test('Create an empty queue', () => {
+import {Queue} from "../index";
+
+test("Create an empty queue", () => {
 	const q = new Queue<number>();
 
 	expect(q).toBeDefined();
@@ -12,7 +14,7 @@ test('Create an empty queue', () => {
 	expect(q).toMatchSnapshot();
 });
 
-test('Add/Remove items from the queue', () => {
+test("Add/Remove items from the queue", () => {
 	const q = new Queue<number>();
 	const n: number = 50;
 
@@ -21,7 +23,7 @@ test('Add/Remove items from the queue', () => {
 	expect(q.empty).toBe(true);
 
 	for (let i: number = 0; i < n; i++) {
-		(i % 2) ? q.enqueue(i) : q.push(i);
+		i % 2 ? q.enqueue(i) : q.push(i);
 	}
 
 	expect(q.size).toBe(n);
@@ -35,14 +37,14 @@ test('Add/Remove items from the queue', () => {
 	expect(q.empty).toBe(true);
 });
 
-test('Test queue insert event', (done) => {
+test("Test queue insert event", (done) => {
 	const q = new Queue<number>();
 
 	expect(q).toBeDefined();
 	expect(q.isEmpty()).toBe(true);
 
 	const n: number = 100;
-	q.on('insert', (data: number) => {
+	q.on("insert", (data: number) => {
 		expect(data).toBe(n);
 		done();
 	});
@@ -50,14 +52,14 @@ test('Test queue insert event', (done) => {
 	q.enqueue(n);
 });
 
-test('Test queue remove event', (done) => {
+test("Test queue remove event", (done) => {
 	const q = new Queue<number>();
 
 	expect(q).toBeDefined();
 	expect(q.empty).toBe(true);
 
 	const n: number = 100;
-	q.on('remove', (data: number) => {
+	q.on("remove", (data: number) => {
 		expect(data).toBe(n);
 		done();
 	});
@@ -66,7 +68,7 @@ test('Test queue remove event', (done) => {
 	q.dequeue();
 });
 
-test('Test the queue drain function', () => {
+test("Test the queue drain function", () => {
 	const q = new Queue<number>();
 	const n: number = 5;
 
@@ -89,7 +91,7 @@ test('Test the queue drain function', () => {
 	}
 });
 
-test('Test the contains function with empty queue', () => {
+test("Test the contains function with empty queue", () => {
 	const q = new Queue<number>();
 
 	expect(q).toBeDefined();
@@ -97,7 +99,7 @@ test('Test the contains function with empty queue', () => {
 	expect(!q.contains(999)).toBe(true);
 });
 
-test('Test the contains function for a queue', () => {
+test("Test the contains function for a queue", () => {
 	const q = new Queue<number>();
 
 	expect(q).toBeDefined();
@@ -113,7 +115,7 @@ test('Test the contains function for a queue', () => {
 	expect(!q.contains(999)).toBe(true);
 });
 
-test('Ejects an item at the front, back, and middle of a queue', () => {
+test("Ejects an item at the front, back, and middle of a queue", () => {
 	const q = new Queue<number>([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
 	expect(q).toBeDefined();
@@ -121,25 +123,25 @@ test('Ejects an item at the front, back, and middle of a queue', () => {
 	q.eject(999);
 	expect(q.isEmpty()).toBe(false);
 
- 	// Eject the front
- 	expect(q.front).toBe(0);
- 	q.eject(0);
- 	expect(q.front).toBe(1);
- 	expect(q.back).toBe(9);
- 	expect(q.length).toBe(9);
+	// Eject the front
+	expect(q.front).toBe(0);
+	q.eject(0);
+	expect(q.front).toBe(1);
+	expect(q.back).toBe(9);
+	expect(q.length).toBe(9);
 
- 	// Eject the end of the queue
- 	expect(q.eject(9)).toBe(9);
- 	expect(q.front === 1).toBe(true);
- 	expect(q.back === 8).toBe(true);
- 	expect(q.length).toBe(8);
+	// Eject the end of the queue
+	expect(q.eject(9)).toBe(9);
+	expect(q.front === 1).toBe(true);
+	expect(q.back === 8).toBe(true);
+	expect(q.length).toBe(8);
 
- 	// Eject from the middle of the queue
- 	q.eject(5);
- 	expect(q.front === 1).toBe(true);
- 	expect(q.back === 8).toBe(true);
- 	expect(q.length).toBe(7);
+	// Eject from the middle of the queue
+	q.eject(5);
+	expect(q.front === 1).toBe(true);
+	expect(q.back === 8).toBe(true);
+	expect(q.length).toBe(7);
 
- 	const arr: number[] = q.drain();
- 	expect(arr).toEqual([1, 2, 3, 4, 6, 7, 8]);
+	const arr: number[] = q.drain();
+	expect(arr).toEqual([1, 2, 3, 4, 6, 7, 8]);
 });

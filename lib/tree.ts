@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-import {Collection} from './collection';
-import {Comparator} from './comparator';
+import {Collection} from "./collection";
+import {Comparator} from "./comparator";
 
 /**
  * The abstract base class for all Tree data structures

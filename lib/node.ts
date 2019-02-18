@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 export enum Color {
 	red,
@@ -16,7 +16,13 @@ export class Node<T> {
 	private _left: Node<T>;
 	private _right: Node<T>;
 
-	constructor(data: T, parent: Node<T> = null, right: Node<T> = null, left: Node<T> = null, color: Color = Color.red) {
+	constructor(
+		data: T,
+		parent: Node<T> = null,
+		right: Node<T> = null,
+		left: Node<T> = null,
+		color: Color = Color.red
+	) {
 		this._color = color;
 		this._data = data;
 		this._left = left;

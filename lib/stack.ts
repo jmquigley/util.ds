@@ -1,12 +1,11 @@
-'use strict';
+"use strict";
 
-import {Collection} from './collection';
-import {Comparator} from './comparator';
-import {Node} from './node';
+import {Collection} from "./collection";
+import {Comparator} from "./comparator";
+import {Node} from "./node";
 
 /** Simple stack class */
 export class Stack<T> extends Collection<T> {
-
 	constructor(cmp: Comparator<T> = null) {
 		super(cmp);
 	}
@@ -34,7 +33,7 @@ export class Stack<T> extends Collection<T> {
 		}
 
 		this._length++;
-		this.emit('insert', data);
+		this.emit("insert", data);
 	}
 
 	/**
@@ -50,7 +49,7 @@ export class Stack<T> extends Collection<T> {
 			this._length--;
 		}
 
-		this.emit('remove', data);
+		this.emit("remove", data);
 		return data;
 	}
 

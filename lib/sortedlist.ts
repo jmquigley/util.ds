@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
-import {Comparator} from './comparator';
-import {List} from './list';
-import {Node} from './node';
+import {Comparator} from "./comparator";
+import {List} from "./list";
+import {Node} from "./node";
 
 /**
  * A linked list structure that sorts the data in ascending order as it is
@@ -10,7 +10,6 @@ import {Node} from './node';
  *
  */
 export class SortedList<T> extends List<T> {
-
 	constructor(arr: T[] = [], cmp: Comparator<T> = null) {
 		super(arr, cmp);
 	}
@@ -22,7 +21,6 @@ export class SortedList<T> extends List<T> {
 	 * @param data {T} the data item to insert into the list
 	 */
 	public insert(data: T) {
-
 		if (data == null) {
 			return;
 		}
@@ -45,13 +43,13 @@ export class SortedList<T> extends List<T> {
 				node.right = this._root;
 				this._root = this._first = node;
 
-			// Replace the last value in the list
+				// Replace the last value in the list
 			} else if (tnode === null) {
 				this._last.right = node;
 				node.left = this._last;
 				this._last = node;
 
-			// Insert in front of the first node that is larger than new
+				// Insert in front of the first node that is larger than new
 			} else {
 				node.right = tnode;
 				node.left = tnode.left;
@@ -61,6 +59,6 @@ export class SortedList<T> extends List<T> {
 		}
 
 		this._length++;
-		this.emit('insert', node.data);
+		this.emit("insert", node.data);
 	}
 }

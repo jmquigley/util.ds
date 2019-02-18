@@ -1,8 +1,10 @@
-'use strict';
+"use strict";
 
-import {Stack} from '../index';
+import "@babel/polyfill";
 
-test('Create an empty stack', () => {
+import {Stack} from "../index";
+
+test("Create an empty stack", () => {
 	const stack = new Stack<number>();
 
 	expect(stack).toBeDefined();
@@ -13,7 +15,7 @@ test('Create an empty stack', () => {
 	expect(stack.pop() === null).toBe(true);
 });
 
-test('Add/Remove items from the stack', () => {
+test("Add/Remove items from the stack", () => {
 	const stack = new Stack<number>();
 	const n: number = 50;
 
@@ -28,21 +30,21 @@ test('Add/Remove items from the stack', () => {
 
 	for (let i: number = n; i > 0; i--) {
 		expect(stack.length === i).toBe(true);
-		expect(((i % 2) ? stack.top() : stack.peek()) === (i - 1)).toBe(true);
-		expect(stack.pop() === (i - 1)).toBe(true);
+		expect((i % 2 ? stack.top() : stack.peek()) === i - 1).toBe(true);
+		expect(stack.pop() === i - 1).toBe(true);
 	}
 
 	expect(stack.isEmpty()).toBe(true);
 });
 
-test('Test stack insert event', (done) => {
+test("Test stack insert event", (done) => {
 	const stack = new Stack<number>();
 
 	expect(stack).toBeDefined();
 	expect(stack.isEmpty()).toBe(true);
 
 	const n: number = 100;
-	stack.on('insert', (data: any) => {
+	stack.on("insert", (data: any) => {
 		expect(data).toBe(n);
 		done();
 	});
@@ -50,14 +52,14 @@ test('Test stack insert event', (done) => {
 	stack.push(n);
 });
 
-test('Test stack remove event', (done) => {
+test("Test stack remove event", (done) => {
 	const stack = new Stack<number>();
 
 	expect(stack).toBeDefined();
 	expect(stack.isEmpty()).toBe(true);
 
 	const n: number = 100;
-	stack.on('remove', (data: any) => {
+	stack.on("remove", (data: any) => {
 		expect(data).toBe(n);
 		done();
 	});
@@ -66,7 +68,7 @@ test('Test stack remove event', (done) => {
 	stack.pop();
 });
 
-test('Test contains function with empty stack', () => {
+test("Test contains function with empty stack", () => {
 	const stack = new Stack<number>();
 
 	expect(stack).toBeDefined();
@@ -74,7 +76,7 @@ test('Test contains function with empty stack', () => {
 	expect(stack.contains(999)).toBe(false);
 });
 
-test('Test the contains function for a stack', () => {
+test("Test the contains function for a stack", () => {
 	const stack = new Stack<number>();
 
 	expect(stack).toBeDefined();
