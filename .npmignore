@@ -19,7 +19,6 @@ coverage
 test.js
 test.d.ts
 cli.d.ts
-index.js
 classes.png
 
 *.js.map
