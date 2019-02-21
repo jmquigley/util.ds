@@ -197,7 +197,7 @@ console.log(list.array);
 
 // ['a', 'b', 'c']
 
-for (const it in list) {
+for (const it of list) {
     console.log(it);
 }
 
