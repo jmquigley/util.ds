@@ -1,7 +1,5 @@
 "use strict";
 
-import "@babel/polyfill";
-
 import {Queue} from "../index";
 
 test("Create an empty queue", () => {

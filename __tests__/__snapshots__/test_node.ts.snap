@@ -2,38 +2,58 @@
 
 exports[`Test creation of a Node with right/left child 1`] = `
 Node {
-  "_color": 1,
-  "_data": "inner",
-  "_left": Node {
-    "_color": 0,
-    "_data": "parent reference",
-    "_left": null,
-    "_parent": null,
-    "_right": null,
-  },
-  "_parent": Node {
-    "_color": 0,
-    "_data": "right child",
-    "_left": null,
-    "_parent": null,
-    "_right": null,
-  },
-  "_right": Node {
-    "_color": 0,
-    "_data": "left child",
-    "_left": null,
-    "_parent": null,
-    "_right": null,
+  "_options": Object {
+    "color": 1,
+    "data": "inner",
+    "id": null,
+    "left": Node {
+      "_options": Object {
+        "color": 0,
+        "data": "left child",
+        "id": null,
+        "left": null,
+        "parent": null,
+        "parentId": null,
+        "right": null,
+      },
+    },
+    "parent": Node {
+      "_options": Object {
+        "color": 0,
+        "data": "parent reference",
+        "id": null,
+        "left": null,
+        "parent": null,
+        "parentId": null,
+        "right": null,
+      },
+    },
+    "parentId": null,
+    "right": Node {
+      "_options": Object {
+        "color": 0,
+        "data": "right child",
+        "id": null,
+        "left": null,
+        "parent": null,
+        "parentId": null,
+        "right": null,
+      },
+    },
   },
 }
 `;
 
 exports[`Test creation of a simple Node 1`] = `
 Node {
-  "_color": 0,
-  "_data": "test",
-  "_left": null,
-  "_parent": null,
-  "_right": null,
+  "_options": Object {
+    "color": 0,
+    "data": "test",
+    "id": null,
+    "left": null,
+    "parent": null,
+    "parentId": null,
+    "right": null,
+  },
 }
 `;

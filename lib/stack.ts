@@ -23,7 +23,7 @@ export class Stack<T> extends Collection<T> {
 	 * @param data {Object} any data element the user wants to store
 	 */
 	public push(data: T): void {
-		const node = new Node<T>(data);
+		const node = new Node<T>({data});
 
 		if (this._root == null) {
 			this._root = node;

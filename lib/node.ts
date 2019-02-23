@@ -5,69 +5,96 @@ export enum Color {
 	black
 }
 
+export type Id = string | number;
+
+export interface NodeOptions<T> {
+	color?: Color;
+	data?: T;
+	parent?: Node<T>;
+	left?: Node<T>;
+	right?: Node<T>;
+	id?: Id;
+	parentId?: Id;
+}
+
 /**
  * The data nodes used within a collection.  This generally would not be
  * used outside of these collection classes.
  */
 export class Node<T> {
-	private _color: Color = Color.red;
-	private _data: T;
-	private _parent: Node<T>;
-	private _left: Node<T>;
-	private _right: Node<T>;
-
-	constructor(
-		data: T,
-		parent: Node<T> = null,
-		right: Node<T> = null,
-		left: Node<T> = null,
-		color: Color = Color.red
-	) {
-		this._color = color;
-		this._data = data;
-		this._left = left;
-		this._parent = parent;
-		this._right = right;
+	constructor(private _options: NodeOptions<T> = null) {
+		this._options = Object.assign(
+			{
+				data: null,
+				parent: null,
+				right: null,
+				left: null,
+				color: Color.red,
+				id: null,
+				parentId: null
+			},
+			this._options || {}
+		);
 	}
 
 	get color(): Color {
-		return this._color;
+		return this._options.color;
 	}
 
 	set color(val: Color) {
-		this._color = val;
+		this._options.color = val;
 	}
 
 	get data(): T {
-		return this._data;
+		return this._options.data;
+	}
+
+	set data(val: T) {
+		this._options.data = val;
+	}
+
+	get id(): Id {
+		return this._options.id;
+	}
+
+	set id(val: Id) {
+		this._options.id = val;
 	}
 
 	get left(): Node<T> {
-		return this._left;
+		return this._options.left;
 	}
 
 	set left(val: Node<T>) {
-		this._left = val;
+		this._options.left = val;
 	}
 
 	get parent(): Node<T> {
-		return this._parent;
+		return this._options.parent;
 	}
 
 	set parent(val: Node<T>) {
-		this._parent = val;
+		this._options.parent = val;
+	}
+
+	get parentId(): Id {
+		return this._options.id;
+	}
+
+	set parentId(val: Id) {
+		this._options.parentId = val;
 	}
 
 	get right(): Node<T> {
-		return this._right;
+		return this._options.right;
 	}
 
 	set right(val: Node<T>) {
-		this._right = val;
+		this._options.right = val;
 	}
 
 	public clear(): void {
-		this._color = Color.red;
-		this._data = this._parent = this._left = this._right = null;
+		this._options.color = Color.red;
+		this._options.data = this._options.parent = this._options.left = this._options.right = null;
 	}
 }

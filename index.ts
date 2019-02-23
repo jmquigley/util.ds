@@ -2,9 +2,10 @@ import {BinaryTree} from "./lib/binarytree";
 import {Collection} from "./lib/collection";
 import {Comparator} from "./lib/comparator";
 import {Deque} from "./lib/deque";
+import {GeneralTree, TreeIndex, WalkCallback} from "./lib/generaltree";
 import {Iterable} from "./lib/iterable";
 import {List} from "./lib/list";
-import {Color, Node} from "./lib/node";
+import {Color, Id, Node} from "./lib/node";
 import {PriorityQueue} from "./lib/priorityqueue";
 import {Queue} from "./lib/queue";
 import {SortedList} from "./lib/sortedlist";
@@ -17,6 +18,10 @@ export {
 	Collection,
 	Color,
 	Comparator,
+	GeneralTree,
+	Id,
+	TreeIndex,
+	WalkCallback,
 	Iterable,
 	List,
 	Node,

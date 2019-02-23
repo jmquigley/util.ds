@@ -19,7 +19,7 @@
 	"types": "./dist/bundle.d.ts",
 	"devDependencies": {
 		"@babel/core": "^7.3.3",
-		"@babel/polyfill": "^7.2.5",
+		"@babel/plugin-transform-runtime": "^7.2.0",
 		"@babel/preset-env": "^7.3.1",
 		"@babel/preset-typescript": "^7.3.3",
 		"@babel/runtime": "^7.3.1",
@@ -40,9 +40,11 @@
 		"tslint": "^5.12.1",
 		"tslint-config-prettier": "^1.18.0",
 		"typescript": "^3.3.3",
+		"util.fixture": "^0.0.67",
 		"util.join": "^0.0.22",
 		"util.leader": "^0.0.41",
 		"util.pkgwrap": "^0.0.98",
+		"util.toolbox": "^0.0.69",
 		"webpack": "^4.29.5",
 		"webpack-cli": "^3.2.3",
 		"webpack-null-plugin": "^0.0.2"
@@ -51,6 +53,7 @@
 		"cleanup": [
 			"docs",
 			"lib/*.d.ts",
+			"lib/*.js.map",
 			"lib/*.js"
 		]
 	},
@@ -67,5 +70,8 @@
 		"test": "cross-env NODE_ENV=test jest",
 		"watch": "webpack --watch --progress",
 		"webpack": "webpack"
+	},
+	"dependencies": {
+		"util.log": "^0.0.37"
 	}
 }

@@ -1,7 +1,5 @@
 "use strict";
 
-import "@babel/polyfill";
-
 import * as fs from "fs-extra";
 import {join} from "util.join";
 import {BinaryTree, Comparator, Node} from "../index";

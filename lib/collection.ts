@@ -10,7 +10,7 @@ export abstract class Collection<T> extends EventEmitter {
 	protected _last: Node<T>;
 	protected _length: number = 0;
 	protected _nil: Node<T>;
-	protected _root: Node<T>;
+	protected _root: any;
 
 	/**
 	 * Base class constructor for all collection classes.
@@ -21,7 +21,7 @@ export abstract class Collection<T> extends EventEmitter {
 	constructor(cmp: Comparator<T> = null) {
 		super();
 
-		this._nil = new Node<T>(null, null, null, null, Color.black);
+		this._nil = new Node<T>({color: Color.black});
 
 		if (cmp) {
 			this._cmp = cmp;

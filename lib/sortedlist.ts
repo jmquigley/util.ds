@@ -25,7 +25,7 @@ export class SortedList<T> extends List<T> {
 			return;
 		}
 
-		const node = new Node<T>(data);
+		const node = new Node<T>({data});
 
 		// Empty, first insert
 		if (this._root === null) {

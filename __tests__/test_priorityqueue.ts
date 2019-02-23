@@ -1,7 +1,5 @@
 "use strict";
 
-import "@babel/polyfill";
-
 import {PriorityQueue} from "../index";
 
 test("Create an empty PriorityQueue", () => {

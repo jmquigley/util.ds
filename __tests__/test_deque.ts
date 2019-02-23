@@ -1,7 +1,5 @@
 "use strict";
 
-import "@babel/polyfill";
-
 import {Deque} from "../index";
 import {Comparator} from "../lib/comparator";
 

@@ -109,7 +109,7 @@ export class List<T> extends Collection<T> implements Iterable<T> {
 			return;
 		}
 
-		const node = new Node<T>(data);
+		const node = new Node<T>({data});
 
 		// If insert is request outside of the current range, insert end
 		if (idx + 1 > this._length) {

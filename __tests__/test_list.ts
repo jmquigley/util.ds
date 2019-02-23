@@ -1,7 +1,5 @@
 "use strict";
 
-import "@babel/polyfill";
-
 import * as fs from "fs-extra";
 import {join} from "util.join";
 import {List} from "../index";
@@ -9,7 +7,7 @@ import {List} from "../index";
 test("Create an empty List", () => {
 	const list = new List<string>();
 
-	expect(list).toBeTruthy();
+	expect(list).toBeDefined();
 	expect(list.size).toBe(0);
 	expect(list.length).toBe(0);
 	expect(list.front).toBe(null);
@@ -22,7 +20,7 @@ test("Create a List using the insert method", () => {
 	const list = new List<string>();
 	let idx = 0;
 
-	expect(list).toBeTruthy();
+	expect(list).toBeDefined();
 	expect(list.size).toBe(0);
 
 	for (const it of data) {
@@ -46,7 +44,7 @@ test("Create a List using the insert method", () => {
 test("Test the List contains method", () => {
 	const list = new List<string>(["a", "b", "c", "d", "e"]);
 
-	expect(list).toBeTruthy();
+	expect(list).toBeDefined();
 	expect(list.size).toBe(5);
 
 	expect(list.contains("a")).toBe(true);
@@ -59,7 +57,7 @@ test("Test the List contains method", () => {
 test("Test the list contains with an empty list", () => {
 	const list = new List<string>();
 
-	expect(list).toBeTruthy();
+	expect(list).toBeDefined();
 	expect(list.size).toBe(0);
 
 	expect(list.contains("a")).toBe(false);
@@ -74,7 +72,7 @@ test("Create a List inserting to the front of the list (reverse)", () => {
 	const list = new List<string>();
 	let idx = 4;
 
-	expect(list).toBeTruthy();
+	expect(list).toBeDefined();
 	expect(list.size).toBe(0);
 
 	for (const it of data) {
@@ -96,7 +94,7 @@ test("Test arbitrary insertion into a List", () => {
 	const list = new List<string>(["a", "c", "e"]);
 	let idx = 0;
 
-	expect(list).toBeTruthy();
+	expect(list).toBeDefined();
 	expect(list.size).toBe(3);
 
 	list.insert("b", 1);
@@ -116,7 +114,7 @@ test("Test arbitrary insertion into a List", () => {
 test("Test List insert event", (done) => {
 	const list = new List<string>();
 
-	expect(list).toBeTruthy();
+	expect(list).toBeDefined();
 	expect(list.empty).toBe(true);
 
 	list.on("insert", (data: string) => {
@@ -131,7 +129,7 @@ test("Test the getNodeByValue/getNodeByIndex  methods in List", () => {
 	const data = ["a", "b", "c", "d", "e"];
 	const list = new List<string>(data);
 
-	expect(list).toBeTruthy();
+	expect(list).toBeDefined();
 	expect(list.size).toBe(5);
 
 	expect(list._getNodeByValue("c").data).toBe("c");
@@ -148,7 +146,7 @@ test("Test removing values from the List", () => {
 	const data = ["a", "b", "c", "d", "e"];
 	const list = new List<string>(data);
 
-	expect(list).toBeTruthy();
+	expect(list).toBeDefined();
 	expect(list.size).toBe(5);
 	expect(list.array).toEqual(data);
 	expect(list.front).toBe("a");
@@ -175,7 +173,7 @@ test("Test removing values from the List", () => {
 test("Test removing all values from the front of a List", () => {
 	const list = new List<string>(["a", "b", "c", "d", "e"]);
 
-	expect(list).toBeTruthy();
+	expect(list).toBeDefined();
 	expect(list.size).toBe(5);
 
 	for (let i = 0; i < 10; i++) {
@@ -188,7 +186,7 @@ test("Test removing all values from the front of a List", () => {
 test("Test removing all values from the end of a list", () => {
 	const list = new List<string>(["a", "b", "c", "d", "e"]);
 
-	expect(list).toBeTruthy();
+	expect(list).toBeDefined();
 	expect(list.size).toBe(5);
 
 	for (let i = 0; i < 10; i++) {
@@ -201,7 +199,7 @@ test("Test removing all values from the end of a list", () => {
 test("Test List remove event", (done) => {
 	const list = new List<string>(["a", "b", "c"]);
 
-	expect(list).toBeTruthy();
+	expect(list).toBeDefined();
 	expect(list.size).toBe(3);
 
 	list.on("remove", (data: string) => {
@@ -216,7 +214,7 @@ test("Test List remove event", (done) => {
 test("Test the find method for a List", () => {
 	const list = new List<string>(["a", "b", "c", "d", "e"]);
 
-	expect(list).toBeTruthy();
+	expect(list).toBeDefined();
 	expect(list.size).toBe(5);
 
 	expect(list.find("a")).toBe("a");
@@ -234,7 +232,7 @@ test("Test insert/delete to List on a very large set of words", () => {
 		)
 		.split(/\r?\n/);
 
-	expect(list).toBeTruthy();
+	expect(list).toBeDefined();
 	expect(words).toBeTruthy();
 
 	for (const word of words) {
@@ -253,7 +251,7 @@ test("Test insert/delete to List on a very large set of words", () => {
 test("Test retrieving list items at arbitrary locations with at", () => {
 	const list = new List<number>([10, 20, 30]);
 
-	expect(list).toBeTruthy();
+	expect(list).toBeDefined();
 
 	expect(list.at(0)).toBe(10);
 	expect(list.at(1)).toBe(20);

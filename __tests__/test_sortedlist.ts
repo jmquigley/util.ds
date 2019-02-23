@@ -1,7 +1,5 @@
 "use strict";
 
-import "@babel/polyfill";
-
 import {SortedList} from "../index";
 
 test("Create an empty SortedList", () => {

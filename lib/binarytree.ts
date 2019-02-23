@@ -330,7 +330,13 @@ export class BinaryTree<T> extends Tree<T> implements Iterable<T> {
 	}
 
 	private newNode(data: T, parent: Node<T>): Node<T> {
-		return new Node<T>(data, parent, this._nil, this._nil, Color.red);
+		return new Node<T>({
+			data,
+			parent,
+			right: this._nil,
+			left: this._nil,
+			color: Color.red
+		});
 	}
 
 	private postorderDelegate(node: Node<T>, out: T[]) {
