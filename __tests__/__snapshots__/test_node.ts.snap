@@ -1,5 +1,107 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Creation of an empty/null node 1`] = `
+Node {
+  "_options": Object {
+    "color": 0,
+    "data": null,
+    "id": null,
+    "left": null,
+    "parent": null,
+    "parentId": null,
+    "right": null,
+  },
+}
+`;
+
+exports[`Set node elements after creation 1`] = `
+Node {
+  "_options": Object {
+    "color": 1,
+    "data": "inner",
+    "id": 12345,
+    "left": Node {
+      "_options": Object {
+        "color": 0,
+        "data": "left child",
+        "id": null,
+        "left": null,
+        "parent": null,
+        "parentId": null,
+        "right": null,
+      },
+    },
+    "parent": Node {
+      "_options": Object {
+        "color": 0,
+        "data": "parent reference",
+        "id": null,
+        "left": null,
+        "parent": null,
+        "parentId": null,
+        "right": null,
+      },
+    },
+    "parentId": null,
+    "right": Node {
+      "_options": Object {
+        "color": 0,
+        "data": "right child",
+        "id": null,
+        "left": null,
+        "parent": null,
+        "parentId": null,
+        "right": null,
+      },
+    },
+  },
+}
+`;
+
+exports[`Set node elements after creation 2`] = `
+Node {
+  "_options": Object {
+    "color": 0,
+    "data": "changed inner",
+    "id": 98765,
+    "left": Node {
+      "_options": Object {
+        "color": 0,
+        "data": "left child",
+        "id": null,
+        "left": null,
+        "parent": null,
+        "parentId": null,
+        "right": null,
+      },
+    },
+    "parent": Node {
+      "_options": Object {
+        "color": 0,
+        "data": "parent reference",
+        "id": null,
+        "left": null,
+        "parent": null,
+        "parentId": null,
+        "right": null,
+      },
+    },
+    "parentId": 8675309,
+    "right": Node {
+      "_options": Object {
+        "color": 0,
+        "data": "right child",
+        "id": null,
+        "left": null,
+        "parent": null,
+        "parentId": null,
+        "right": null,
+      },
+    },
+  },
+}
+`;
+
 exports[`Test creation of a Node with right/left child 1`] = `
 Node {
   "_options": Object {

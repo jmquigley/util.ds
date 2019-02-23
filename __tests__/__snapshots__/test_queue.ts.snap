@@ -2,7 +2,7 @@
 
 exports[`Create an empty queue 1`] = `
 Queue {
-  "_cmp": [Function],
+  "_comparator": [Function],
   "_end": null,
   "_events": Object {},
   "_eventsCount": 0,

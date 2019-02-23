@@ -6,8 +6,8 @@ import {Node} from "./node";
 
 /** Simple stack class */
 export class Stack<T> extends Collection<T> {
-	constructor(cmp: Comparator<T> = null) {
-		super(cmp);
+	constructor(comparator: Comparator<T> = null) {
+		super(comparator);
 	}
 
 	/**

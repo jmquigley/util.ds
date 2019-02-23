@@ -4,7 +4,7 @@
 **Kind**: global class  
 
 * [Collection](#Collection)
-    * [new Collection(cmp)](#new_Collection_new)
+    * [new Collection(comparator)](#new_Collection_new)
     * [.back](#Collection+back) ⇒ <code>T</code>
     * [.empty](#Collection+empty) ⇒ <code>boolean</code>
     * [.first](#Collection+first) ⇒ <code>T</code>
@@ -20,13 +20,13 @@
 
 <a name="new_Collection_new"></a>
 
-### new Collection(cmp)
+### new Collection(comparator)
 Base class constructor for all collection classes.
 
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| cmp | <code>function</code> | <code></code> | a comparator function used for searching within the container. |
+| comparator | <code>function</code> | <code></code> | a comparator function used for searching within the container. |
 
 <a name="Collection+back"></a>
 

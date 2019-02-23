@@ -8,8 +8,8 @@ import {Node} from "./node";
 export class Queue<T> extends List<T> {
 	protected _end: Node<T> = null;
 
-	constructor(arr: T[] = [], cmp: Comparator<T> = null) {
-		super(arr, cmp);
+	constructor(arr: T[] = [], comparator: Comparator<T> = null) {
+		super(arr, comparator);
 	}
 
 	/**

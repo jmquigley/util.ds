@@ -11,14 +11,18 @@ export class Deque<T> extends Queue<T> {
 	 * when constructed.  When the max size is exceeded, then the front item is
 	 * automatically removed from the queue and the new item is placed in the
 	 * queue (depending on  which type of insert is calld).
-	 * @param [maxSize] {number} The maximum size for this queue.
-	 * @param [arr] {T[]} An array of initial input values
-	 * @param cmp {Function} a comparator function used for searching within
+	 * @param maxSize=0 {number} - The maximum size for this queue.
+	 * @param arr=[] {T[]} - An array of initial input values
+	 * @param comparator {Function} - a comparator function used for searching within
 	 * the container.
 	 * @constructor
 	 */
-	constructor(maxSize: number = 0, arr: T[] = [], cmp: Comparator<T> = null) {
-		super(arr, cmp);
+	constructor(
+		maxSize: number = 0,
+		arr: T[] = [],
+		comparator: Comparator<T> = null
+	) {
+		super(arr, comparator);
 
 		this._maxSize =
 			maxSize == null || typeof maxSize !== "number"

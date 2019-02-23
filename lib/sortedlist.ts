@@ -10,8 +10,8 @@ import {Node} from "./node";
  *
  */
 export class SortedList<T> extends List<T> {
-	constructor(arr: T[] = [], cmp: Comparator<T> = null) {
-		super(arr, cmp);
+	constructor(arr: T[] = [], comparator: Comparator<T> = null) {
+		super(arr, comparator);
 	}
 
 	/**
@@ -33,7 +33,7 @@ export class SortedList<T> extends List<T> {
 		} else {
 			// Find insertion point
 			let tnode: Node<T> = this._root;
-			while (tnode && this._cmp(data, tnode.data) > 0) {
+			while (tnode && this._comparator(data, tnode.data) > 0) {
 				tnode = tnode.right;
 			}
 

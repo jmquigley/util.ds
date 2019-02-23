@@ -13,8 +13,8 @@ export class List<T> extends Collection<T> implements Iterable<T> {
 	public static readonly FRONT: number = 0;
 	public static readonly BACK: number = -1;
 
-	constructor(arr: T[] = [], cmp: Comparator<T> = null) {
-		super(cmp);
+	constructor(arr: T[] = [], comparator: Comparator<T> = null) {
+		super(comparator);
 
 		if (arr) {
 			for (const it of arr) {
@@ -205,7 +205,7 @@ export class List<T> extends Collection<T> implements Iterable<T> {
 	public _getNodeByValue(data: T): Node<T> {
 		let tnode: Node<T> = this._root;
 		if (tnode) {
-			while (tnode && this._cmp(tnode.data, data) !== 0) {
+			while (tnode && this._comparator(tnode.data, data) !== 0) {
 				tnode = tnode.right;
 			}
 		}

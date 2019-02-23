@@ -11,12 +11,8 @@ import {Tree} from "./tree";
  *
  */
 export class BinaryTree<T> extends Tree<T> implements Iterable<T> {
-	private _x: Node<T>;
-
-	constructor(arr: T[] = [], cmp: Comparator<T> = null) {
-		super(cmp);
-
-		this._first = this._last = this._root = this._x = this._nil;
+	constructor(arr: T[] = [], comparator: Comparator<T> = null) {
+		super(comparator);
 
 		if (arr) {
 			for (const it of arr) {
@@ -56,8 +52,8 @@ export class BinaryTree<T> extends Tree<T> implements Iterable<T> {
 	 * @return {number} computes and returns the height of the tree.
 	 */
 	get height(): number {
-		const h = this.findHeight(this._root);
-		return h <= 0 ? 0 : h;
+		this._height = this.findHeight(this._root);
+		return this._height <= 0 ? 0 : this._height;
 	}
 
 	/**
@@ -111,7 +107,7 @@ export class BinaryTree<T> extends Tree<T> implements Iterable<T> {
 		while (!q.empty) {
 			node = q.dequeue();
 
-			if (this._cmp(node.data, data) === 0) {
+			if (this._comparator(node.data, data) === 0) {
 				return true;
 			}
 
@@ -125,15 +121,6 @@ export class BinaryTree<T> extends Tree<T> implements Iterable<T> {
 		}
 
 		return false;
-	}
-
-	/**
-	 * Initializes the object to an emtpy state.  This can be used to
-	 * quickly empty the tree and start over.
-	 */
-	public clear(): void {
-		super.clear();
-		this._first = this._last = this._root = this._x = this._nil;
 	}
 
 	/**
@@ -151,9 +138,9 @@ export class BinaryTree<T> extends Tree<T> implements Iterable<T> {
 		let node: Node<T> = this._root;
 
 		while (node !== this._nil) {
-			if (this._cmp(node.data, data) === 0) {
+			if (this._comparator(node.data, data) === 0) {
 				return true;
-			} else if (this._cmp(node.data, data) < 0) {
+			} else if (this._comparator(node.data, data) < 0) {
 				node = node.right;
 			} else {
 				node = node.left;
@@ -181,9 +168,9 @@ export class BinaryTree<T> extends Tree<T> implements Iterable<T> {
 		let node: Node<T> = this._root;
 
 		while (node !== this._nil) {
-			if (this._cmp(node.data, key) === 0) {
+			if (this._comparator(node.data, key) === 0) {
 				return node.data;
-			} else if (this._cmp(node.data, key) < 0) {
+			} else if (this._comparator(node.data, key) < 0) {
 				node = node.right;
 			} else {
 				node = node.left;
@@ -263,18 +250,18 @@ export class BinaryTree<T> extends Tree<T> implements Iterable<T> {
 				this._length++;
 				this._x = this.newNode(data, parent);
 
-				if (this._cmp(data, this._first.data) < 0) {
+				if (this._comparator(data, this._first.data) < 0) {
 					this._first = this._x;
-				} else if (this._cmp(data, this._last.data) > 0) {
+				} else if (this._comparator(data, this._last.data) > 0) {
 					this._last = this._x;
 				}
 
 				return this._x;
 			}
 
-			if (this._cmp(data, node.data) < 0) {
+			if (this._comparator(data, node.data) < 0) {
 				node.left = this.insertDelegate(data, node.left, node);
-			} else if (this._cmp(data, node.data) > 0) {
+			} else if (this._comparator(data, node.data) > 0) {
 				node.right = this.insertDelegate(data, node.right, node);
 			}
 
@@ -407,9 +394,9 @@ export class BinaryTree<T> extends Tree<T> implements Iterable<T> {
 			this._length--;
 
 			if (this._length !== 0) {
-				if (this._cmp(z.data, this._first.data) === 0) {
+				if (this._comparator(z.data, this._first.data) === 0) {
 					this._first = this._minimum();
-				} else if (this._cmp(z.data, this._last.data) === 0) {
+				} else if (this._comparator(z.data, this._last.data) === 0) {
 					this._last = this._maximum();
 				}
 			} else {
@@ -542,18 +529,18 @@ export class BinaryTree<T> extends Tree<T> implements Iterable<T> {
 	 */
 	public _findNode(data: T): Node<T> {
 		// Two special cases to quickly find the first or the last element
-		if (this._cmp(data, this._first.data) === 0) {
+		if (this._comparator(data, this._first.data) === 0) {
 			return this._first;
-		} else if (this._cmp(data, this._last.data) === 0) {
+		} else if (this._comparator(data, this._last.data) === 0) {
 			return this._last;
 		}
 
 		let node: Node<T> = this._root;
 
 		while (node !== this._nil) {
-			if (this._cmp(node.data, data) === 0) {
+			if (this._comparator(node.data, data) === 0) {
 				break;
-			} else if (this._cmp(node.data, data) < 0) {
+			} else if (this._comparator(node.data, data) < 0) {
 				node = node.right;
 			} else {
 				node = node.left;

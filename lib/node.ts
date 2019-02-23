@@ -78,7 +78,7 @@ export class Node<T> {
 	}
 
 	get parentId(): Id {
-		return this._options.id;
+		return this._options.parentId;
 	}
 
 	set parentId(val: Id) {
@@ -98,3 +98,6 @@ export class Node<T> {
 		this._options.data = this._options.parent = this._options.left = this._options.right = null;
 	}
 }
+
+export const nilNode: Node<any> = new Node({color: Color.black});
+export default Node;

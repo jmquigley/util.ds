@@ -12,7 +12,6 @@ Implements a binary tree structure using a Red/Black tree algorithm.
     * [.postorder](#BinaryTree+postorder) ⇒ <code>Array.&lt;T&gt;</code>
     * [.preorder](#BinaryTree+preorder) ⇒ <code>Array.&lt;T&gt;</code>
     * [.breadthSearch(data, node)](#BinaryTree+breadthSearch) ⇒ <code>boolean</code>
-    * [.clear()](#BinaryTree+clear)
     * [.contains(data)](#BinaryTree+contains) ⇒ <code>boolean</code>
     * [.find(key)](#BinaryTree+find) ⇒ <code>T</code>
     * [.insert(data)](#BinaryTree+insert)
@@ -74,13 +73,6 @@ false is returned.
 | data | <code>T</code> | the data element to search for (based on the data type of the tree) |
 | node | <code>T</code> | the starting node for the search.  This is root by default |
 
-<a name="BinaryTree+clear"></a>
-
-### binaryTree.clear()
-Initializes the object to an emtpy state.  This can be used to
-quickly empty the tree and start over.
-
-**Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
 <a name="BinaryTree+contains"></a>
 
 ### binaryTree.contains(data) ⇒ <code>boolean</code>

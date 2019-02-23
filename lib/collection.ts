@@ -2,10 +2,10 @@
 
 import {EventEmitter} from "events";
 import {Comparator, defaultComparatorFn} from "./comparator";
-import {Color, Node} from "./node";
+import {nilNode, Node} from "./node";
 
 export abstract class Collection<T> extends EventEmitter {
-	protected _cmp: Comparator<T>;
+	protected _comparator: Comparator<T>;
 	protected _first: Node<T>;
 	protected _last: Node<T>;
 	protected _length: number = 0;
@@ -14,21 +14,21 @@ export abstract class Collection<T> extends EventEmitter {
 
 	/**
 	 * Base class constructor for all collection classes.
-	 * @param cmp {Function} a comparator function used for searching within
+	 * @param comparator {Function} a comparator function used for searching within
 	 * the container.
 	 * @constructor
 	 */
-	constructor(cmp: Comparator<T> = null) {
+	constructor(comparator: Comparator<T> = null) {
 		super();
 
-		this._nil = new Node<T>({color: Color.black});
+		this._nil = nilNode;
 
-		if (cmp) {
-			this._cmp = cmp;
+		if (comparator) {
+			this._comparator = comparator;
 		} else {
 			// Creates a default comparator if a custom one is not
 			// given.
-			this._cmp = defaultComparatorFn;
+			this._comparator = defaultComparatorFn;
 		}
 
 		this.clear();
@@ -126,7 +126,7 @@ export abstract class Collection<T> extends EventEmitter {
 
 		let next: Node<T> = this._root;
 		while (next != null) {
-			if (this._cmp(next.data, obj) === 0) {
+			if (this._comparator(next.data, obj) === 0) {
 				return true;
 			} else {
 				next = next.right;

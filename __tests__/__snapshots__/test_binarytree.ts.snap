@@ -2,7 +2,7 @@
 
 exports[`Create a simple BinaryTree 1`] = `
 BinaryTree {
-  "_cmp": [Function],
+  "_comparator": [Function],
   "_events": Object {},
   "_eventsCount": 0,
   "_first": Node {
@@ -126,6 +126,7 @@ BinaryTree {
       },
     },
   },
+  "_height": 0,
   "_last": Node {
     "_options": Object {
       "color": 0,

@@ -2,7 +2,7 @@
 
 exports[`Create an empty List 1`] = `
 List {
-  "_cmp": [Function],
+  "_comparator": [Function],
   "_events": Object {},
   "_eventsCount": 0,
   "_first": null,
