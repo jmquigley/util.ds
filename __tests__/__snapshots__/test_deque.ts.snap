@@ -13,6 +13,7 @@ Deque {
   "_maxSize": 0,
   "_nil": Node {
     "_options": Object {
+      "children": Array [],
       "color": 1,
       "data": null,
       "id": null,
@@ -21,6 +22,14 @@ Deque {
       "parentId": null,
       "right": null,
     },
+    "children": Array [],
+    "color": 1,
+    "data": null,
+    "id": null,
+    "left": null,
+    "parent": null,
+    "parentId": null,
+    "right": null,
   },
   "_root": null,
   "push": [Function],

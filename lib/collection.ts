@@ -6,8 +6,8 @@ import {nilNode, Node} from "./node";
 
 export abstract class Collection<T> extends EventEmitter {
 	protected _comparator: Comparator<T>;
-	protected _first: Node<T>;
-	protected _last: Node<T>;
+	protected _first: any;
+	protected _last: any;
 	protected _length: number = 0;
 	protected _nil: Node<T>;
 	protected _root: any;

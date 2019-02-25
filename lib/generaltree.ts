@@ -1,10 +1,11 @@
 "use strict";
 
+import {nl} from "util.constants";
 import logger from "util.log";
 import {getUUID, nilEvent} from "util.toolbox";
 import {Comparator} from "./comparator";
 import {Iterable} from "./iterable";
-import {Id, Node} from "./node";
+import {AugmentedNode, Id, nilNode, Node, NodeData, NodeKeys} from "./node";
 import {Queue} from "./queue";
 import {Tree} from "./tree";
 
@@ -14,17 +15,17 @@ const log = logger.instance({
 	nofile: true
 });
 
-export interface GeneralTreeLinks<T> {
-	children: Array<TreeNode<T>>;
-}
-
 export interface TreeIndex<T> {
 	[key: string]: TreeNode<T>;
 }
 
-type TreeNode<T extends any> = Node<T> & GeneralTreeLinks<T> & T;
+type TreeNode<T> = AugmentedNode<T>;
+
 export type GeneralTreeItem<T> = TreeNode<T>;
 
+export type GeneralTreeFlat<T> = NodeKeys & NodeData<T> & T;
+
+export type ToStringCallback<T> = (val: TreeNode<T>) => string;
 export type WalkCallback<T> = (val: TreeNode<T>) => void;
 
 export interface GeneralTreeOptions<T> {
@@ -36,6 +37,7 @@ export interface GeneralTreeOptions<T> {
 }
 
 export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
+	private _dirty: boolean = true;
 	private _treeIndex: TreeIndex<T> = {};
 
 	constructor(
@@ -43,6 +45,7 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 		comparator: Comparator<T> = null
 	) {
 		super(comparator);
+		this.clear();
 
 		this._options = Object.assign(
 			{
@@ -58,8 +61,29 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 		this.treeData = this._options.treeData;
 	}
 
+	get dirty(): boolean {
+		return this._dirty;
+	}
+
+	get first(): TreeNode<T> {
+		return this._first;
+	}
+
+	set first(val: TreeNode<T>) {
+		this._first = val;
+	}
+
 	get height(): number {
+		this.walk(nilEvent);
 		return this._height;
+	}
+
+	get last(): TreeNode<T> {
+		return this._last;
+	}
+
+	set last(val: TreeNode<T>) {
+		this._last = val;
 	}
 
 	get sequence(): number {
@@ -80,6 +104,7 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 
 	set treeData(val: Array<TreeNode<T>>) {
 		this._root = val || [];
+		this._dirty = true;
 		this.walk(nilEvent);
 	}
 
@@ -99,9 +124,61 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 		return this._options.usesanitize;
 	}
 
+	private addToIndex(node: TreeNode<T>) {
+		if (node && this.useindex) {
+			this._treeIndex[node.id] = node;
+		}
+	}
+
 	public clear(): void {
 		super.clear();
 		this.treeData = null;
+	}
+
+	/**
+	 * Searches through all of the nodes to see if they contain the given
+	 * search field data.  This works like findByField.  This function
+	 * wraps that method and checks if it returned anyting.
+	 * @return {boolean} true if the dat fields are found within the
+	 * tree, otherwise false.
+	 */
+	public contains(dataToFind: T): boolean {
+		return this.findByField(dataToFind).length > 0;
+	}
+
+	/**
+	 * Creates a new node object with the given node properties as
+	 * a parameter.  The given properties are merged into the newly
+	 * created node.
+	 * @param node {GeneralTreeItem} - the node fields to assign to the new
+	 * node object
+	 * @return {GeneralTreeItem} a new node instance reference
+	 */
+	public createNode(
+		configNode: GeneralTreeItem<T> = null
+	): GeneralTreeItem<Node<T>> {
+		const newNode: GeneralTreeItem<Node<T>> = Object.assign(
+			new Node<T>({
+				id: this.getNewKey(),
+				parent: nilNode
+			}),
+			configNode || {}
+		);
+		newNode.data = newNode as any;
+		return newNode;
+	}
+
+	/**
+	 * Takes a 1D array, created by the flatten function, and expands it into
+	 * the tree.  The current tree is replaced by this expanded tree.
+	 * @param flatNodes {Array<GeneralFlatTree<T>>} - the array of flattened
+	 * nodes that will be used to expand the tree.
+	 */
+	public expand(flatNodes: Array<GeneralTreeFlat<T>>) {
+		this.clear();
+		for (const node of flatNodes) {
+			this.insert(node);
+		}
 	}
 
 	/**
@@ -137,9 +214,7 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 				// If found, get rid of all remaining q items and return
 				q.drain();
 
-				if (this.useindex) {
-					this._treeIndex[nodeToSearch.id] = nodeToSearch;
-				}
+				this.addToIndex(nodeToSearch);
 
 				return nodeToSearch;
 			} else {
@@ -198,6 +273,23 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 	}
 
 	/**
+	 * Walks through the tree data and flattens it into a 1D array of nodes.
+	 * This flatten can be reversed using the expand function.
+	 * @return {Array<GeneralTreeFlat<T>>} an array of nodes representing the
+	 * tree and its parent/child key relationship.
+	 */
+	public flatten(): Array<GeneralTreeFlat<T>> {
+		const arr: Array<GeneralTreeFlat<T>> = [];
+
+		this.walk((node: TreeNode<T>) => {
+			const {data, children, parent, ...fields} = node;
+			arr.push(fields as GeneralTreeFlat<T>);
+		});
+
+		return arr;
+	}
+
+	/**
 	 * Generates a new unique key for a node.  When the testing flag is set
 	 * to true, then the id is an ordered sequence.  This is done to make
 	 * the keys predictable when the code is under test.
@@ -211,9 +303,98 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 		return getUUID();
 	}
 
-	// TODO: Implement insert function on generaltree
-	public insert(data: TreeNode<T>) {
-		log.debug("insert: %j", data);
+	/**
+	 * Takes a child array and and id and searches the array for the existence
+	 * of that id within it.
+	 * @param searchId {Id} - the id value to use in the search
+	 * @param children {Array<TreeNode<T>>} - child array to search for an id
+	 * @return {boolean} true if the id was found in the array, otherise false.
+	 */
+	private isIdInChildren(searchId: Id, children: Array<TreeNode<T>>) {
+		return children.find((child) => child.id === searchId) != null;
+	}
+
+	/**
+	 * Inserts a new node into the general tree.
+	 * @param dataToInsert {TreeNode<T>} - the config information for the node
+	 * that will be inserted (note that this is NOT the node inserted).  Generally
+	 * the parentId is used to determine where it will be inserted.
+	 * @param asFirstChild=true {boolean} - determines what end of the child
+	 * array will be used when adding the new node to the tree.  If true, then
+	 * the new node is inserted at the beginning of the array, otherise at the
+	 * end.  The default behavior is the front.
+	 * @param validate=false {boolean} - if true, then validate .id values
+	 * on the input config data to ensure no duplidates.
+	 * @return {GeneralTreeItem<Node<T>>} a reference to the new node that was
+	 * inserted into the tree.  On error this is null (with a corresponding
+	 * warning message).
+	 */
+	public insert(
+		dataToInsert: TreeNode<T>,
+		asFirstChild: boolean = true,
+		validate: boolean = false
+	): GeneralTreeItem<Node<T>> {
+		if (!dataToInsert) {
+			log.warn("Trying to insert nothing into the tree (skipping noop)");
+			return null;
+		}
+
+		if (validate && "id" in dataToInsert && this.find(dataToInsert.id)) {
+			log.warn(
+				"Not alloed to insert duplicate id values (%s)",
+				dataToInsert.id
+			);
+			return null;
+		}
+
+		let insertLocation: Array<Node<T>>;
+		let parent: Node<T> = nilNode;
+
+		if (dataToInsert.parentId != null) {
+			// insert child into existing parent node if it can be found
+			const parentNode: Node<T> = this.find(dataToInsert.parentId);
+			if (!parentNode) {
+				log.warn(
+					"Unknown parent id field given for insert location (noop)"
+				);
+				return null;
+			}
+
+			insertLocation = parentNode.children;
+			parent = parentNode;
+		} else {
+			// Insert at the root level if no parent given
+			insertLocation = this.root as Array<Node<T>>;
+			parent = nilNode;
+		}
+
+		const newNode = this.createNode({
+			...dataToInsert,
+			parent,
+			parentId: parent.id
+		}) as GeneralTreeItem<T>;
+
+		if (asFirstChild) {
+			insertLocation.unshift(newNode);
+		} else {
+			insertLocation.push(newNode);
+		}
+
+		if (
+			!this._last ||
+			this.isIdInChildren(this._last.id, parent.children) ||
+			parent.id === this._last.id ||
+			insertLocation.length <= 1
+		) {
+			this._last = newNode;
+		}
+
+		this._first = this.root[0];
+		this._length++;
+		this._dirty = true;
+		this.addToIndex(newNode);
+
+		return newNode;
 	}
 
 	// TODO: Implement remove function on generaltree
@@ -258,6 +439,35 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 	}
 
 	/**
+	 * Iterates through all of the nodes and concatenates them into a string.
+	 * Only prints the relevant key information from the tree.  This also
+	 * takes a callback function sent by the user to deal with the template
+	 * data that may be part of the tree nodes.  The internals of the tree
+	 * can't know the T value(s) while running.  This callback will
+	 * receive a reference to the node being printed.  The caller can then
+	 * use this to print the T values it passed into the tree.
+	 * @param dynamicDataTCallback {ToStringCallback<T>} - a function that can
+	 * process the tempate data T and return a string representation of it.
+	 * @return {string} the string representing the keys and T data in the
+	 * general tree.
+	 */
+	public toString(dynamicDataTCallback: ToStringCallback<T> = null): string {
+		let s: string = "treeData:\n";
+
+		for (const it of this.flatten()) {
+			s += `id: ${it.id}, parentId: ${it.parentId}`;
+
+			if (dynamicDataTCallback) {
+				s += `, ${dynamicDataTCallback(it)}, `;
+			}
+
+			s += nl;
+		}
+
+		return s;
+	}
+
+	/**
 	 * Performs an inorder traversal of the current tree.  At each node
 	 * a callback function is executed and the node being processed
 	 * is given as a parameter.
@@ -286,6 +496,7 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 			this._treeIndex = {};
 		}
 
+		this._dirty = false;
 		this._length = 0;
 		let currentTreeDepth: number = 0;
 
@@ -299,9 +510,7 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 					? self.sanitize(childNode)
 					: childNode;
 
-				if (self.useindex) {
-					self._treeIndex[childNode.id] = childNode;
-				}
+				self.addToIndex(childNode);
 
 				fn(childNode);
 				self._last = childNode;
@@ -326,5 +535,14 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 		}
 
 		preorder(this._root);
+	}
+
+	/**
+	 * An inorder iterator through the nodes of the general tree.
+	 */
+	public *[Symbol.iterator]() {
+		for (const it of this.flatten()) {
+			yield this.find(it.id);
+		}
 	}
 }

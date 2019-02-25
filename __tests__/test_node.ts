@@ -37,31 +37,34 @@ test("Test clearing a Node", () => {
 		right: new Node<string>({data: "right child"}),
 		left: new Node<string>({data: "left child"}),
 		parent: new Node<string>({data: "parent reference"}),
-		color: Color.black
+		color: Color.red
 	});
 
 	expect(node).toBeDefined();
-	expect(node.id).toBeTruthy();
+	expect(node.id).toBeDefined();
 	expect(node.id).toBe(12345);
-	expect(node.parentId).toBeTruthy();
+	expect(node.parentId).toBeDefined();
 	expect(node.parentId).toBe(54321);
-	expect(node.color).toBeTruthy();
-	expect(node.data).toBeTruthy();
+	expect(node.color).toBeDefined();
+	expect(node.color).toBe(Color.red);
+	expect(node.data).toBeDefined();
 	expect(node.data).toBe("inner");
-	expect(node.parent).toBeTruthy();
+	expect(node.parent).toBeDefined();
 	expect(node.parent.data).toBe("parent reference");
-	expect(node.left).toBeTruthy();
+	expect(node.left).toBeDefined();
 	expect(node.left.data).toBe("left child");
-	expect(node.right).toBeTruthy();
+	expect(node.right).toBeDefined();
 	expect(node.right.data).toBe("right child");
 
 	node.clear();
 
-	expect(node.color).toBe(Color.red);
-	expect(node.data).toBeFalsy();
-	expect(node.parent).toBeFalsy();
-	expect(node.left).toBeFalsy();
-	expect(node.right).toBeFalsy();
+	expect(node.id).toBeNull();
+	expect(node.parentId).toBeNull();
+	expect(node.color).toBe(Color.black);
+	expect(node.data).toBeNull();
+	expect(node.parent).toBeNull();
+	expect(node.left).toBeNull();
+	expect(node.right).toBeNull();
 });
 
 test("Set node elements after creation", () => {

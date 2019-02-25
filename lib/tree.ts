@@ -23,7 +23,8 @@ export abstract class Tree<T> extends Collection<T> {
 	 */
 	public clear(): void {
 		super.clear();
-		this._first = this._last = this._root = this._x = this._nil;
+		this._first = this._last = null;
+		this._root = this._x = this.nil;
 		this._height = 0;
 	}
 }

@@ -7,95 +7,92 @@ export enum Color {
 
 export type Id = string | number;
 
-export interface NodeOptions<T> {
-	color?: Color;
-	data?: T;
-	parent?: Node<T>;
-	left?: Node<T>;
-	right?: Node<T>;
+export type AugmentedNode<T> = Node<T> & T;
+
+export interface NodeKeys {
 	id?: Id;
 	parentId?: Id;
+}
+
+export interface NodeReferences<T> {
+	children?: Array<AugmentedNode<T>>;
+	parent?: Node<T>;
+}
+
+export interface NodeData<T> {
+	data?: T;
+}
+
+export interface NodeOptions<T>
+	extends NodeKeys,
+		NodeReferences<T>,
+		NodeData<T> {
+	color?: Color;
+	left?: Node<T>;
+	right?: Node<T>;
 }
 
 /**
  * The data nodes used within a collection.  This generally would not be
  * used outside of these collection classes.
  */
-export class Node<T> {
-	constructor(private _options: NodeOptions<T> = null) {
+export class Node<T> implements NodeOptions<T> {
+	public id?: Id;
+	public parentId?: Id;
+	public children?: Array<AugmentedNode<T>>;
+	public parent?: Node<T>;
+	public data?: T;
+	public color?: Color;
+	public left?: Node<T>;
+	public right?: Node<T>;
+
+	constructor(private _options?: NodeOptions<T>) {
 		this._options = Object.assign(
 			{
 				data: null,
 				parent: null,
 				right: null,
 				left: null,
-				color: Color.red,
+				color: Color.black,
 				id: null,
-				parentId: null
+				parentId: null,
+				children: []
 			},
 			this._options || {}
 		);
+
+		this.id = this._options.id;
+		this.parentId = this._options.parentId;
+		this.children = this._options.children;
+		this.parent = this._options.parent;
+		this.data = this._options.data;
+		this.color = this._options.color;
+		this.left = this._options.left;
+		this.right = this._options.right;
 	}
 
-	get color(): Color {
-		return this._options.color;
+	public clear?() {
+		this.color = Color.black;
+		this.data = this.parent = this.left = this.right = this.id = this.parentId = null;
+		this.children = [];
 	}
 
-	set color(val: Color) {
-		this._options.color = val;
-	}
+	public toString(): string {
+		let s: string = "Node -> {";
 
-	get data(): T {
-		return this._options.data;
-	}
+		s += `id: ${this.id}, `;
+		s += `parentId: ${this.parentId}, `;
 
-	set data(val: T) {
-		this._options.data = val;
-	}
+		if (this.parent && this.parent !== nilNode) {
+			s += `parent: (id: ${this.parent.id} parentId: ${
+				this.parent.parentId
+			}), `;
+		} else {
+			s += "parent: nil";
+		}
 
-	get id(): Id {
-		return this._options.id;
-	}
-
-	set id(val: Id) {
-		this._options.id = val;
-	}
-
-	get left(): Node<T> {
-		return this._options.left;
-	}
-
-	set left(val: Node<T>) {
-		this._options.left = val;
-	}
-
-	get parent(): Node<T> {
-		return this._options.parent;
-	}
-
-	set parent(val: Node<T>) {
-		this._options.parent = val;
-	}
-
-	get parentId(): Id {
-		return this._options.parentId;
-	}
-
-	set parentId(val: Id) {
-		this._options.parentId = val;
-	}
-
-	get right(): Node<T> {
-		return this._options.right;
-	}
-
-	set right(val: Node<T>) {
-		this._options.right = val;
-	}
-
-	public clear(): void {
-		this._options.color = Color.red;
-		this._options.data = this._options.parent = this._options.left = this._options.right = null;
+		s += "}";
+		return s;
 	}
 }
 

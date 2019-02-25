@@ -11,9 +11,65 @@ const log = logger.instance({
 });
 
 interface TestTreeData {
-	field1: string;
-	field2: number;
+	field1?: string;
+	field2?: number;
 }
+
+const comparator: Comparator<TestTreeData> = (
+	o1: TestData,
+	o2: TestData
+): number => {
+	if (o1.field1 === o2.field1) {
+		return 0;
+	}
+
+	return -1;
+};
+
+function getBasicTree() {
+	const fixture = new Fixture("basic");
+	expect(fixture).toBeDefined();
+	expect(fixture.obj).toBeDefined();
+
+	const gt: GeneralTree<TestTreeData> = new GeneralTree<TestTreeData>({
+		treeData: fixture.jsonObj["treeData"],
+		testing: true
+	});
+
+	expect(gt).toBeDefined();
+	expect(gt.dirty).toBe(false);
+	expect(gt.length).toBe(12);
+	expect(gt.root).toBeDefined();
+	expect(gt.root.length).toBe(3);
+
+	return gt;
+}
+
+function testDataToString(it: GeneralTreeItem<TestTreeData>): string {
+	return `field1: ${it.field1}, field2: ${it.field2}`;
+}
+
+test("Create a new, empty GeneralTreeItem node", () => {
+	const gt: GeneralTree<TestTreeData> = new GeneralTree<TestTreeData>({
+		testing: true
+	});
+
+	const node: GeneralTreeItem<TestTreeData> = gt.createNode({
+		id: 12345,
+		parentId: 98765,
+		field1: "field1",
+		field2: "field2"
+	});
+
+	expect(node).toBeDefined();
+	expect(node).toHaveProperty("id");
+	expect(node).toHaveProperty("parentId");
+	expect(node).toHaveProperty("parent");
+	expect(node).toHaveProperty("children");
+	expect(node).toHaveProperty("field1");
+	expect(node).toHaveProperty("field2");
+	expect(node).toMatchSnapshot();
+});
 
 test("Create an empty tree structure", () => {
 	const gt: GeneralTree<TestTreeData> = new GeneralTree<TestTreeData>({
@@ -30,14 +86,7 @@ test("Create an empty tree structure", () => {
 });
 
 test("Create a basic GeneralTree", () => {
-	const fixture = new Fixture("basic");
-	expect(fixture).toBeDefined();
-	expect(fixture.obj).toBeDefined();
-
-	const gt: GeneralTree<TestTreeData> = new GeneralTree<TestTreeData>({
-		treeData: fixture.jsonObj["treeData"],
-		testing: true
-	});
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
 
 	expect(gt).toBeDefined();
 	expect(gt.treeData).toBeDefined();
@@ -59,17 +108,8 @@ test("Create a basic GeneralTree", () => {
 	expect(gt.height).toBe(0);
 });
 
-test("Test the walk function on a basic TreeItem fixture object", () => {
-	const fixture = new Fixture("basic");
-	expect(fixture).toBeDefined();
-	expect(fixture.jsonObj).toBeDefined();
-
-	const gt: GeneralTree<TestTreeData> = new GeneralTree<TestTreeData>({
-		treeData: fixture.jsonObj["treeData"],
-		testing: true
-	});
-
-	expect(gt).toBeDefined();
+test("Test the walk function on a basic GeneralTreeItem fixture object", () => {
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
 
 	// Walk through the tree.  Concatenate the title values together
 	// to create a string that can be compared for ordering
@@ -84,17 +124,9 @@ test("Test the walk function on a basic TreeItem fixture object", () => {
 });
 
 test("Call walk function with bad callback", () => {
-	const fixture = new Fixture("basic");
-	expect(fixture).toBeDefined();
-	expect(fixture.jsonObj).toBeDefined();
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
 
-	const gt: GeneralTree<TestTreeData> = new GeneralTree<TestTreeData>({
-		treeData: fixture.jsonObj["treeData"],
-		testing: true
-	});
-	expect(gt).toBeDefined();
 	expect(gt.treeData).toBeDefined();
-
 	gt.walk(null);
 	expect(gt.treeData).toBeDefined();
 });
@@ -233,17 +265,6 @@ test("Test turning off GeneralTreeData index and showing a value is not in it", 
 });
 
 test("Use the field search to find multiple items in the tree using a comparator", () => {
-	const comparator: Comparator<TestTreeData> = (
-		o1: TestData,
-		o2: TestData
-	): number => {
-		if (o1.field1 === o2.field1) {
-			return 0;
-		}
-
-		return -1;
-	};
-
 	const fixture = new Fixture("search");
 	expect(fixture).toBeDefined();
 	expect(fixture.obj).toBeDefined();
@@ -301,11 +322,199 @@ test("Use the parent id to search for nodes", () => {
 	expect(foundItems.length).toBe(0);
 });
 
-// test the field search by field with multiple entries, one, and none
-// test the parentId search by parent with multiple children, one, and none
-// Test insert in front of the tree and validate .first
-// Test insert at the end of the tree and validate .last
-// Test arbitrary insert into the tree, validate the length
-// Iterate through each item in the tree using a predictable set of data
-// Flatten the tree into an Array
+test("Check if a field is found within the tree", () => {
+	const fixture = new Fixture("search");
+	expect(fixture).toBeDefined();
+	expect(fixture.obj).toBeDefined();
+
+	const gt: GeneralTree<TestTreeData> = new GeneralTree<TestTreeData>(
+		{
+			treeData: fixture.jsonObj["treeData"],
+			testing: true
+		},
+		comparator
+	);
+
+	expect(gt).toBeDefined();
+
+	expect(gt.contains({field1: "3.0"})).toBe(true);
+	expect(gt.contains({field1: "99.99"})).toBe(false);
+});
+
+test("Flatten a tree into a 1D array and the re-expand it", () => {
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
+	const arr = gt.flatten();
+
+	expect(arr).toBeDefined();
+	expect(arr.length).toBe(12);
+	expect(arr).toMatchSnapshot();
+
+	gt.clear();
+	expect(gt.length).toBe(0);
+
+	gt.expand(arr);
+	expect(gt.length).toBe(12);
+	expect(gt).toMatchSnapshot();
+});
+
+test("Insert into an empty tree", () => {
+	const gt: GeneralTree<TestTreeData> = new GeneralTree<TestTreeData>({
+		testing: true
+	});
+
+	expect(gt).toBeDefined();
+	expect(gt.length).toBe(0);
+	expect(gt.root).toBeDefined();
+	expect(gt.root.length).toBe(0);
+
+	gt.insert({
+		field1: "newNode::field1",
+		field2: "newNode::field2"
+	});
+
+	// log.debug("%s", gt.toString(testDataToString));
+
+	expect(gt.length).toBe(1);
+	expect(gt.first).toBeDefined();
+	expect(gt.first.id).toBe(0);
+	expect(gt.last).toBeDefined();
+	expect(gt.last.id).toBe(0);
+});
+
+test("Insert a new item into the root of an existing tree", () => {
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
+
+	gt.insert({
+		field1: "newNode::field1",
+		field2: "newNode::field2"
+	});
+
+	// log.debug(gt.toString(testDataToString));
+
+	expect(gt.first).toBe(gt.root[0]);
+	expect(gt.root.length).toBe(4);
+	expect(gt.length).toBe(13);
+	expect(gt.first.field1).toBe("newNode::field1");
+	expect(gt.first.field2).toBe("newNode::field2");
+	expect(gt).toMatchSnapshot();
+});
+
+test("Insert into an arbitrary location within the tree", () => {
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
+
+	// insert into the first parent in the tree
+	const node = gt.insert({
+		parentId: 0,
+		field1: "newNode::field1",
+		field2: "newNode::field2"
+	});
+
+	expect(gt.first).toBe(gt.root[0]);
+	expect(gt.root.length).toBe(3);
+	expect(gt.length).toBe(13);
+	expect(node.parent.id).toBe(0);
+	expect(node.parent.children.length).toBe(4);
+	expect(node.field1).toBe("newNode::field1");
+	expect(node.field2).toBe("newNode::field2");
+});
+
+test("Insert a new item as the last item in the last parent in the tree", () => {
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
+
+	// insert into the first parent in the tree
+	const node = gt.insert(
+		{
+			parentId: 8,
+			field1: "newNode::field1",
+			field2: "newNode::field2"
+		},
+		false
+	);
+
+	expect(gt.first).toBe(gt.root[0]);
+	expect(gt.root.length).toBe(3);
+	expect(gt.length).toBe(13);
+	expect(node.parent.id).toBe(8);
+	expect(gt.last).toBe(node);
+	expect(node.field1).toBe("newNode::field1");
+	expect(node.field2).toBe("newNode::field2");
+});
+
+test("Insert new item into the last item in the tree (make last a new parent)", () => {
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
+	const node = gt.insert(
+		{
+			parentId: 11,
+			field1: "newNode::field1",
+			field2: "newNode::field2"
+		},
+		false
+	);
+
+	expect(gt.first).toBe(gt.root[0]);
+	expect(gt.root.length).toBe(3);
+	expect(gt.length).toBe(13);
+	expect(node.parent.id).toBe(11);
+	expect(gt.last).toBe(node);
+	expect(node.field1).toBe("newNode::field1");
+	expect(node.field2).toBe("newNode::field2");
+});
+
+test("Attempt to insert a bad node config into the tree", () => {
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
+	const node = gt.insert(null);
+
+	expect(node).toBeNull();
+	expect(gt.length).toBe(12);
+	expect(gt.root).toBeDefined();
+	expect(gt.root.length).toBe(3);
+});
+
+test("Attempt to insert a duplicate id value with validation turned on", () => {
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
+	const node = gt.insert(
+		{
+			id: 0,
+			field1: "newNode::field1",
+			field2: "newNode::field2"
+		},
+		false,
+		true
+	);
+
+	expect(node).toBeNull();
+	expect(gt.length).toBe(12);
+	expect(gt.root).toBeDefined();
+	expect(gt.root.length).toBe(3);
+});
+
+test("Insert into a nonexistant parent", () => {
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
+	const node = gt.insert({
+		parentId: 9999,
+		field1: "newNode::field1",
+		field2: "newNode::field2"
+	});
+
+	expect(node).toBeNull();
+	expect(gt.length).toBe(12);
+	expect(gt.root).toBeDefined();
+	expect(gt.root.length).toBe(3);
+});
+
+test("Iterate through the basic tree", () => {
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
+	let out: string = "";
+
+	for (const node of gt) {
+		expect(node).toBeDefined();
+		out += `${node.field1} `;
+	}
+	out = out.trim();
+
+	expect(out).toBeDefined();
+	expect(out).toBe("1.0 1.1 1.2 1.3 2.0 2.1 2.2 2.3 3.0 3.1 3.2 3.3");
+});
+
 // Expand a flattened tree array back into the tree
+// Iterate through each item in the tree using a predictable set of data
