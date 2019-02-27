@@ -40,6 +40,8 @@ test("Create a simple BinaryTree", () => {
 	expect(bt.size).toBe(0);
 	expect(bt.root).toBe(bt.nil);
 	expect(bt.height).toBe(0);
+	expect(bt.first).toBeNull();
+	expect(bt.last).toBeNull();
 });
 
 test("Test BinaryTree inorder traversal", () => {

@@ -197,7 +197,7 @@ test("Test searching for an id within the tree", () => {
 		testing: true
 	});
 	expect(gt).toBeDefined();
-	gt.treeIndex = {};
+	gt._treeIndex = {};
 
 	// Parent item from tree, found
 	expect("4" in gt.treeIndex).not.toBe(true);
@@ -516,5 +516,74 @@ test("Iterate through the basic tree", () => {
 	expect(out).toBe("1.0 1.1 1.2 1.3 2.0 2.1 2.2 2.3 3.0 3.1 3.2 3.3");
 });
 
-// Expand a flattened tree array back into the tree
-// Iterate through each item in the tree using a predictable set of data
+test("Delete a node from the tree", () => {
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
+
+	// remove id 1, whose parent is 0
+	const parent = gt.find(0);
+	expect(parent.children.length).toBe(3);
+
+	gt.remove(1);
+
+	expect(gt.length).toBe(11);
+	expect(gt.find(1)).toBeNull();
+	expect(parent.children.length).toBe(2);
+});
+
+test("Delete a node from the tree where it has children", () => {
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
+
+	// remove id 1, whose parent is 0
+	const root = gt.root;
+	expect(gt.length).toBe(12);
+	expect(root.length).toBe(3);
+
+	gt.remove(0);
+
+	expect(root.length).toBe(2);
+	expect(gt.length).toBe(8); // parent and children deleted
+});
+
+test("Delete a node form the tree whre it has children, but that delete is not allowed", () => {
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
+
+	// remove id 1, whose parent is 0
+	const root = gt.root;
+	expect(gt.length).toBe(12);
+	expect(root.length).toBe(3);
+
+	gt.remove(0, true);
+
+	expect(root.length).toBe(3);
+	expect(gt.length).toBe(12); // parent and children preserved
+
+	// delete all of the children, then the parent
+	gt.remove(1, true);
+	expect(gt.length).toBe(11);
+
+	gt.remove(2, true);
+	expect(gt.length).toBe(10);
+
+	gt.remove(3, true);
+	expect(gt.length).toBe(9);
+
+	gt.remove(0, true);
+	expect(gt.length).toBe(8);
+	expect(root.length).toBe(2);
+});
+
+test("Try to delete a node from the tree with an invalid id", () => {
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
+
+	log.debug("%s", gt.toString(testDataToString));
+
+	// remove id 1, whose parent is 0
+	const root = gt.root;
+	expect(gt.length).toBe(12);
+	expect(root.length).toBe(3);
+
+	gt.remove(999);
+
+	expect(root.length).toBe(3);
+	expect(gt.length).toBe(12); // parent and children preserved
+});

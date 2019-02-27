@@ -154,7 +154,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 23,
+            "id": 11,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -195,7 +195,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 22,
+            "id": 10,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -236,7 +236,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 21,
+            "id": 9,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -275,7 +275,7 @@ GeneralTree {
       ],
       "color": 1,
       "data": null,
-      "id": 20,
+      "id": 8,
       "left": null,
       "parent": Node {
         "_options": Object {
@@ -306,7 +306,7 @@ GeneralTree {
           "children": Array [],
           "color": 1,
           "data": null,
-          "id": 23,
+          "id": 11,
           "left": null,
           "parent": Node {
             "_options": Object {
@@ -347,7 +347,7 @@ GeneralTree {
           "children": Array [],
           "color": 1,
           "data": null,
-          "id": 22,
+          "id": 10,
           "left": null,
           "parent": Node {
             "_options": Object {
@@ -388,7 +388,7 @@ GeneralTree {
           "children": Array [],
           "color": 1,
           "data": null,
-          "id": 21,
+          "id": 9,
           "left": null,
           "parent": Node {
             "_options": Object {
@@ -460,7 +460,7 @@ GeneralTree {
       "children": Array [],
       "color": 1,
       "data": null,
-      "id": 23,
+      "id": 11,
       "left": null,
       "parent": Node {
         "_options": Object {
@@ -501,7 +501,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 22,
+              "id": 10,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -542,7 +542,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 21,
+              "id": 9,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -581,7 +581,7 @@ GeneralTree {
         ],
         "color": 1,
         "data": null,
-        "id": 20,
+        "id": 8,
         "left": null,
         "parent": Node {
           "_options": Object {
@@ -613,7 +613,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 22,
+            "id": 10,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -654,7 +654,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 21,
+            "id": 9,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -746,7 +746,7 @@ GeneralTree {
     "right": null,
   },
   "_options": Object {
-    "sequence": 24,
+    "sequence": 0,
     "testing": true,
     "treeData": Array [
       Object {
@@ -930,7 +930,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 23,
+              "id": 11,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -971,7 +971,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 22,
+              "id": 10,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -1012,7 +1012,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 21,
+              "id": 9,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -1051,7 +1051,7 @@ GeneralTree {
         ],
         "color": 1,
         "data": null,
-        "id": 20,
+        "id": 8,
         "left": null,
         "parent": Node {
           "_options": Object {
@@ -1082,7 +1082,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 23,
+            "id": 11,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -1123,7 +1123,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 22,
+            "id": 10,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -1164,7 +1164,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 21,
+            "id": 9,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -1238,7 +1238,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 19,
+              "id": 7,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -1279,7 +1279,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 18,
+              "id": 6,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -1320,7 +1320,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 17,
+              "id": 5,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -1359,7 +1359,7 @@ GeneralTree {
         ],
         "color": 1,
         "data": null,
-        "id": 16,
+        "id": 4,
         "left": null,
         "parent": Node {
           "_options": Object {
@@ -1390,7 +1390,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 19,
+            "id": 7,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -1431,7 +1431,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 18,
+            "id": 6,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -1472,7 +1472,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 17,
+            "id": 5,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -1546,7 +1546,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 15,
+              "id": 3,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -1587,7 +1587,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 14,
+              "id": 2,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -1628,7 +1628,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 13,
+              "id": 1,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -1667,7 +1667,7 @@ GeneralTree {
         ],
         "color": 1,
         "data": null,
-        "id": 12,
+        "id": 0,
         "left": null,
         "parent": Node {
           "_options": Object {
@@ -1698,7 +1698,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 15,
+            "id": 3,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -1739,7 +1739,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 14,
+            "id": 2,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -1780,7 +1780,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 13,
+            "id": 1,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -1847,6 +1847,7 @@ GeneralTree {
       "right": null,
     },
   ],
+  "_sequence": 12,
   "_treeIndex": Object {
     "0": Node {
       "_options": Object {
@@ -1856,7 +1857,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 15,
+              "id": 3,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -1897,7 +1898,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 14,
+              "id": 2,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -1938,7 +1939,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 13,
+              "id": 1,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -1977,7 +1978,7 @@ GeneralTree {
         ],
         "color": 1,
         "data": null,
-        "id": 12,
+        "id": 0,
         "left": null,
         "parent": Node {
           "_options": Object {
@@ -2008,7 +2009,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 15,
+            "id": 3,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -2049,7 +2050,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 14,
+            "id": 2,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -2090,7 +2091,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 13,
+            "id": 1,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -2161,7 +2162,7 @@ GeneralTree {
         "children": Array [],
         "color": 1,
         "data": null,
-        "id": 13,
+        "id": 1,
         "left": null,
         "parent": Node {
           "_options": Object {
@@ -2201,7 +2202,7 @@ GeneralTree {
                 "children": Array [],
                 "color": 1,
                 "data": null,
-                "id": 15,
+                "id": 3,
                 "left": null,
                 "parent": Node {
                   "_options": Object {
@@ -2242,7 +2243,7 @@ GeneralTree {
                 "children": Array [],
                 "color": 1,
                 "data": null,
-                "id": 14,
+                "id": 2,
                 "left": null,
                 "parent": Node {
                   "_options": Object {
@@ -2282,7 +2283,7 @@ GeneralTree {
           ],
           "color": 1,
           "data": null,
-          "id": 12,
+          "id": 0,
           "left": null,
           "parent": Node {
             "_options": Object {
@@ -2313,7 +2314,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 15,
+              "id": 3,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -2354,7 +2355,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 14,
+              "id": 2,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -2429,7 +2430,7 @@ GeneralTree {
         "children": Array [],
         "color": 1,
         "data": null,
-        "id": 22,
+        "id": 10,
         "left": null,
         "parent": Node {
           "_options": Object {
@@ -2469,7 +2470,7 @@ GeneralTree {
                 "children": Array [],
                 "color": 1,
                 "data": null,
-                "id": 23,
+                "id": 11,
                 "left": null,
                 "parent": Node {
                   "_options": Object {
@@ -2511,7 +2512,7 @@ GeneralTree {
                 "children": Array [],
                 "color": 1,
                 "data": null,
-                "id": 21,
+                "id": 9,
                 "left": null,
                 "parent": Node {
                   "_options": Object {
@@ -2550,7 +2551,7 @@ GeneralTree {
           ],
           "color": 1,
           "data": null,
-          "id": 20,
+          "id": 8,
           "left": null,
           "parent": Node {
             "_options": Object {
@@ -2581,7 +2582,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 23,
+              "id": 11,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -2623,7 +2624,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 21,
+              "id": 9,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -2697,7 +2698,7 @@ GeneralTree {
         "children": Array [],
         "color": 1,
         "data": null,
-        "id": 23,
+        "id": 11,
         "left": null,
         "parent": Node {
           "_options": Object {
@@ -2738,7 +2739,7 @@ GeneralTree {
                 "children": Array [],
                 "color": 1,
                 "data": null,
-                "id": 22,
+                "id": 10,
                 "left": null,
                 "parent": Node {
                   "_options": Object {
@@ -2779,7 +2780,7 @@ GeneralTree {
                 "children": Array [],
                 "color": 1,
                 "data": null,
-                "id": 21,
+                "id": 9,
                 "left": null,
                 "parent": Node {
                   "_options": Object {
@@ -2818,7 +2819,7 @@ GeneralTree {
           ],
           "color": 1,
           "data": null,
-          "id": 20,
+          "id": 8,
           "left": null,
           "parent": Node {
             "_options": Object {
@@ -2850,7 +2851,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 22,
+              "id": 10,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -2891,7 +2892,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 21,
+              "id": 9,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -2965,7 +2966,7 @@ GeneralTree {
         "children": Array [],
         "color": 1,
         "data": null,
-        "id": 14,
+        "id": 2,
         "left": null,
         "parent": Node {
           "_options": Object {
@@ -3005,7 +3006,7 @@ GeneralTree {
                 "children": Array [],
                 "color": 1,
                 "data": null,
-                "id": 15,
+                "id": 3,
                 "left": null,
                 "parent": Node {
                   "_options": Object {
@@ -3047,7 +3048,7 @@ GeneralTree {
                 "children": Array [],
                 "color": 1,
                 "data": null,
-                "id": 13,
+                "id": 1,
                 "left": null,
                 "parent": Node {
                   "_options": Object {
@@ -3086,7 +3087,7 @@ GeneralTree {
           ],
           "color": 1,
           "data": null,
-          "id": 12,
+          "id": 0,
           "left": null,
           "parent": Node {
             "_options": Object {
@@ -3117,7 +3118,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 15,
+              "id": 3,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -3159,7 +3160,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 13,
+              "id": 1,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -3233,7 +3234,7 @@ GeneralTree {
         "children": Array [],
         "color": 1,
         "data": null,
-        "id": 15,
+        "id": 3,
         "left": null,
         "parent": Node {
           "_options": Object {
@@ -3274,7 +3275,7 @@ GeneralTree {
                 "children": Array [],
                 "color": 1,
                 "data": null,
-                "id": 14,
+                "id": 2,
                 "left": null,
                 "parent": Node {
                   "_options": Object {
@@ -3315,7 +3316,7 @@ GeneralTree {
                 "children": Array [],
                 "color": 1,
                 "data": null,
-                "id": 13,
+                "id": 1,
                 "left": null,
                 "parent": Node {
                   "_options": Object {
@@ -3354,7 +3355,7 @@ GeneralTree {
           ],
           "color": 1,
           "data": null,
-          "id": 12,
+          "id": 0,
           "left": null,
           "parent": Node {
             "_options": Object {
@@ -3386,7 +3387,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 14,
+              "id": 2,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -3427,7 +3428,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 13,
+              "id": 1,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -3504,7 +3505,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 19,
+              "id": 7,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -3545,7 +3546,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 18,
+              "id": 6,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -3586,7 +3587,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 17,
+              "id": 5,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -3625,7 +3626,7 @@ GeneralTree {
         ],
         "color": 1,
         "data": null,
-        "id": 16,
+        "id": 4,
         "left": null,
         "parent": Node {
           "_options": Object {
@@ -3656,7 +3657,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 19,
+            "id": 7,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -3697,7 +3698,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 18,
+            "id": 6,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -3738,7 +3739,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 17,
+            "id": 5,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -3809,7 +3810,7 @@ GeneralTree {
         "children": Array [],
         "color": 1,
         "data": null,
-        "id": 17,
+        "id": 5,
         "left": null,
         "parent": Node {
           "_options": Object {
@@ -3849,7 +3850,7 @@ GeneralTree {
                 "children": Array [],
                 "color": 1,
                 "data": null,
-                "id": 19,
+                "id": 7,
                 "left": null,
                 "parent": Node {
                   "_options": Object {
@@ -3890,7 +3891,7 @@ GeneralTree {
                 "children": Array [],
                 "color": 1,
                 "data": null,
-                "id": 18,
+                "id": 6,
                 "left": null,
                 "parent": Node {
                   "_options": Object {
@@ -3930,7 +3931,7 @@ GeneralTree {
           ],
           "color": 1,
           "data": null,
-          "id": 16,
+          "id": 4,
           "left": null,
           "parent": Node {
             "_options": Object {
@@ -3961,7 +3962,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 19,
+              "id": 7,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -4002,7 +4003,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 18,
+              "id": 6,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -4077,7 +4078,7 @@ GeneralTree {
         "children": Array [],
         "color": 1,
         "data": null,
-        "id": 18,
+        "id": 6,
         "left": null,
         "parent": Node {
           "_options": Object {
@@ -4117,7 +4118,7 @@ GeneralTree {
                 "children": Array [],
                 "color": 1,
                 "data": null,
-                "id": 19,
+                "id": 7,
                 "left": null,
                 "parent": Node {
                   "_options": Object {
@@ -4159,7 +4160,7 @@ GeneralTree {
                 "children": Array [],
                 "color": 1,
                 "data": null,
-                "id": 17,
+                "id": 5,
                 "left": null,
                 "parent": Node {
                   "_options": Object {
@@ -4198,7 +4199,7 @@ GeneralTree {
           ],
           "color": 1,
           "data": null,
-          "id": 16,
+          "id": 4,
           "left": null,
           "parent": Node {
             "_options": Object {
@@ -4229,7 +4230,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 19,
+              "id": 7,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -4271,7 +4272,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 17,
+              "id": 5,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -4345,7 +4346,7 @@ GeneralTree {
         "children": Array [],
         "color": 1,
         "data": null,
-        "id": 19,
+        "id": 7,
         "left": null,
         "parent": Node {
           "_options": Object {
@@ -4386,7 +4387,7 @@ GeneralTree {
                 "children": Array [],
                 "color": 1,
                 "data": null,
-                "id": 18,
+                "id": 6,
                 "left": null,
                 "parent": Node {
                   "_options": Object {
@@ -4427,7 +4428,7 @@ GeneralTree {
                 "children": Array [],
                 "color": 1,
                 "data": null,
-                "id": 17,
+                "id": 5,
                 "left": null,
                 "parent": Node {
                   "_options": Object {
@@ -4466,7 +4467,7 @@ GeneralTree {
           ],
           "color": 1,
           "data": null,
-          "id": 16,
+          "id": 4,
           "left": null,
           "parent": Node {
             "_options": Object {
@@ -4498,7 +4499,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 18,
+              "id": 6,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -4539,7 +4540,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 17,
+              "id": 5,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -4616,7 +4617,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 23,
+              "id": 11,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -4657,7 +4658,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 22,
+              "id": 10,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -4698,7 +4699,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 21,
+              "id": 9,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -4737,7 +4738,7 @@ GeneralTree {
         ],
         "color": 1,
         "data": null,
-        "id": 20,
+        "id": 8,
         "left": null,
         "parent": Node {
           "_options": Object {
@@ -4768,7 +4769,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 23,
+            "id": 11,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -4809,7 +4810,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 22,
+            "id": 10,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -4850,7 +4851,7 @@ GeneralTree {
             "children": Array [],
             "color": 1,
             "data": null,
-            "id": 21,
+            "id": 9,
             "left": null,
             "parent": Node {
               "_options": Object {
@@ -4921,7 +4922,7 @@ GeneralTree {
         "children": Array [],
         "color": 1,
         "data": null,
-        "id": 21,
+        "id": 9,
         "left": null,
         "parent": Node {
           "_options": Object {
@@ -4961,7 +4962,7 @@ GeneralTree {
                 "children": Array [],
                 "color": 1,
                 "data": null,
-                "id": 23,
+                "id": 11,
                 "left": null,
                 "parent": Node {
                   "_options": Object {
@@ -5002,7 +5003,7 @@ GeneralTree {
                 "children": Array [],
                 "color": 1,
                 "data": null,
-                "id": 22,
+                "id": 10,
                 "left": null,
                 "parent": Node {
                   "_options": Object {
@@ -5042,7 +5043,7 @@ GeneralTree {
           ],
           "color": 1,
           "data": null,
-          "id": 20,
+          "id": 8,
           "left": null,
           "parent": Node {
             "_options": Object {
@@ -5073,7 +5074,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 23,
+              "id": 11,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -5114,7 +5115,7 @@ GeneralTree {
               "children": Array [],
               "color": 1,
               "data": null,
-              "id": 22,
+              "id": 10,
               "left": null,
               "parent": Node {
                 "_options": Object {
@@ -5354,7 +5355,7 @@ GeneralTree {
     "right": null,
   },
   "_options": Object {
-    "sequence": 13,
+    "sequence": 0,
     "testing": true,
     "treeData": Array [
       Node {
@@ -5819,6 +5820,7 @@ GeneralTree {
       "parentId": null,
     },
   ],
+  "_sequence": 13,
   "_treeIndex": Object {
     "0": Object {
       "children": Array [

@@ -6,11 +6,11 @@ import {nilNode, Node} from "./node";
 
 export abstract class Collection<T> extends EventEmitter {
 	protected _comparator: Comparator<T>;
-	protected _first: any;
-	protected _last: any;
+	protected _first: any = null;
+	protected _last: any = null;
 	protected _length: number = 0;
-	protected _nil: Node<T>;
-	protected _root: any;
+	protected _nil: Node<T> = nilNode;
+	protected _root: any = null;
 
 	/**
 	 * Base class constructor for all collection classes.
@@ -30,8 +30,6 @@ export abstract class Collection<T> extends EventEmitter {
 			// given.
 			this._comparator = defaultComparatorFn;
 		}
-
-		this.clear();
 	}
 
 	/**

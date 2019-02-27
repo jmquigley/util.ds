@@ -14,6 +14,8 @@ export class BinaryTree<T> extends Tree<T> implements Iterable<T> {
 	constructor(arr: T[] = [], comparator: Comparator<T> = null) {
 		super(comparator);
 
+		this._root = this.nil;
+
 		if (arr) {
 			for (const it of arr) {
 				this.insert(it);

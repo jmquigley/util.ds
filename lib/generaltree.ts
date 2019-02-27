@@ -36,16 +36,19 @@ export interface GeneralTreeOptions<T> {
 	usesanitize?: boolean;
 }
 
+/**
+ * Implements a general tree structure
+ */
 export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 	private _dirty: boolean = true;
+	private _sequence: number;
 	private _treeIndex: TreeIndex<T> = {};
 
 	constructor(
-		private _options: GeneralTreeOptions<T>,
+		private _options?: GeneralTreeOptions<T>,
 		comparator: Comparator<T> = null
 	) {
 		super(comparator);
-		this.clear();
 
 		this._options = Object.assign(
 			{
@@ -58,81 +61,109 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 			this._options || {}
 		);
 
+		this._sequence = this._options.sequence;
 		this.treeData = this._options.treeData;
 	}
 
+	/**
+	 * @return {boolean} true if the tree has been changed before the last walk operation
+	 */
 	get dirty(): boolean {
 		return this._dirty;
 	}
 
+	/**
+	 * @return {TreeNode<T>} a reference to the first item in the tree and null if empty.
+	 */
 	get first(): TreeNode<T> {
 		return this._first;
 	}
 
-	set first(val: TreeNode<T>) {
-		this._first = val;
-	}
-
+	/**
+	 * @return {number} the depth of the tree
+	 */
 	get height(): number {
 		this.walk(nilEvent);
 		return this._height;
 	}
 
+	/**
+	 * @return {TreeNode<T>} a reference to the last item in the tree and null if empty.
+	 */
 	get last(): TreeNode<T> {
 		return this._last;
 	}
 
-	set last(val: TreeNode<T>) {
-		this._last = val;
-	}
-
-	get sequence(): number {
-		return this._options.sequence;
-	}
-
-	set sequence(val: number) {
-		this._options.sequence = val;
-	}
-
+	/**
+	 * @return {boolean} returns true if the module is under test, otherwise false
+	 */
 	get testing(): boolean {
 		return this._options.testing;
 	}
 
+	/**
+	 * @return {Array<TreeNode<T>>} a reference to the current tree array structure
+	 */
 	get treeData(): Array<TreeNode<T>> {
 		return this._root;
 	}
 
+	/**
+	 * Sets the internal representation of the tree structure array to a new array.
+	 * Generally this should not be used, but this is exposed for use in another
+	 * 3rd party library to allow it access to change the struccture (react treeview)
+	 * @param val {Array<TreeNode<T>>} the new array of nodes to make as the new tree
+	 */
 	set treeData(val: Array<TreeNode<T>>) {
 		this._root = val || [];
 		this._dirty = true;
 		this.walk(nilEvent);
 	}
 
+	/**
+	 * @return {TreeIndex<T>} a reference to the that holdes the id/node index relationship
+	 */
 	get treeIndex(): TreeIndex<T> {
 		return this._treeIndex;
 	}
 
-	set treeIndex(val: TreeIndex<T>) {
-		this._treeIndex = val;
-	}
-
+	/**
+	 * @return {boolean} if true, then the index is being used by the tree
+	 */
 	get useindex(): boolean {
 		return this._options.useindex;
 	}
 
+	/**
+	 * @return {boolean} if true, then nodes within the tree will be sanitized when the
+	 * walk routine is used.  This will ensure that all key fields are present within a
+	 * node.  This is important when the .treeData function can opverride the current
+	 * array.  The sanitize is used to ensure tree integrity.
+	 */
 	get usesanitize(): boolean {
 		return this._options.usesanitize;
 	}
 
+	/**
+	 * Convenience method for adding a node to the index.
+	 * @param node {TreeNode<T>} - a reference to the node to insert into the index
+	 */
 	private addToIndex(node: TreeNode<T>) {
 		if (node && this.useindex) {
 			this._treeIndex[node.id] = node;
 		}
 	}
 
+	/**
+	 * Resets the tree.  This will clear out the current tree arrayu and all
+	 * reference pointers to first/last and the current index.
+	 */
 	public clear(): void {
 		super.clear();
-		this.treeData = null;
+
+		this.treeData = [];
+		this._treeIndex = {};
+		this._sequence = this._options.sequence;
 	}
 
 	/**
@@ -297,7 +328,7 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 	 */
 	private getNewKey(): Id {
 		if (this.testing) {
-			return this.sequence++;
+			return this._sequence++;
 		}
 
 		return getUUID();
@@ -312,6 +343,22 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 	 */
 	private isIdInChildren(searchId: Id, children: Array<TreeNode<T>>) {
 		return children.find((child) => child.id === searchId) != null;
+	}
+
+	/**
+	 * Searches the current child list for an id and returns the index location
+	 * within the child list where it is at.  If it is not found, then the
+	 * index is -1.
+	 * @param searchId {Id} - the id value to use in the search
+	 * @param children {Array<TreeNode<T>>} - child array to search for an id
+	 * @reutrn {number} the index location of the child within the array. A
+	 * -1 is returned if not found.
+	 */
+	private indexInChildren(
+		searchId: Id,
+		children: Array<TreeNode<T>>
+	): number {
+		return children.findIndex((child) => child.id === searchId);
 	}
 
 	/**
@@ -335,19 +382,21 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 		validate: boolean = false
 	): GeneralTreeItem<Node<T>> {
 		if (!dataToInsert) {
-			log.warn("Trying to insert nothing into the tree (skipping noop)");
+			log.warn(
+				"Trying to insert nothing into the tree, skipping (noop)."
+			);
 			return null;
 		}
 
 		if (validate && "id" in dataToInsert && this.find(dataToInsert.id)) {
 			log.warn(
-				"Not alloed to insert duplicate id values (%s)",
+				"Not alloed to insert duplicate id values (id: %s).",
 				dataToInsert.id
 			);
 			return null;
 		}
 
-		let insertLocation: Array<Node<T>>;
+		let insertLocation: Array<TreeNode<T>>;
 		let parent: Node<T> = nilNode;
 
 		if (dataToInsert.parentId != null) {
@@ -355,7 +404,7 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 			const parentNode: Node<T> = this.find(dataToInsert.parentId);
 			if (!parentNode) {
 				log.warn(
-					"Unknown parent id field given for insert location (noop)"
+					"Unknown parent id field given for insert location (noop)."
 				);
 				return null;
 			}
@@ -364,7 +413,7 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 			parent = parentNode;
 		} else {
 			// Insert at the root level if no parent given
-			insertLocation = this.root as Array<Node<T>>;
+			insertLocation = this.root as Array<TreeNode<T>>;
 			parent = nilNode;
 		}
 
@@ -397,9 +446,57 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 		return newNode;
 	}
 
-	// TODO: Implement remove function on generaltree
-	public remove(data: TreeNode<T>) {
-		log.debug("remove: %j", data);
+	/**
+	 * Removes a node from the tree.  If the node is a parent with
+	 * children, then the `deleteWithChildren` flag can be used to
+	 * stop the delete process if children are present.  This is allowed
+	 * by default (so deleting a parent deletes its children).  When this
+	 * flag is true, then the delete would not be allowed until all of the
+	 * children are deleted first.  The delete operations are expensive
+	 * because a re-walk of the tree is required to fix indexing and
+	 * first/last pointers.
+	 * @param idToRemove {Id} - the id value of the node to remove
+	 * @param deleteWithChildren=false {boolean} - if true, then a parent
+	 * with children cannot be deleted until all children are removed.
+	 */
+	public remove(idToRemove: Id, deleteWithChildren: boolean = false) {
+		let deleteLocation: Array<TreeNode<T>>;
+		const deleteNode: TreeNode<T> = this.find(idToRemove);
+
+		if (!deleteNode) {
+			log.warn(
+				"Can't delete item that doesn't exist (id: %s).",
+				idToRemove
+			);
+			return;
+		}
+
+		if (deleteWithChildren && deleteNode.children.length > 1) {
+			log.warn("Can't delete item that contains children.");
+			return;
+		}
+
+		if (deleteNode.parent === nilNode) {
+			deleteLocation = this.root as Array<TreeNode<T>>;
+		} else {
+			deleteLocation = deleteNode.parent.children;
+		}
+
+		const index: number = this.indexInChildren(idToRemove, deleteLocation);
+		if (index > -1) {
+			deleteLocation.splice(index, 1);
+			this._length--;
+			this.removeFromIndex(deleteNode.id);
+			this._first = this.root[0];
+			this._dirty = true;
+			this.walk(nilEvent);
+		}
+	}
+
+	private removeFromIndex(nodeId: Id) {
+		if (this.useindex && nodeId in this._treeIndex) {
+			delete this._treeIndex[nodeId];
+		}
 	}
 
 	/**
@@ -546,3 +643,5 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 		}
 	}
 }
+
+export default GeneralTree;

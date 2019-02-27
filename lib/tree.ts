@@ -2,7 +2,7 @@
 
 import {Collection} from "./collection";
 import {Comparator} from "./comparator";
-import {Node} from "./node";
+import {nilNode, Node} from "./node";
 
 /**
  * The abstract base class for all Tree data structures
@@ -10,11 +10,10 @@ import {Node} from "./node";
  */
 export abstract class Tree<T> extends Collection<T> {
 	protected _height: number = 0;
-	protected _x: Node<T>;
+	protected _x: Node<T> = nilNode;
 
 	constructor(comparator: Comparator<T> = null) {
 		super(comparator);
-		this.clear();
 	}
 
 	/**
@@ -23,7 +22,6 @@ export abstract class Tree<T> extends Collection<T> {
 	 */
 	public clear(): void {
 		super.clear();
-		this._first = this._last = null;
 		this._root = this._x = this.nil;
 		this._height = 0;
 	}
