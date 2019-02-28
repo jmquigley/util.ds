@@ -57,9 +57,9 @@ are sorted by insertion order.  The lower number represents higher
 priority.
 
 **Kind**: instance method of [<code>PriorityQueue</code>](#PriorityQueue)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>T</code> | the data element to add to the queue |
-| priority | <code>number</code> | a number >= 0 that sets the priority of the item in the queue. |
+- data <code>T</code> - the data element to add to the queue
+- priority <code>number</code> - a number >= 0 that sets the priority of the
+item in the queue.
 

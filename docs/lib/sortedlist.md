@@ -13,8 +13,7 @@ position.  The sort is in ascending order.  The `.reverse` property
 can be used to get the opposite sort (returned array)
 
 **Kind**: instance method of [<code>SortedList</code>](#SortedList)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>T</code> | the data item to insert into the list |
+- data <code>T</code> - the data item to insert into the list
 

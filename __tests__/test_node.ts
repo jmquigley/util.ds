@@ -1,6 +1,6 @@
 "use strict";
 
-import {Color, Node} from "../index";
+import {Color, nilNode, Node} from "../index";
 
 test("Creation of an empty/null node", () => {
 	const node = new Node<string>();
@@ -10,10 +10,17 @@ test("Creation of an empty/null node", () => {
 });
 
 test("Test creation of a simple Node", () => {
-	const node = new Node<string>({data: "test"});
+	const node = new Node<string>({
+		data: "test",
+		id: 12345,
+		parentId: 67890,
+		parent: nilNode
+	});
 
 	expect(node).toBeDefined();
 	expect(node).toMatchSnapshot();
+	expect(node.toString()).toBeDefined();
+	expect(typeof node.toString()).toBe("string");
 });
 
 test("Test creation of a Node with right/left child", () => {
@@ -55,6 +62,8 @@ test("Test clearing a Node", () => {
 	expect(node.left.data).toBe("left child");
 	expect(node.right).toBeDefined();
 	expect(node.right.data).toBe("right child");
+	expect(node.toString()).toBeDefined();
+	expect(typeof node.toString()).toBe("string");
 
 	node.clear();
 

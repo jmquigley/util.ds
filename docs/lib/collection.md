@@ -23,10 +23,10 @@
 ### new Collection(comparator)
 Base class constructor for all collection classes.
 
+**Params**
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| comparator | <code>function</code> | <code></code> | a comparator function used for searching within the container. |
+- comparator <code>function</code> <code> = </code> - a comparator function used for searching within
+the container.
 
 <a name="Collection+back"></a>
 
@@ -87,10 +87,9 @@ a simple linear search.
 
 **Kind**: instance method of [<code>Collection</code>](#Collection)  
 **Returns**: <code>boolean</code> - true if the item is found, otherwise false.  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| obj | <code>Object</code> | the item to find in the container. |
+- obj <code>Object</code> - the item to find in the container.
 
 <a name="Collection+isEmpty"></a>
 

@@ -15,6 +15,7 @@ It contains the following data structures:
 
 - [BinaryTree](docs/lib/binarytree.md)
 - [Deque](docs/lib/deque.md)
+- [GeneralTree](docs/lib/generaltree.md)
 - [List](docs/lib/list.md)
 - [PriorityQueue](docs/lib/priorityqueue.md)
 - [Queue](docs/lib/queue.md)
@@ -128,6 +129,98 @@ bt.clear();
 ```
 
 The output above demonstrates all of the basic operations used to interact with the tree.  When an element is added to the tree an `insert` event fires.  When an element is deleted from the tree a `remove` event fires.
+
+
+### [GeneralTree](docs/lib/generaltree.md)
+A general tree is an implementation where each parent can have an arbitrany number of child nodes wtihin it (including the root node).
+
+```javascript
+import {Comparator, GeneralTree, GeneralTreeItem} from 'util.ds';
+
+interface TestData {
+    field1? string;
+}
+
+const comparator: Comparator<TestData> = (
+	o1: TestData,
+	o2: TestData
+): number => {
+	if (o1.field1 === o2.field1) {
+		return 0;
+	}
+
+	return -1;
+};
+
+const gt = new GeneralTree<TestData>({}, comparator);
+
+gt.insert({id: 0, field1: "f1"});
+gt.insert({id: 1, field1: "f2"});
+gt.insert({id: 2, field1: "f3", parentId: 0});
+gt.insert({id: 3, field1: "f4", parentId: 0});
+gt.insert({id: 4, field1: "f5", parentId: 0});
+gt.insert({id: 5, field1: "f6"});
+
+
+//        f1, f2, f6     # root
+//       / | \
+//     f3 f4  f5         # children of f1
+
+// gt.length === 6
+// gt.first === {id: 0, field: "f1"}
+// gt.last === {id: 5, field: "f6"}
+// gt.height === 2
+```
+
+The methods above would create a simple general tree that holds an object of type `TestData`.  The root of the three contains three nodes "f1, f2, f6".  At each level of the tree an arbitrary number of children can be inserted into that parent node.  In the example above the "f1" parent node contains three children "f3,f4,f5".  Also note that the `id` fields are explicityly set for each node on insert.  These can be omitted.  When not given, then the tree will generate a UUID for each node.  There are no balancing operations for this tree.  The tree can be searched using the following methods:
+
+```javascript
+
+console.log(gt.contains({field1: "f1"}));
+
+// true
+
+console.log(gt.contains({field1: "foo"}));
+
+// false
+
+console.log(gt.find(2));
+
+// {id: 2, field1: "f3"}
+
+console.log(gt.findByParent(0))
+
+// [{field1: "f3"}, {field1: "f4}, {field1: "f5"}]
+//
+// note that the objects in the array above do NOT show all fields returned.  These objects contain a reference
+// to their parent and associated id values.
+
+console.log(gt.findByField({field1: "f3"}));
+
+// [{field1: "f3", id: 2, parentId: 0}]
+```
+
+Nodes can be removed from the tree by their id value:
+
+```javascript
+
+gt.remove(0, true);
+
+// attempts to remove "f1", but this flag will prevent removal of nodes with children
+
+gt.remove(0);
+
+// removes "f1" and all of its child nodes
+```
+
+To iterate through the whole tree use the walk function.  It will perform an inorder traversal of the nodes in the tree and execute a callback method as it touches each node in the tree:
+
+```javascript
+
+gt.walk((it: GeneralTreeItem) => {
+    // do something with node saved in "it"
+});
+```
 
 
 ### [Deque](docs/lib/deque.md)

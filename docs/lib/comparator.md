@@ -11,9 +11,8 @@ It returns:
 
 **Kind**: global function  
 **Returns**: <code>number</code> - the result of the comparison (above)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| o1 | <code>T</code> | the left hand argument to compare |
-| o2 | <code>T</code> | the right hand argument to compare |
+- o1 <code>T</code> - the left hand argument to compare
+- o2 <code>T</code> - the right hand argument to compare
 

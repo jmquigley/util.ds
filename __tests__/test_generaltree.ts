@@ -16,8 +16,8 @@ interface TestTreeData {
 }
 
 const comparator: Comparator<TestTreeData> = (
-	o1: TestData,
-	o2: TestData
+	o1: TestTreeData,
+	o2: TestTreeData
 ): number => {
 	if (o1.field1 === o2.field1) {
 		return 0;
@@ -575,7 +575,7 @@ test("Delete a node form the tree whre it has children, but that delete is not a
 test("Try to delete a node from the tree with an invalid id", () => {
 	const gt: GeneralTree<TestTreeData> = getBasicTree();
 
-	log.debug("%s", gt.toString(testDataToString));
+	// log.debug("%s", gt.toString(testDataToString));
 
 	// remove id 1, whose parent is 0
 	const root = gt.root;
@@ -586,4 +586,33 @@ test("Try to delete a node from the tree with an invalid id", () => {
 
 	expect(root.length).toBe(3);
 	expect(gt.length).toBe(12); // parent and children preserved
+});
+
+test("Test the insert event on the general tree", (done) => {
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
+
+	gt.on("insert", (data: TestTreeData) => {
+		expect(data).toBeDefined();
+		expect(data.field1).toBe("newNode::field1");
+		expect(data.field2).toBe("newNode::field2");
+		done();
+	});
+
+	gt.insert({
+		field1: "newNode::field1",
+		field2: "newNode::field2"
+	});
+});
+
+test("Test the remove event on the general tree", (done) => {
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
+
+	gt.on("remove", (data: TestTreeData) => {
+		expect(data).toBeDefined();
+		expect(data.field1).toBe("1.0");
+		expect(data.field2).toBe(11);
+		done();
+	});
+
+	gt.remove(0);
 });

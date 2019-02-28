@@ -20,10 +20,9 @@ stack always pushes to the front.  The general queue should always push
 to the end of the structure.
 
 **Kind**: instance property of [<code>Queue</code>](#Queue)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>Object</code> | the data to push on the end of the queue. |
+- data <code>Object</code> - the data to push on the end of the queue.
 
 <a name="Queue+dequeue"></a>
 
@@ -47,10 +46,10 @@ Searches the queue for the requested data element and removes it
 from the queue.
 
 **Kind**: instance method of [<code>Queue</code>](#Queue)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>Object</code> | the data element that should be removed from the queue. |
+- data <code>Object</code> - the data element that should be removed from
+the queue.
 
 <a name="Queue+enqueue"></a>
 
@@ -58,8 +57,7 @@ from the queue.
 Adds an item to the end of the queue.
 
 **Kind**: instance method of [<code>Queue</code>](#Queue)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>Object</code> | the data to insert into the queue. |
+- data <code>Object</code> - the data to insert into the queue.
 

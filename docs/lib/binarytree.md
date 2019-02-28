@@ -67,11 +67,12 @@ in it).
 **Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
 **Returns**: <code>boolean</code> - true if the item is found in the tree, otherwise
 false is returned.  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>T</code> | the data element to search for (based on the data type of the tree) |
-| node | <code>T</code> | the starting node for the search.  This is root by default |
+- data <code>T</code> - the data element to search for (based on the data type
+of the tree)
+- node <code>T</code> - the starting node for the search.  This is root by
+default
 
 <a name="BinaryTree+contains"></a>
 
@@ -81,10 +82,10 @@ Performs a typically binary search through the tree.
 **Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
 **Returns**: <code>boolean</code> - true if the item is found in the tree, otherwise
 false is returned.  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>T</code> | the data element to search for (based on the data type of the tree) |
+- data <code>T</code> - the data element to search for (based on the data type
+of the tree)
 
 <a name="BinaryTree+find"></a>
 
@@ -98,10 +99,9 @@ Comparator.
 **Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
 **Returns**: <code>T</code> - the full data element within this tree.  If it is not found,
 then null is returned.  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| key | <code>T</code> | a search key to look for in the tree. |
+- key <code>T</code> - a search key to look for in the tree.
 
 <a name="BinaryTree+insert"></a>
 
@@ -109,10 +109,9 @@ then null is returned.
 Inserts a data element into the tree.
 
 **Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>T</code> | the data element to insert into the tree |
+- data <code>T</code> - the data element to insert into the tree
 
 <a name="BinaryTree+remove"></a>
 
@@ -120,10 +119,9 @@ Inserts a data element into the tree.
 Removes the given data value from the tree.
 
 **Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>T</code> | the data value to remove |
+- data <code>T</code> - the data value to remove
 
 <a name="BinaryTree+removeFirst"></a>
 
@@ -149,10 +147,9 @@ Searches the tree for a specific node within the tree.
 **Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
 **Returns**: <code>Node.&lt;T&gt;</code> - if the data is found, then the node that holds it is
 returned.  If it is not found, then nil is returned.  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>T</code> | the data value to search for in the tree. |
+- data <code>T</code> - the data value to search for in the tree.
 
 <a name="BinaryTree+_leftRotate"></a>
 
@@ -171,10 +168,10 @@ to recompute the maximum value when it is removed from the tree.
 
 **Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
 **Returns**: <code>Node.&lt;T&gt;</code> - the largest node in the (sub)tree.  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| node | <code>Node.&lt;T&gt;</code> | the node location to start the search.  By default this is the root node if no node is given. |
+- node <code>Node.&lt;T&gt;</code> - the node location to start the search.  By
+default this is the root node if no node is given.
 
 <a name="BinaryTree+_minimum"></a>
 
@@ -186,10 +183,10 @@ to recompute the minimum value when it is removed from the tree.
 
 **Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
 **Returns**: <code>Node.&lt;T&gt;</code> - the smallest node in the (sub)tree.  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| node | <code>Node.&lt;T&gt;</code> | the node location to start the search.  By default this is the root node if no node is given. |
+- node <code>Node.&lt;T&gt;</code> - the node location to start the search.  By
+default this is the root node if no node is given.
 
 <a name="BinaryTree+_rightRotate"></a>
 
@@ -206,8 +203,8 @@ node.data.
 
 **Kind**: instance method of [<code>BinaryTree</code>](#BinaryTree)  
 **Returns**: <code>Node.&lt;T&gt;</code> - a reference to the successor node.  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| node | <code>Node.&lt;T&gt;</code> | the node location to start the search for a successor. |
+- node <code>Node.&lt;T&gt;</code> - the node location to start the search for a
+successor.
 

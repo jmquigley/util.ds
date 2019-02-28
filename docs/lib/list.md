@@ -35,10 +35,9 @@ of th list).
 
 **Kind**: instance method of [<code>List</code>](#List)  
 **Returns**: <code>T</code> - the data associated with this position within the list  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| pos | <code>number</code> | the position to retrieve from the list |
+- pos <code>number</code> - the position to retrieve from the list
 
 <a name="List+find"></a>
 
@@ -52,10 +51,9 @@ Comparator.
 **Kind**: instance method of [<code>List</code>](#List)  
 **Returns**: <code>T</code> - the full data element within this list.  If it is not found,
 then null is returned.  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| key | <code>T</code> | a search key to look for in the list. |
+- key <code>T</code> - a search key to look for in the list.
 
 <a name="List+insert"></a>
 
@@ -64,11 +62,11 @@ Inserts a data value into a linked list.  The default operation is to
 insert into the end of the list.
 
 **Kind**: instance method of [<code>List</code>](#List)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>T</code> | the data item to insert into the list |
-| idx | <code>number</code> | the index position where the item will be inserted. this number be List.FRONT, List.BACK, or any other number. |
+- data <code>T</code> - the data item to insert into the list
+- idx <code>number</code> - the index position where the item will be inserted.
+this number be List.FRONT, List.BACK, or any other number.
 
 <a name="List+remove"></a>
 
@@ -77,11 +75,10 @@ Removes an element from the list.
 
 **Kind**: instance method of [<code>List</code>](#List)  
 **Returns**: <code>T</code> - the data element that was deleted  
+**Params**
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| data | <code>T</code> |  | the data item removed from the list |
-| [idx] | <code>number</code> | <code></code> | the position index to remove from the list |
+- data <code>T</code> - the data item removed from the list
+- [idx] <code>number</code> <code> = </code> - the position index to remove from the list
 
 <a name="List+_getNodeByValue"></a>
 
@@ -92,10 +89,9 @@ value T.
 **Kind**: instance method of [<code>List</code>](#List)  
 **Returns**: <code>Node.&lt;T&gt;</code> - a reference to the node that was found.  If a node
 is not found, then null is returned.  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>T</code> | the key value or index to search for in the list. |
+- data <code>T</code> - the key value or index to search for in the list.
 
 <a name="List+_getNodeByIndex"></a>
 
@@ -106,8 +102,7 @@ with that index.
 **Kind**: instance method of [<code>List</code>](#List)  
 **Returns**: <code>Node.&lt;T&gt;</code> - a reference to a node a the given position.  If the
 node is not found, then null is returned.  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| idx | <code>number</code> | the location within the list to find |
+- idx <code>number</code> - the location within the list to find
 

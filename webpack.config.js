@@ -1,6 +1,5 @@
 const {leader} = require("util.leader");
 
-const TsDeclarationBundlerPlugin = require("ts-declaration-webpack-plugin");
 const CircularDependencyPlugin = require("circular-dependency-plugin");
 const NullPlugin = require("webpack-null-plugin");
 const path = require("path");
@@ -21,7 +20,7 @@ const banner = new webpack.BannerPlugin({
 		"\n" +
 		`Mode: ${mode}\n` +
 		"https://www.npmjs.com/package/util.ds\n" +
-		"Copyright (c) 2019, James Quigley\n",
+		"Copyright (c) 2019, James Quigley",
 	entryOnly: true
 });
 
@@ -33,7 +32,7 @@ const constants = new webpack.DefinePlugin({
 });
 
 module.exports = {
-	mode: `${mode}`,
+	mode,
 	performance: {hints: false},
 	optimization: {
 		minimize: false
@@ -43,7 +42,9 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, "dist"),
 		filename: "bundle.js",
-		libraryTarget: "umd"
+		library: "ds",
+		libraryTarget: "umd",
+		globalObject: "window"
 	},
 	resolve: {
 		extensions: [".ts", ".tsx", ".js", ".jsx", ".css"]
@@ -56,7 +57,7 @@ module.exports = {
 			{
 				test: /\.tsx?$/,
 				exclude: /node_modules|dist|demo|.*\.test\.tsx/,
-				loader: "js-output-loader!ts-loader"
+				loader: "ts-loader"
 			}
 		]
 	},
@@ -71,9 +72,6 @@ module.exports = {
 		MinifyPlugin ? new MinifyPlugin() : new NullPlugin(),
 		new webpack.SourceMapDevToolPlugin({
 			filename: "[name].js.map"
-		}),
-		new TsDeclarationBundlerPlugin({
-			name: "bundle.d.ts"
 		})
 	]
 };

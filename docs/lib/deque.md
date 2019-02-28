@@ -22,12 +22,12 @@ when constructed.  When the max size is exceeded, then the front item is
 automatically removed from the queue and the new item is placed in the
 queue (depending on  which type of insert is calld).
 
+**Params**
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| maxSize | <code>number</code> | <code>0</code> | The maximum size for this queue. |
-| arr | <code>Array.&lt;T&gt;</code> | <code>[</code> | An array of initial input values |
-| comparator | <code>function</code> | <code></code> | a comparator function used for searching within the container. |
+- maxSize <code>number</code> <code> = 0</code> - The maximum size for this queue.
+- arr <code>Array.&lt;T&gt;</code> <code> = [</code> - An array of initial input values
+- comparator <code>function</code> <code> = </code> - a comparator function used for searching within
+the container.
 
 <a name="Deque+overflow"></a>
 
@@ -45,10 +45,9 @@ Adds an item to the end of the queue.  Checks for an overflow condition
 and acts if one is detected.
 
 **Kind**: instance method of [<code>Deque</code>](#Deque)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>Object</code> | the data item to add to the queue. |
+- data <code>Object</code> - the data item to add to the queue.
 
 <a name="Deque+pushFront"></a>
 
@@ -57,10 +56,9 @@ Inserts a data element to the front of the queue.  Checks for an
 overflow condition and acts if one is detected.
 
 **Kind**: instance method of [<code>Deque</code>](#Deque)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>Object</code> | the data item to add to the queue. |
+- data <code>Object</code> - the data item to add to the queue.
 
 <a name="Deque+pushBack"></a>
 
@@ -69,10 +67,9 @@ Adds an item to the end of the queue.  Checks for an overflow condition
 and acts if one is detected.
 
 **Kind**: instance method of [<code>Deque</code>](#Deque)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>Object</code> | the data item to add to the queue. |
+- data <code>Object</code> - the data item to add to the queue.
 
 <a name="Deque+popFront"></a>
 

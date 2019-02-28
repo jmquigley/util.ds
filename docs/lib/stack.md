@@ -24,10 +24,9 @@ A convenience method for calling top.
 Puts a data element on the top of the stack
 
 **Kind**: instance method of [<code>Stack</code>](#Stack)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| data | <code>Object</code> | any data element the user wants to store |
+- data <code>Object</code> - any data element the user wants to store
 
 <a name="Stack+pop"></a>
 

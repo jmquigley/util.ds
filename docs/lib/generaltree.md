@@ -72,10 +72,9 @@ Generally this should not be used, but this is exposed for use in another
 3rd party library to allow it access to change the struccture (react treeview)
 
 **Kind**: instance property of [<code>GeneralTree</code>](#GeneralTree)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| val | <code>Array.&lt;TreeNode.&lt;T&gt;&gt;</code> | the new array of nodes to make as the new tree |
+- val <code>Array.&lt;TreeNode.&lt;T&gt;&gt;</code> - the new array of nodes to make as the new tree
 
 <a name="GeneralTree+treeIndex"></a>
 
@@ -101,10 +100,9 @@ array.  The sanitize is used to ensure tree integrity.
 Convenience method for adding a node to the index.
 
 **Kind**: instance method of [<code>GeneralTree</code>](#GeneralTree)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| node | <code>TreeNode.&lt;T&gt;</code> | a reference to the node to insert into the index |
+- node <code>TreeNode.&lt;T&gt;</code> - a reference to the node to insert into the index
 
 <a name="GeneralTree+clear"></a>
 
@@ -132,10 +130,10 @@ created node.
 
 **Kind**: instance method of [<code>GeneralTree</code>](#GeneralTree)  
 **Returns**: <code>GeneralTreeItem</code> - a new node instance reference  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| node | <code>GeneralTreeItem</code> | the node fields to assign to the new node object |
+- node <code>GeneralTreeItem</code> - the node fields to assign to the new
+node object
 
 <a name="GeneralTree+expand"></a>
 
@@ -144,10 +142,10 @@ Takes a 1D array, created by the flatten function, and expands it into
 the tree.  The current tree is replaced by this expanded tree.
 
 **Kind**: instance method of [<code>GeneralTree</code>](#GeneralTree)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| flatNodes | <code>Array.&lt;GeneralFlatTree.&lt;T&gt;&gt;</code> | the array of flattened nodes that will be used to expand the tree. |
+- flatNodes <code>Array.&lt;GeneralFlatTree.&lt;T&gt;&gt;</code> - the array of flattened
+nodes that will be used to expand the tree.
 
 <a name="GeneralTree+find"></a>
 
@@ -158,10 +156,9 @@ useindex is set to true).
 
 **Kind**: instance method of [<code>GeneralTree</code>](#GeneralTree)  
 **Returns**: <code>GeneralTreeItem</code> - of the item found otherwise null  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| searchId | <code>Id</code> | the id value to search for in the tree |
+- searchId <code>Id</code> - the id value to search for in the tree
 
 <a name="GeneralTree+findByField"></a>
 
@@ -176,10 +173,10 @@ array is returned to the caller.
 **Returns**: <code>Array.&lt;GeneralTreeItem&gt;</code> - an array of tree nodes that match
 the search criteria.  If no nodes are found, then an empty array is
 returned.  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| dataToFind | <code>T</code> | the input data matching the template fields for the tree. |
+- dataToFind <code>T</code> - the input data matching the template fields for
+the tree.
 
 <a name="GeneralTree+findByParent"></a>
 
@@ -192,10 +189,10 @@ given parent ID value.
 **Returns**: <code>Array.&lt;GeneralTreeItem&gt;</code> - - all of the children associated with
 the given parent.  If there are no children, then an empty array
 is returned.  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| parentId | <code>Id</code> | the parent id key value field to search for. |
+- parentId <code>Id</code> - the parent id key value field to search
+for.
 
 <a name="GeneralTree+flatten"></a>
 
@@ -223,11 +220,10 @@ of that id within it.
 
 **Kind**: instance method of [<code>GeneralTree</code>](#GeneralTree)  
 **Returns**: <code>boolean</code> - true if the id was found in the array, otherise false.  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| searchId | <code>Id</code> | the id value to use in the search |
-| children | <code>Array.&lt;TreeNode.&lt;T&gt;&gt;</code> | child array to search for an id |
+- searchId <code>Id</code> - the id value to use in the search
+- children <code>Array.&lt;TreeNode.&lt;T&gt;&gt;</code> - child array to search for an id
 
 <a name="GeneralTree+indexInChildren"></a>
 
@@ -239,11 +235,10 @@ index is -1.
 **Kind**: instance method of [<code>GeneralTree</code>](#GeneralTree)  
 **Reutrn**: <code>number</code> the index location of the child within the array. A
 -1 is returned if not found.  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| searchId | <code>Id</code> | the id value to use in the search |
-| children | <code>Array.&lt;TreeNode.&lt;T&gt;&gt;</code> | child array to search for an id |
+- searchId <code>Id</code> - the id value to use in the search
+- children <code>Array.&lt;TreeNode.&lt;T&gt;&gt;</code> - child array to search for an id
 
 <a name="GeneralTree+insert"></a>
 
@@ -254,12 +249,17 @@ Inserts a new node into the general tree.
 **Returns**: <code>GeneralTreeItem.&lt;Node.&lt;T&gt;&gt;</code> - a reference to the new node that was
 inserted into the tree.  On error this is null (with a corresponding
 warning message).  
+**Params**
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| dataToInsert | <code>TreeNode.&lt;T&gt;</code> |  | the config information for the node that will be inserted (note that this is NOT the node inserted).  Generally the parentId is used to determine where it will be inserted. |
-| asFirstChild | <code>boolean</code> | <code>true</code> | determines what end of the child array will be used when adding the new node to the tree.  If true, then the new node is inserted at the beginning of the array, otherise at the end.  The default behavior is the front. |
-| validate | <code>boolean</code> | <code>false</code> | if true, then validate .id values on the input config data to ensure no duplidates. |
+- dataToInsert <code>TreeNode.&lt;T&gt;</code> - the config information for the node
+that will be inserted (note that this is NOT the node inserted).  Generally
+the parentId is used to determine where it will be inserted.
+- asFirstChild <code>boolean</code> <code> = true</code> - determines what end of the child
+array will be used when adding the new node to the tree.  If true, then
+the new node is inserted at the beginning of the array, otherise at the
+end.  The default behavior is the front.
+- validate <code>boolean</code> <code> = false</code> - if true, then validate .id values
+on the input config data to ensure no duplidates.
 
 <a name="GeneralTree+remove"></a>
 
@@ -274,11 +274,11 @@ because a re-walk of the tree is required to fix indexing and
 first/last pointers.
 
 **Kind**: instance method of [<code>GeneralTree</code>](#GeneralTree)  
+**Params**
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| idToRemove | <code>Id</code> |  | the id value of the node to remove |
-| deleteWithChildren | <code>boolean</code> | <code>false</code> | if true, then a parent with children cannot be deleted until all children are removed. |
+- idToRemove <code>Id</code> - the id value of the node to remove
+- deleteWithChildren <code>boolean</code> <code> = false</code> - if true, then a parent
+with children cannot be deleted until all children are removed.
 
 <a name="GeneralTree+sanitize"></a>
 
@@ -288,10 +288,9 @@ also creates the node key value if one does not exist.
 
 **Kind**: instance method of [<code>GeneralTree</code>](#GeneralTree)  
 **Returns**: <code>TreeNode.&lt;T&gt;</code> - a referece back of the node that was sanitized  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| node | <code>TreeNode.&lt;T&gt;</code> | the node to fix |
+- node <code>TreeNode.&lt;T&gt;</code> - the node to fix
 
 <a name="GeneralTree+toString"></a>
 
@@ -307,10 +306,10 @@ use this to print the T values it passed into the tree.
 **Kind**: instance method of [<code>GeneralTree</code>](#GeneralTree)  
 **Returns**: <code>string</code> - the string representing the keys and T data in the
 general tree.  
+**Params**
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| dynamicDataTCallback | <code>ToStringCallback.&lt;T&gt;</code> | <code></code> | a function that can process the tempate data T and return a string representation of it. |
+- dynamicDataTCallback <code>ToStringCallback.&lt;T&gt;</code> <code> = </code> - a function that can
+process the tempate data T and return a string representation of it.
 
 <a name="GeneralTree+walk"></a>
 
@@ -320,8 +319,8 @@ a callback function is executed and the node being processed
 is given as a parameter.
 
 **Kind**: instance method of [<code>GeneralTree</code>](#GeneralTree)  
+**Params**
 
-| Param | Type | Description |
-| --- | --- | --- |
-| fn | <code>WalkCallback.&lt;T&gt;</code> | a callback function invoked on each node as it is encountered. |
+- fn <code>WalkCallback.&lt;T&gt;</code> - a callback function invoked on each
+node as it is encountered.
 

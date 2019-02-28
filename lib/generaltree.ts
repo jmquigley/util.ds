@@ -41,11 +41,12 @@ export interface GeneralTreeOptions<T> {
  */
 export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 	private _dirty: boolean = true;
+	private _options: GeneralTreeOptions<T>;
 	private _sequence: number;
 	private _treeIndex: TreeIndex<T> = {};
 
 	constructor(
-		private _options?: GeneralTreeOptions<T>,
+		options: GeneralTreeOptions<T> = null,
 		comparator: Comparator<T> = null
 	) {
 		super(comparator);
@@ -58,7 +59,7 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 				useindex: true,
 				usesanitize: true
 			},
-			this._options || {}
+			options || {}
 		);
 
 		this._sequence = this._options.sequence;
@@ -443,6 +444,8 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 		this._dirty = true;
 		this.addToIndex(newNode);
 
+		this.emit("insert", newNode);
+
 		return newNode;
 	}
 
@@ -484,12 +487,14 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 
 		const index: number = this.indexInChildren(idToRemove, deleteLocation);
 		if (index > -1) {
-			deleteLocation.splice(index, 1);
+			const removedNode = deleteLocation.splice(index, 1)[0];
 			this._length--;
 			this.removeFromIndex(deleteNode.id);
 			this._first = this.root[0];
 			this._dirty = true;
 			this.walk(nilEvent);
+
+			this.emit("remove", removedNode);
 		}
 	}
 
