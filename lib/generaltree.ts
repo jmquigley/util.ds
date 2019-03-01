@@ -1,19 +1,12 @@
 "use strict";
 
 import {nl} from "util.constants";
-import logger from "util.log";
 import {getUUID, nilEvent} from "util.toolbox";
 import {Comparator} from "./comparator";
 import {Iterable} from "./iterable";
 import {AugmentedNode, Id, nilNode, Node, NodeData, NodeKeys} from "./node";
 import {Queue} from "./queue";
 import {Tree} from "./tree";
-
-const log = logger.instance({
-	debug: process.env.NODE_ENV !== "production",
-	namespace: "GeneralTree",
-	nofile: true
-});
 
 export interface TreeIndex<T> {
 	[key: string]: TreeNode<T>;
@@ -224,7 +217,7 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 		const q = new Queue<TreeNode<T>>();
 
 		if (this.treeData == null || this.treeData.length < 1) {
-			log.warn("treeData is empty");
+			console.warn("treeData is empty");
 			return null;
 		}
 
@@ -383,16 +376,17 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 		validate: boolean = false
 	): GeneralTreeItem<Node<T>> {
 		if (!dataToInsert) {
-			log.warn(
+			console.warn(
 				"Trying to insert nothing into the tree, skipping (noop)."
 			);
 			return null;
 		}
 
 		if (validate && "id" in dataToInsert && this.find(dataToInsert.id)) {
-			log.warn(
-				"Not alloed to insert duplicate id values (id: %s).",
-				dataToInsert.id
+			console.warn(
+				`Not alloed to insert duplicate id values (id: ${
+					dataToInsert.id
+				}).`
 			);
 			return null;
 		}
@@ -404,7 +398,7 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 			// insert child into existing parent node if it can be found
 			const parentNode: Node<T> = this.find(dataToInsert.parentId);
 			if (!parentNode) {
-				log.warn(
+				console.warn(
 					"Unknown parent id field given for insert location (noop)."
 				);
 				return null;
@@ -467,15 +461,14 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 		const deleteNode: TreeNode<T> = this.find(idToRemove);
 
 		if (!deleteNode) {
-			log.warn(
-				"Can't delete item that doesn't exist (id: %s).",
-				idToRemove
+			console.warn(
+				`Can't delete item that doesn't exist (id: ${idToRemove}).`
 			);
 			return;
 		}
 
 		if (deleteWithChildren && deleteNode.children.length > 1) {
-			log.warn("Can't delete item that contains children.");
+			console.warn("Can't delete item that contains children.");
 			return;
 		}
 
@@ -582,12 +575,12 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 		}
 
 		if (fn == null || typeof fn !== "function") {
-			log.warn("walk() parameter must be a function");
+			console.warn("walk() parameter must be a function");
 			return;
 		}
 
 		if (this._root == null) {
-			log.warn("The root node is empty on call to walk()");
+			console.warn("The root node is empty on call to walk()");
 			return;
 		}
 
