@@ -30,6 +30,7 @@
 		"@types/jest": "^24.0.9",
 		"@types/node": "^11.9.6",
 		"@types/sprintf-js": "1.1.2",
+		"@types/uuid": "^3.4.4",
 		"babel-minify-webpack-plugin": "^0.3.1",
 		"circular-dependency-plugin": "^5.0.2",
 		"coveralls": "^3.0.3",
@@ -48,7 +49,7 @@
 		"util.leader": "^0.0.42",
 		"util.log": "^0.0.38",
 		"util.pkgwrap": "^0.0.102",
-		"util.toolbox": "^0.0.70",
+		"uuid": "^3.3.2",
 		"webpack": "^4.29.6",
 		"webpack-cli": "^3.2.3",
 		"webpack-null-plugin": "^0.0.2"

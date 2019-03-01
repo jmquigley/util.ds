@@ -1,7 +1,7 @@
 "use strict";
 
 import {nl} from "util.constants";
-import {getUUID, nilEvent} from "util.toolbox";
+import uuid from "uuid";
 import {Comparator} from "./comparator";
 import {Iterable} from "./iterable";
 import {AugmentedNode, Id, nilNode, Node, NodeData, NodeKeys} from "./node";
@@ -11,6 +11,9 @@ import {Tree} from "./tree";
 export interface TreeIndex<T> {
 	[key: string]: TreeNode<T>;
 }
+
+type NilEventCallback = () => void;
+const nilEvent: NilEventCallback = (): void => {};
 
 type TreeNode<T> = AugmentedNode<T>;
 
@@ -325,7 +328,7 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 			return this._sequence++;
 		}
 
-		return getUUID();
+		return uuid.v4();
 	}
 
 	/**

@@ -38,7 +38,6 @@ module.exports = {
 		minimize: false
 	},
 	entry: [path.resolve(__dirname, "index.ts")],
-	target: "node",
 	output: {
 		path: path.resolve(__dirname, "dist"),
 		filename: "bundle.js",
