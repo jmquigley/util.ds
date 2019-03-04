@@ -1,17 +1,15 @@
 const {leader} = require("util.leader");
 
+const MinifyPlugin = require("babel-minify-webpack-plugin");
 const CircularDependencyPlugin = require("circular-dependency-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+	.BundleAnalyzerPlugin;
 const NullPlugin = require("webpack-null-plugin");
 const path = require("path");
 const webpack = require("webpack");
 const pkg = require("./package.json");
 
 let mode = process.env.NODE_ENV || "development";
-
-let MinifyPlugin = null;
-if (mode === "production") {
-	MinifyPlugin = require("babel-minify-webpack-plugin");
-}
 
 const banner = new webpack.BannerPlugin({
 	banner:
@@ -55,7 +53,7 @@ module.exports = {
 		rules: [
 			{
 				test: /\.tsx?$/,
-				exclude: /node_modules|dist|demo|.*\.test\.tsx/,
+				exclude: /node_modules|dist|demo|.*\.test\.tsx|.*\.d.ts/,
 				loader: "ts-loader"
 			}
 		]
@@ -67,10 +65,10 @@ module.exports = {
 			exclude: /node_modules/,
 			failOnError: true
 		}),
-		new webpack.optimize.ModuleConcatenationPlugin(),
-		MinifyPlugin ? new MinifyPlugin() : new NullPlugin(),
-		new webpack.SourceMapDevToolPlugin({
-			filename: "[name].js.map"
+		new MinifyPlugin(),
+		new BundleAnalyzerPlugin({
+			analyzerMode: "static",
+			reportFilename: "bundle.report.html"
 		})
 	]
 };
