@@ -6,7 +6,7 @@ A double ended Queue class
 **Kind**: global class  
 
 * [Deque](#Deque)
-    * [new Deque(maxSize, arr, comparator)](#new_Deque_new)
+    * [new exports.Deque(maxSize, arr, comparator)](#new_Deque_new)
     * [.overflow](#Deque+overflow) ⇒ <code>boolean</code>
     * [.enqueue(data)](#Deque+enqueue)
     * [.pushFront(data)](#Deque+pushFront)
@@ -16,7 +16,7 @@ A double ended Queue class
 
 <a name="new_Deque_new"></a>
 
-### new Deque(maxSize, arr, comparator)
+### new exports.Deque(maxSize, arr, comparator)
 The deque can be unlimited in size (default) or set to a maxium size
 when constructed.  When the max size is exceeded, then the front item is
 automatically removed from the queue and the new item is placed in the

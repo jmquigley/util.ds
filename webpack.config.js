@@ -35,16 +35,14 @@ module.exports = {
 	optimization: {
 		minimize: false
 	},
-	entry: [path.resolve(__dirname, "index.ts")],
+	entry: [path.resolve(__dirname, "index.js")],
 	output: {
 		path: path.resolve(__dirname, "dist"),
 		filename: "bundle.js",
-		library: "ds",
-		libraryTarget: "umd",
-		globalObject: "window"
+		libraryTarget: "umd"
 	},
 	resolve: {
-		extensions: [".ts", ".tsx", ".js", ".jsx", ".css"]
+		extensions: [".js", ".jsx", ".css"]
 	},
 	resolveLoader: {
 		modules: [path.join(__dirname, "node_modules")]
@@ -52,9 +50,9 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.tsx?$/,
+				test: /\.jsx?$/,
 				exclude: /node_modules|dist|demo|.*\.test\.tsx|.*\.d.ts/,
-				loader: "ts-loader"
+				loader: "babel-loader"
 			}
 		]
 	},
