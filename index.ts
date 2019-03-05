@@ -4,6 +4,7 @@ import {Comparator} from "./lib/comparator";
 import {Deque} from "./lib/deque";
 import {
 	GeneralTree,
+	GeneralTreeFlat,
 	GeneralTreeItem,
 	GeneralTreeOptions,
 	TreeIndex,
@@ -25,6 +26,7 @@ export {
 	Color,
 	Comparator,
 	GeneralTree,
+	GeneralTreeFlat,
 	GeneralTreeItem,
 	GeneralTreeOptions,
 	Id,
