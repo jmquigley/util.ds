@@ -29,16 +29,14 @@
 		"@babel/runtime": "^7.3.4",
 		"@types/fs-extra": "^5.0.5",
 		"@types/jest": "^24.0.9",
-		"@types/node": "^11.10.0",
+		"@types/node": "^11.10.4",
 		"@types/sprintf-js": "1.1.2",
 		"babel-loader": "^8.0.5",
-		"babel-minify-webpack-plugin": "^0.3.1",
 		"circular-dependency-plugin": "^5.0.2",
 		"coveralls": "^3.0.3",
 		"dts-bundle-generator": "^2.1.0",
 		"fs-extra": "^7.0.1",
 		"jest": "^24.1.0",
-		"js-output-loader": "^0.0.5",
 		"prettier": "^1.16.4",
 		"sprintf-js": "https://github.com/jmquigley/sprintf.js.git#dc62b1c",
 		"tslint": "^5.13.1",
@@ -48,12 +46,11 @@
 		"util.join": "^0.0.23",
 		"util.leader": "^0.0.42",
 		"util.log": "^0.0.38",
-		"util.pkgwrap": "^0.0.102",
+		"util.pkgwrap": "^0.0.103",
 		"util.toolbox": "^0.0.72",
 		"webpack": "^4.29.6",
-		"webpack-bundle-analyzer": "^3.0.4",
-		"webpack-cli": "^3.2.3",
-		"webpack-null-plugin": "^0.0.2"
+		"webpack-bundle-analyzer": "^3.1.0",
+		"webpack-cli": "^3.2.3"
 	},
 	"pkgwrap": {
 		"cleanup": [
@@ -65,7 +62,7 @@
 	},
 	"scripts": {
 		"all": "yarn install && cross-env NODE_ENV=production yarn build && yarn docs && yarn test",
-		"build": "yarn clean && yarn prettier && yarn lint && pkgwrap --build --webpack && yarn types",
+		"build": "yarn clean && yarn lint && yarn prettier && pkgwrap --build --webpack && yarn types",
 		"clean": "pkgwrap --clean",
 		"clean:dist": "yarn clean && rimraf node_modules/ yarn.lock",
 		"coverage": "pkgwrap --coverage --jest",

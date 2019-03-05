@@ -1,10 +1,8 @@
 const {leader} = require("util.leader");
 
-const MinifyPlugin = require("babel-minify-webpack-plugin");
 const CircularDependencyPlugin = require("circular-dependency-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
 	.BundleAnalyzerPlugin;
-const NullPlugin = require("webpack-null-plugin");
 const path = require("path");
 const webpack = require("webpack");
 const pkg = require("./package.json");
@@ -32,9 +30,6 @@ const constants = new webpack.DefinePlugin({
 module.exports = {
 	mode,
 	performance: {hints: false},
-	optimization: {
-		minimize: false
-	},
 	entry: [path.resolve(__dirname, "index.js")],
 	output: {
 		path: path.resolve(__dirname, "dist"),
@@ -50,8 +45,8 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.jsx?$/,
-				exclude: /node_modules|dist|demo|.*\.test\.tsx|.*\.d.ts/,
+				test: /\.js$/,
+				exclude: /node_modules|dist|demo|.*\.test\.tsx/,
 				loader: "babel-loader"
 			}
 		]
@@ -63,7 +58,6 @@ module.exports = {
 			exclude: /node_modules/,
 			failOnError: true
 		}),
-		new MinifyPlugin(),
 		new BundleAnalyzerPlugin({
 			analyzerMode: "static",
 			reportFilename: "bundle.report.html"
