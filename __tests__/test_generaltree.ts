@@ -400,9 +400,9 @@ test("Insert into an empty tree", () => {
 		field2: "newNode::field2"
 	});
 
-	const s = gt.toString(testDataToString);
-	expect(s).toBeDefined();
-	expect(typeof s).toBe("string");
+	// const s = gt.toString(testDataToString);
+	// expect(s).toBeDefined();
+	// expect(typeof s).toBe("string");
 
 	// log.debug("%s", s);
 
