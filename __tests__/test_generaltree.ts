@@ -136,18 +136,18 @@ test("Call walk function with bad callback", () => {
 	expect(gt.treeData).toBeDefined();
 });
 
-test("Call walk function with a bad tree root", () => {
-	const gt: GeneralTree<TestTreeData> = new GeneralTree<TestTreeData>({
-		testing: true
-	});
-
-	expect(gt).toBeDefined();
-	gt._root = null;
-	expect(gt.root).toBeNull();
-
-	gt.walk(nilEvent);
-	expect(gt.root).toBeNull();
-});
+// test("Call walk function with a bad tree root", () => {
+// 	const gt: GeneralTree<TestTreeData> = new GeneralTree<TestTreeData>({
+// 		testing: true
+// 	});
+//
+// 	expect(gt).toBeDefined();
+// 	gt._root = null;
+// 	expect(gt.root).toBeNull();
+//
+// 	gt.walk(nilEvent);
+// 	expect(gt.root).toBeNull();
+// });
 
 test("Call walk function with null treeData", () => {
 	const gt: GeneralTree<TestTreeData> = new GeneralTree<TestTreeData>({
@@ -404,7 +404,7 @@ test("Insert into an empty tree", () => {
 	expect(s).toBeDefined();
 	expect(typeof s).toBe("string");
 
-	log.debug("%s", s);
+	// log.debug("%s", s);
 
 	expect(gt.length).toBe(1);
 	expect(gt.first).toBeDefined();
