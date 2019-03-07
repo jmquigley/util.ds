@@ -145,7 +145,9 @@ test("Call walk function with a bad tree root", () => {
 	gt._root = null;
 	expect(gt.root).toBeNull();
 
-	gt.walk(nilEvent);
+	const mockFn = jest.fn();
+	gt.walk(mockFn);
+	expect(mockFn).not.toHaveBeenCalled();
 	expect(gt.root).toBeNull();
 });
 
