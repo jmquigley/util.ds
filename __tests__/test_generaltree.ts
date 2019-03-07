@@ -2,6 +2,7 @@
 
 import logger from "util.log";
 import {Fixture} from "util.fixture";
+import {nilEvent} from "util.toolbox";
 import {Comparator, GeneralTree, GeneralTreeItem} from "../index";
 
 const log = logger.instance({
@@ -53,6 +54,10 @@ test("Create a new, empty GeneralTreeItem node", () => {
 	const gt: GeneralTree<TestTreeData> = new GeneralTree<TestTreeData>({
 		testing: true
 	});
+
+	expect(gt).toBeDefined();
+	expect(gt.treeData).toBeDefined();
+	expect(gt.treeData.length).toBe(0);
 
 	const node: GeneralTreeItem<TestTreeData> = gt.createNode({
 		id: 12345,
@@ -129,6 +134,19 @@ test("Call walk function with bad callback", () => {
 	expect(gt.treeData).toBeDefined();
 	gt.walk(null);
 	expect(gt.treeData).toBeDefined();
+});
+
+test("Call walk function with a bad tree root", () => {
+	const gt: GeneralTree<TestTreeData> = new GeneralTree<TestTreeData>({
+		testing: true
+	});
+
+	expect(gt).toBeDefined();
+	gt._root = null;
+	expect(gt.root).toBeNull();
+
+	gt.walk(nilEvent);
+	expect(gt.root).toBeNull();
 });
 
 test("Call walk function with null treeData", () => {
@@ -226,6 +244,16 @@ test("Test searching for an id within the tree", () => {
 	expect(it.field1).toBe("2.0");
 	expect(it.children.length).toBe(3);
 	expect(it.parent.id).toBeNull();
+});
+
+test("Test searching in an empty tree", () => {
+	const gt: GeneralTree<TestTreeData> = new GeneralTree<TestTreeData>({
+		testing: true
+	});
+
+	expect(gt).toBeDefined();
+	let it: GeneralTreeItem = gt.find(999);
+	expect(it).toBeNull();
 });
 
 test("Test using the current GeneralTreeData index to find values", () => {
@@ -372,7 +400,11 @@ test("Insert into an empty tree", () => {
 		field2: "newNode::field2"
 	});
 
-	// log.debug("%s", gt.toString(testDataToString));
+	const s = gt.toString(testDataToString);
+	expect(s).toBeDefined();
+	expect(typeof s).toBe("string");
+
+	log.debug("%s", s);
 
 	expect(gt.length).toBe(1);
 	expect(gt.first).toBeDefined();

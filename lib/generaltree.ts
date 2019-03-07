@@ -24,7 +24,7 @@ export type WalkCallback<T> = (val: TreeNode<T>) => void;
 export interface GeneralTreeOptions<T> {
 	sequence?: number;
 	testing?: boolean;
-	treeData: Array<TreeNode<T>>;
+	treeData?: Array<TreeNode<T>>;
 	useindex?: boolean;
 	usesanitize?: boolean;
 }
@@ -570,7 +570,8 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 	 * node as it is encountered.
 	 */
 	public walk(fn: WalkCallback<T>): void {
-		if (this._root.length < 1) {
+		if (this._root == null) {
+			console.warn("The root node is empty on call to walk()");
 			return;
 		}
 
@@ -579,8 +580,7 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 			return;
 		}
 
-		if (this._root == null) {
-			console.warn("The root node is empty on call to walk()");
+		if (this._root.length < 1) {
 			return;
 		}
 
