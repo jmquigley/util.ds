@@ -202,7 +202,7 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 	public expand(flatNodes: Array<GeneralTreeFlat<T>>) {
 		this.clear();
 		for (const node of flatNodes) {
-			this.insert(node);
+			this.insert(node, false);
 		}
 	}
 
