@@ -299,7 +299,10 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 
 	/**
 	 * Walks through the tree data and flattens it into a 1D array of nodes.
-	 * This flatten can be reversed using the expand function.
+	 * This flatten can be reversed using the expand function.  The process
+	 * removes properties from Node that are not needed once the flatten is
+	 * complete.  The only fields saved for the flatten are the id, the
+	 * parent id, and the fields that are part of the template T.
 	 * @return {Array<GeneralTreeFlat<T>>} an array of nodes representing the
 	 * tree and its parent/child key relationship.
 	 */
@@ -307,7 +310,16 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 		const arr: Array<GeneralTreeFlat<T>> = [];
 
 		this.walk((node: TreeNode<T>) => {
-			const {data, children, parent, ...fields} = node;
+			const {
+				data,
+				children,
+				parent,
+				right,
+				left,
+				_options,
+				color,
+				...fields
+			} = node;
 			arr.push(fields as GeneralTreeFlat<T>);
 		});
 
@@ -384,7 +396,7 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 
 		if (validate && "id" in dataToInsert && this.find(dataToInsert.id)) {
 			console.warn(
-				`Not alloed to insert duplicate id values (id: ${
+				`Not allowed to insert duplicate id values (id: ${
 					dataToInsert.id
 				}).`
 			);

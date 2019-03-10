@@ -198,7 +198,10 @@ for.
 
 ### generalTree.flatten() ⇒ <code>Array.&lt;GeneralTreeFlat.&lt;T&gt;&gt;</code>
 Walks through the tree data and flattens it into a 1D array of nodes.
-This flatten can be reversed using the expand function.
+This flatten can be reversed using the expand function.  The process
+removes properties from Node that are not needed once the flatten is
+complete.  The only fields saved for the flatten are the id, the
+parent id, and the fields that are part of the template T.
 
 **Kind**: instance method of [<code>GeneralTree</code>](#GeneralTree)  
 **Returns**: <code>Array.&lt;GeneralTreeFlat.&lt;T&gt;&gt;</code> - an array of nodes representing the

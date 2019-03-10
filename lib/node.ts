@@ -37,6 +37,12 @@ export interface NodeOptions<T>
  * used outside of these collection classes.
  */
 export class Node<T> implements NodeOptions<T> {
+	// This variable is "pseudo private".  It needs to be public here so that
+	// the GeneralTree can remove it during the call the flatten().  The
+	// underscore in front of the name means that it is private by
+	// convention (like python)
+	public _options?: NodeOptions<T>;
+
 	public id?: Id;
 	public parentId?: Id;
 	public children?: Array<AugmentedNode<T>>;
@@ -46,7 +52,7 @@ export class Node<T> implements NodeOptions<T> {
 	public left?: Node<T>;
 	public right?: Node<T>;
 
-	constructor(private _options?: NodeOptions<T>) {
+	constructor(options?: NodeOptions<T>) {
 		this._options = Object.assign(
 			{
 				data: null,
@@ -58,7 +64,7 @@ export class Node<T> implements NodeOptions<T> {
 				parentId: null,
 				children: []
 			},
-			this._options || {}
+			options || {}
 		);
 
 		this.id = this._options.id;
