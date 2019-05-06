@@ -484,7 +484,7 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 			return;
 		}
 
-		if (deleteNode.parent === nilNode) {
+		if (deleteNode.parent.id == null) {
 			deleteLocation = this.root as Array<TreeNode<T>>;
 		} else {
 			deleteLocation = deleteNode.parent.children;

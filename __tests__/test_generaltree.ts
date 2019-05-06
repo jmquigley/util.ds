@@ -1,15 +1,10 @@
 "use strict";
 
-import logger from "util.log";
+// const debug = require("debug")("util.ds.test_general");
+
 import {Fixture} from "util.fixture";
 import {nilEvent} from "util.toolbox";
 import {Comparator, GeneralTree, GeneralTreeItem} from "../index";
-
-const log = logger.instance({
-	debug: process.env.NODE_ENV !== "production",
-	namespace: "GeneralTree.test",
-	nofile: true
-});
 
 interface TestTreeData {
 	field1?: string;
@@ -406,7 +401,7 @@ test("Insert into an empty tree", () => {
 	expect(s).toBeDefined();
 	expect(typeof s).toBe("string");
 
-	log.debug("%s", s);
+	// debug("%s", s);
 
 	expect(gt.length).toBe(1);
 	expect(gt.first).toBeDefined();
@@ -423,7 +418,7 @@ test("Insert a new item into the root of an existing tree", () => {
 		field2: "newNode::field2"
 	});
 
-	// log.debug(gt.toString(testDataToString));
+	// debug(gt.toString(testDataToString));
 
 	expect(gt.first).toBe(gt.root[0]);
 	expect(gt.root.length).toBe(4);
@@ -578,7 +573,7 @@ test("Delete a node from the tree where it has children", () => {
 	expect(gt.length).toBe(8); // parent and children deleted
 });
 
-test("Delete a node form the tree whre it has children, but that delete is not allowed", () => {
+test("Delete a node form the tree where it has children, but that delete is not allowed", () => {
 	const gt: GeneralTree<TestTreeData> = getBasicTree();
 
 	// remove id 1, whose parent is 0
@@ -609,7 +604,7 @@ test("Delete a node form the tree whre it has children, but that delete is not a
 test("Try to delete a node from the tree with an invalid id", () => {
 	const gt: GeneralTree<TestTreeData> = getBasicTree();
 
-	// log.debug("%s", gt.toString(testDataToString));
+	// debug("%s", gt.toString(testDataToString));
 
 	// remove id 1, whose parent is 0
 	const root = gt.root;
