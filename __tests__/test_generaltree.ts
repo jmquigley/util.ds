@@ -661,3 +661,39 @@ test("Test the remove event on the general tree", (done) => {
 
 	gt.remove(0);
 });
+
+test("Check for proper index after deleting parent with children", () => {
+	const fixture = new Fixture("index");
+	expect(fixture).toBeDefined();
+	expect(fixture.obj).toBeDefined();
+
+	const gt: GeneralTree<TestTreeData> = new GeneralTree<TestTreeData>(
+		{
+			treeData: fixture.jsonObj["treeData"],
+			testing: true
+		},
+		comparator
+	);
+
+	expect(gt).toBeDefined();
+	expect(gt.dirty).toBe(false);
+	expect(gt.length).toBe(6);
+	expect(gt.root).toBeDefined();
+	expect(gt.root.length).toBe(1);
+
+	let out: string = "";
+	for (const node of gt) {
+		expect(node).toBeDefined();
+		out += `${node.field1} `;
+	}
+	out = out.trim();
+	expect(out).toBe("1.0 1.1 1.2 1.3 1.3.1 1.3.2");
+
+	gt.remove(3); // remove 1.3 and it's children
+
+	expect(gt.length).toBe(3);
+	expect(Object.keys(gt.treeIndex).length).toBe(3);
+	expect(3 in gt.treeIndex).not.toBe(true); // 1.3 not in index
+	expect(4 in gt.treeIndex).not.toBe(true); // 1.3.1 not in index
+	expect(5 in gt.treeIndex).not.toBe(true); // 1.3.2 not in index
+});

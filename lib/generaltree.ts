@@ -492,7 +492,16 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 		if (index > -1) {
 			const removedNode = deleteLocation.splice(index, 1)[0];
 			this._length--;
-			this.removeFromIndex(deleteNode.id);
+
+			if (this.useindex) {
+				// delete all of the child nodes from the index if it is being used
+				for (const child of deleteNode.children) {
+					this.removeFromIndex(child.id);
+				}
+
+				this.removeFromIndex(deleteNode.id);
+			}
+
 			this._first = this.root[0];
 			this._dirty = true;
 			this.walk(nilEvent);
