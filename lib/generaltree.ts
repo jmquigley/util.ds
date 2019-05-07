@@ -650,6 +650,13 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 			this._first = this.root[0];
 		}
 
+		// Ensure that any root items point to their proper nil parents before
+		// traversal.
+		for (const it of this._root) {
+			it.parent = nilNode;
+			it.parentId = null;
+		}
+
 		preorder(this._root);
 	}
 
