@@ -617,6 +617,22 @@ test("Try to delete a node from the tree with an invalid id", () => {
 	expect(gt.length).toBe(12); // parent and children preserved
 });
 
+test("Delete all nodes from the tree and verify the internals are reset", () => {
+	const gt: GeneralTree<TestTreeData> = getBasicTree();
+
+	gt.remove(0);
+	gt.remove(4);
+	gt.remove(8);
+
+	expect(gt.root.length).toBe(0);
+	expect(gt.empty).toBe(true);
+	expect(gt.length).toBe(0);
+	expect(gt.height).toBe(0);
+	expect(gt.first).toBe(null);
+	expect(gt.last).toBe(null);
+	expect(Object.keys(gt.treeIndex).length).toBe(0);
+});
+
 test("Test the insert event on the general tree", (done) => {
 	const gt: GeneralTree<TestTreeData> = getBasicTree();
 

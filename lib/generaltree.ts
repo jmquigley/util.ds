@@ -1,5 +1,3 @@
-"use strict";
-
 import {nl} from "util.constants";
 import {getUUID, nilEvent} from "util.toolbox";
 import {Comparator} from "./comparator";
@@ -498,7 +496,6 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 			this._first = this.root[0];
 			this._dirty = true;
 			this.walk(nilEvent);
-
 			this.emit("remove", removedNode);
 		}
 	}
@@ -593,6 +590,9 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 		}
 
 		if (this._root.length < 1) {
+			this._treeIndex = {};
+			this._height = this._length = 0;
+			this._last = this._first = null;
 			return;
 		}
 
