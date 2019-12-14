@@ -1,5 +1,3 @@
-"use strict";
-
 import {EventEmitter} from "events";
 import {Comparator, defaultComparatorFn} from "./comparator";
 import {nilNode, Node} from "./node";

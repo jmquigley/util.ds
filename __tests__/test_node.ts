@@ -1,5 +1,3 @@
-"use strict";
-
 import {Color, nilNode, Node} from "../index";
 
 test("Creation of an empty/null node", () => {

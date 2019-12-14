@@ -1,5 +1,3 @@
-"use strict";
-
 import {Id, Node} from "./node";
 
 /**

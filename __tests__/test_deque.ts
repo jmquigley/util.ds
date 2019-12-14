@@ -1,5 +1,3 @@
-"use strict";
-
 import {Deque} from "../index";
 import {Comparator} from "../lib/comparator";
 

@@ -394,9 +394,7 @@ export class GeneralTree<T> extends Tree<T> implements Iterable<T> {
 
 		if (validate && "id" in dataToInsert && this.find(dataToInsert.id)) {
 			console.warn(
-				`Not allowed to insert duplicate id values (id: ${
-					dataToInsert.id
-				}).`
+				`Not allowed to insert duplicate id values (id: ${dataToInsert.id}).`
 			);
 			return null;
 		}

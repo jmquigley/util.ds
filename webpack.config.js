@@ -1,12 +1,13 @@
 const {leader} = require("util.leader");
-
 const CircularDependencyPlugin = require("circular-dependency-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
 	.BundleAnalyzerPlugin;
 const path = require("path");
 const webpack = require("webpack");
 const pkg = require("./package.json");
 
+const argv = require("yargs").boolean("disable-bundle-analyzer").argv;
 let mode = process.env.NODE_ENV || "development";
 
 const banner = new webpack.BannerPlugin({
@@ -51,16 +52,40 @@ module.exports = {
 			}
 		]
 	},
-	plugins: [
-		banner,
-		constants,
-		new CircularDependencyPlugin({
-			exclude: /node_modules/,
-			failOnError: true
-		}),
-		new BundleAnalyzerPlugin({
-			analyzerMode: "static",
-			reportFilename: "bundle.report.html"
-		})
-	]
+	plugins: (function(argv) {
+		let plugins = [
+			banner,
+			constants,
+			new CircularDependencyPlugin({
+				exclude: /node_modules/,
+				failOnError: true
+			}),
+			new CopyWebpackPlugin([
+				{
+					from: "**/*.d.ts",
+					ignore: [
+						"bin/**/*",
+						"demo/**/*",
+						"dist/**/*",
+						"node_modules/**/*"
+					]
+				},
+				{
+					from: "index.d.ts",
+					to: "bundle.d.ts"
+				}
+			])
+		];
+
+		if (!argv.disableBundleAnalyzer) {
+			plugins.push(
+				new BundleAnalyzerPlugin({
+					analyzerMode: "static",
+					reportFilename: "bundle.report.html"
+				})
+			);
+		}
+
+		return plugins;
+	})(argv)
 };

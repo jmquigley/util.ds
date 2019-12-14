@@ -1,5 +1,3 @@
-"use strict";
-
 import {Comparator} from "./comparator";
 import {List} from "./list";
 import {Node} from "./node";

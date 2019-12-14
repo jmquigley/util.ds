@@ -1,5 +1,3 @@
-"use strict";
-
 export enum Color {
 	red,
 	black
@@ -90,9 +88,7 @@ export class Node<T> implements NodeOptions<T> {
 		s += `parentId: ${this.parentId}, `;
 
 		if (this.parent && this.parent !== nilNode) {
-			s += `parent: (id: ${this.parent.id} parentId: ${
-				this.parent.parentId
-			}), `;
+			s += `parent: (id: ${this.parent.id} parentId: ${this.parent.parentId}), `;
 		} else {
 			s += "parent: nil";
 		}

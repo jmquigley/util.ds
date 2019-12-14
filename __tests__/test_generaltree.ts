@@ -1,5 +1,3 @@
-"use strict";
-
 // const debug = require("debug")("util.ds.test_general");
 
 import {Fixture} from "util.fixture";

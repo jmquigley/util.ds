@@ -1,5 +1,3 @@
-"use strict";
-
 import {PriorityQueue} from "../index";
 
 test("Create an empty PriorityQueue", () => {

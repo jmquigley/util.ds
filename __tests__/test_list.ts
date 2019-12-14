@@ -1,5 +1,3 @@
-"use strict";
-
 import * as fs from "fs-extra";
 import {join} from "util.join";
 import {List} from "../index";

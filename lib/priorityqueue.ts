@@ -1,5 +1,3 @@
-"use strict";
-
 import {sprintf} from "sprintf-js";
 import {BinaryTree} from "./binarytree";
 

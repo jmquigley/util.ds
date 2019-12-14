@@ -1,5 +1,3 @@
-"use strict";
-
 import {Queue} from "../index";
 
 test("Create an empty queue", () => {

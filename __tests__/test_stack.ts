@@ -1,5 +1,3 @@
-"use strict";
-
 import {Stack} from "../index";
 
 test("Create an empty stack", () => {

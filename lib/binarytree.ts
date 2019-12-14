@@ -1,5 +1,3 @@
-"use strict";
-
 import {Comparator} from "./comparator";
 import {Iterable} from "./iterable";
 import {Color, Node} from "./node";
